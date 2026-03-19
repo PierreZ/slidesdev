@@ -1,6 +1,6 @@
 <template>
   <footer class="footer-bar">
-    <span>#PreventionVsDiscovery</span>
+    <span>#finistdevs #finistAI #yncrea</span>
     <span>{{ $nav.currentPage }}</span>
   </footer>
 </template>

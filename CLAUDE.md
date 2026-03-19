@@ -36,7 +36,11 @@ pnpm export           # Export to PDF (needs playwright-chromium)
 
 ## Slide Conventions
 
+- **Storytelling above all** — slides should feel like a coffee break with a whiteboard, not an academic paper
 - **No click animations** (`v-click`, `v-clicks`) — split content into separate slides instead if a slide is too dense
+- Use emojis liberally on most slides (section headers, bullets, titles)
+- Keep slides punchy: 2-3 bullet points max per slide, split if denser
+- Use recurring visual motifs to create a narrative thread
 
 ## Theme Conventions
 
