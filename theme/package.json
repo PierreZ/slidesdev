@@ -1,0 +1,18 @@
+{
+  "name": "slidev-theme-pz",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "slidev": ">=0.47.0"
+  },
+  "slidev": {
+    "colorSchema": "light",
+    "defaults": {
+      "fonts": {
+        "sans": "Roboto",
+        "mono": "Fira Code",
+        "provider": "google"
+      }
+    }
+  }
+}
