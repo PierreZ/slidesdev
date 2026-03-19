@@ -4,6 +4,7 @@ title: "Testing: Prevention vs Discovery"
 ---
 
 # Testing: Prevention vs Discovery 🔬
+## rethinking testing in the age of LLMs 🤔
 
 Pierre Zemb — Clever Cloud
 
@@ -12,36 +13,44 @@ Pierre Zemb — Clever Cloud
 # $ whoami 👋
 
 - Pierre Zemb — Staff Engineer @ Clever Cloud 🇫🇷
-- Distributed systems — dev + on-call
-- Open source: foundationdb-rs, moonpool 🦀
-- "Le chat noir" 🐈‍⬛ — always on-call when the weird stuff happens
+- Former ISEN student
+- Specialized in distributed systems
+  - Builing,
+  - contributing,
+  - operating,
+- OSS maintainer
+- Squash player
+
+
+---
+
+# $ (also) whoami 👋
+
+TODO black cat
 
 ---
 
 # One of my most "wait what" bugs 🤯
 
-**A pretty tough network partition on a 70+ machine Apache Hadoop cluster**
+**Story: Network partition then NullPointerException on restart**
 
-1. Network partition + disk full on journal nodes 💥
-2. 70-machine cluster goes belly-up
-3. Can't self-heal, reboot... **NullPointerException at startup**
-
----
-
-# The HDFS Incident — aftermath
-
+1. Normal day, then: network partition + disk full on journal nodes (multiple cascading failures)
+2. 70-machine Hadoop cluster goes belly-up
+3. Can't self-heal, reboot, **NullPointerException at startup**
 4. Bug was known. Patched in newer HDFS version.
-5. Emergency: backport patch, recompile, redeploy on 70 machines at 3am 🔥
+5. Emergency: backport patch, recompile, redeploy on critical 70 machines cluster
 
 **The question:** Why does a NullPointerException happen during *recovery*?
 
-Rolling out an untested patch on a distributed system under fire is an... unpleasant experience.
-
 ---
+layout: two-cols
+---
+
+::title::
 
 # 🤖 LLMs generate code faster than ever
 
-**But who catches the bugs they introduce?**
+::default::
 
 *Amazon, March 2026*
 
@@ -50,17 +59,13 @@ Rolling out an untested patch on a distributed system under fire is an... unplea
 
 Junior and mid-level engineers now require senior sign-off for any AI-assisted changes.
 
----
+::right::
 
-# 🤖 LLMs still struggle with regressions
-
-*SWE-CI: Evaluating Agent Capabilities in Maintaining Codebases — Chen et al., 2026*
+*SWE-CI — Chen et al., 2026*
 
 > "Most models achieve a zero-regression rate below 0.25"
 
 > "Current LLMs still struggle to sustain code quality over extended evolution, particularly in controlling regressions."
-
-**More code, faster. Same blind spots. More potential bugs.** 😬
 
 ---
 
@@ -76,23 +81,20 @@ How can we cultivate a production-oriented culture without assigning everyone a 
 
 ---
 
-# Your system 🖥️
-
-<div class="flex justify-center mt-12">
-  <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">Your System</div>
-</div>
-
----
-
 # Your system interacts with two things
 
 <div class="flex justify-center mt-8">
   <div class="flex flex-col items-center gap-6">
     <div class="flex gap-16">
-      <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl">👤 Your Users</div>
-      <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl">🌍 The World</div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl">👤 Your Users</div>
+        <div class="text-2xl">↕</div>
+      </div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl">🌍 The World</div>
+        <div class="text-2xl">↕</div>
+      </div>
     </div>
-    <div class="text-2xl">↕</div>
     <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
   </div>
 </div>
@@ -104,10 +106,15 @@ How can we cultivate a production-oriented culture without assigning everyone a 
 <div class="flex justify-center mt-8">
   <div class="flex flex-col items-center gap-6">
     <div class="flex gap-16">
-      <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">👤 Your Users</div>
-      <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl opacity-40">🌍 The World</div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">👤 Your Users</div>
+        <div class="text-2xl">↕</div>
+      </div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl opacity-40">🌍 The World</div>
+        <div class="text-2xl">↕</div>
+      </div>
     </div>
-    <div class="text-2xl">↕</div>
     <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
   </div>
 </div>
@@ -116,30 +123,47 @@ How can we cultivate a production-oriented culture without assigning everyone a 
 
 # Let's test our users 😱
 
-**E-commerce API example:**
+Let's imagine the following e-commerce API that supports:
 
-| Dimension | Values |
-|-----------|--------|
-| 👤 User type | Guest, Registered, Premium, Business |
-| 💳 Payment | Credit Card, PayPal, Bank Transfer |
-| 🚚 Shipping | Standard, Express, Pickup |
-| 🎁 Promotion | None, Percentage, Fixed |
-| 📦 Inventory | In stock, Low stock, Backorder |
-| 💱 Currency | EUR, USD, GBP |
+- 👤 User Type: Guest, Logged-in, Premium
+- 💳 Payment Method: Credit Card, PayPal, Apple Pay, Gift Card
+- 🚚 Delivery Option: Standard, Express, In-Store Pickup
+- 🎁 Promotion Applied: Yes, No
+- 📦 Inventory Status: In Stock, Low Stock, Out of Stock
+- 💱 Currency: USD, EUR, GBP
 
-**648** test combinations just for the happy path 😱
+To cover all possibilities, we need to write **3 × 4 × 3 × 2 × 3 × 3 = 648 unique test cases** 😱
+
+(just to cover the happy path)
 
 ---
 
 # This is why E2E testing is hard 🤯
 
-- Add one option per dimension → **4,000+ tests**
-- Real project: 300 lines of feature code, **10,000 lines of tests**, 1.5 months of work
-- We cannot test what we don't know
+Let's imagine the following e-commerce API that supports:
+
+- 👤 User Type: Guest, Logged-in, Premium, **Business**
+- 💳 Payment Method: Credit Card, PayPal, Apple Pay, Gift Card, **Bank Transfer**
+- 🚚 Delivery Option: Standard, Express, In-Store Pickup, **Same-Day**
+- 🎁 Promotion Applied: Yes, No, **Expired Promo**
+- 📦 Inventory Status: In Stock, Low Stock, Out of Stock, **Preorder**
+- 💱 Currency: USD, EUR, GBP, **JPY**
+
+To cover all possibilities, we need to write **4 × 5 × 4 × 3 × 4 × 4 = 3,840 unique test cases** 😱
+
+(just to cover the happy path)
+
+---
+
+# We can't test everything 🤯
+
+- Every new feature or edge case **multiplies** the complexity
+- Manual or naive testing strategies can't keep up
+- Bugs hide in rare, high-dimensional combos
+- You may spend days writing tests for a relatively small feature
+- **We cannot know how our software will be used!**
 
 > "You test what you imagine. Bugs hide in combinations you didn't."
-
-Tests can't assure bug absence — they mainly check for regressions.
 
 ---
 
@@ -148,60 +172,18 @@ Tests can't assure bug absence — they mainly check for regressions.
 <div class="flex justify-center mt-8">
   <div class="flex flex-col items-center gap-6">
     <div class="flex gap-16">
-      <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl opacity-40">👤 Your Users</div>
-      <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">🌍 The World</div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl opacity-40">👤 Your Users</div>
+        <div class="text-2xl opacity-40">↕</div>
+      </div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">🌍 The World</div>
+        <div class="text-2xl">↕</div>
+      </div>
     </div>
-    <div class="text-2xl">↕</div>
     <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
   </div>
 </div>
-
----
-
-# "Your replicas protect you" 🛡️
-
-*Redundancy Does Not Imply Fault Tolerance — Ganesan et al., FAST 2017*
-
-> "A single file-system fault can cause catastrophic outcomes such as data loss, corruption, and unavailability"
-
-Across 8 production systems: Redis, ZooKeeper, Cassandra, Kafka, MongoDB, RethinkDB, CockroachDB, LogCabin.
-
----
-
-# "Your replicas protect you" — Kafka 💥
-
-One corrupted log entry on the leader →
-
-- Leader ignores it
-- Instructs followers to do the same
-- Followers hit fatal assertion
-- **Entire cluster unavailable + data loss**
-
-All problems observed at R=1 **persist at R=3**.
-
----
-
-# "Your disks are reliable" 💾
-
-*Disks Lie — TigerBeetle Safety Docs*
-
-- 0.031% of SSDs per year: silent corruption
-- 1.4% of enterprise HDDs per year: silent corruption
-- Misdirected I/O: measurable rates across all disk types
-
----
-
-# "Your disks are reliable" — ZooKeeper 💾
-
-- Recovered in only **2%** of disk corruption cases
-- 30% of block corruption → data loss or unavailability
-
-*Protocol-Aware Recovery — Alagappan et al., FAST 2018*
-
-- ext4 silently returns corrupted data to applications
-- ZooKeeper's Truncate recovery: **causes silent data loss**
-
-> "Very few papers address disk failures."
 
 ---
 
@@ -212,57 +194,113 @@ All problems observed at R=1 **persist at R=3**.
 - **80%** of partition failures have catastrophic impact
 - **27%** lead to data loss
 - **90%** are silent — no log, no alert, nothing 🤫
-
----
-
-# "You'd notice a network partition" — it gets worse 🌐
-
 - **21%** cause permanent damage that persists after the partition heals
 - **83%** need 3+ events to manifest — **the sequential luck problem**
 
 ---
 
+# "Your disks are reliable" 💾
+
+- Silent corruption
+  - 0.031% of SSDs per year
+  - 1.4% of enterprise HDDs per year
+
+- Misdirected I/O
+  - 0.023% of SSDs per year
+  - 0.466% of Nearline HDDs per year
+
+Sources: [*SSD Reliability*](https://www.usenix.org/system/files/fast20-maneas.pdf) FAST 2020 · [*Data Corruption in the Storage Stack*](https://www.usenix.org/legacy/events/fast08/tech/full_papers/bairavasundaram/bairavasundaram.pdf) FAST 2008
+
+---
+
+# "fsync is reliable" 💾
+
+*[Can Applications Recover from fsync Failures?](https://www.usenix.org/system/files/atc20-rebello.pdf) — Rebello et al., ATC 2020*
+
+> "Although applications use many failure-handling strategies, none are sufficient: fsync failures can cause catastrophic outcomes such as data loss and corruption."
+
+> "All three file systems mark pages clean after fsync fails, rendering techniques such as application-level retry ineffective."
+
+Tested on PostgreSQL, LMDB, LevelDB, SQLite, Redis — **none handle fsync failures correctly**.
+
+---
+
+# "Your disks are reliable" — in practice 💾
+
+*[Protocol-Aware Recovery for Consensus-Based Storage](https://www.usenix.org/system/files/conference/fast18/fast18-alagappan.pdf) — Alagappan et al., FAST 2018*
+
+> "ext4 silently returns corrupted data if the underlying device block is corrupted."
+
+> "None of the current approaches correctly recover from storage faults."
+
+> "All current approaches lead to safety violation (e.g., data loss), low availability, or both."
+
+ZooKeeper's Truncate recovery: a corrupted node truncates its log, forms a majority with lagging nodes → **silent data loss**
+
+---
+
+# "Your replicas protect you" 🛡️
+
+*[Redundancy Does Not Imply Fault Tolerance](https://www.usenix.org/system/files/conference/fast17/fast17-ganesan.pdf) — Ganesan et al., FAST 2017*
+
+> "A single file-system fault can cause catastrophic outcomes such as data loss, corruption, and unavailability."
+
+Tested on 8 systems: Redis, ZooKeeper, Cassandra, Kafka, MongoDB, RethinkDB, CockroachDB, LogCabin.
+
+**Kafka:** one corrupted log entry on the leader → leader ignores it, instructs followers to do the same → followers hit fatal assertion → **entire cluster unavailable + data loss** 💥
+
+All problems observed at R=1 **persist at R=3**.
+
+---
+
 # "Your error handling catches it" ⚠️
 
-*Simple Testing Can Prevent Most Critical Failures — Yuan et al., OSDI 2014*
+*[Simple Testing Can Prevent Most Critical Failures](https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-yuan.pdf) — Yuan et al., OSDI 2014*
 
-- **92%** of catastrophic failures = incorrect handling of non-fatal errors
-- **35%** of error handlers are empty, have a log, or `TODO`/`FIXME`
-- **77%** reproducible by a unit test — **if someone had thought to write it**
+> "Almost all catastrophic failures (**92%**) are the result of incorrect handling of non-fatal errors explicitly signaled in software."
+
+> "**35%** of the catastrophic failures are caused by trivial mistakes in error handling logic — ones that simply violate best programming practices."
+
+> "A majority of the production failures (**77%**) can be reproduced by a unit test."
 
 ---
 
 # "Your error handling catches it" — concurrency bugs ⚠️
 
-*TaxDC — Leesatapornwongsa et al., ASPLOS 2016*
+*[TaxDC: A Taxonomy of Non-Deterministic Concurrency Bugs](https://ucare.cs.uchicago.edu/pdf/asplos16-TaxDC.pdf) — Leesatapornwongsa et al., ASPLOS 2016*
 
-> "More than three quarters of the bugs involve background protocols"
+> "More than three quarters of the bugs involve some background protocols" — not the foreground protocols developers typically test.
 
-Not the user-facing foreground protocols developers typically test.
-
-Triggered by: untimely message delivery, untimely faults or reboots, or combinations of both.
+> "DC bugs are triggered mostly by untimely messages (**64%**) and sometimes by untimely faults/reboots (**32%**), and occasionally by a combination of both."
 
 ---
 
 # "Your retries save you" 🔄
 
-*Metastable Failures in the Wild — Huang et al., OSDI 2022*
+*[Metastable Failures in the Wild](https://www.usenix.org/system/files/osdi22-huang-lexiang.pdf) — Huang et al., OSDI 2022*
 
-The system enters a bad state that **persists even after the trigger is removed**.
+> "The sustaining effect keeps the system in the metastable failure state even after the trigger is removed."
 
-> "Retries sustain more than 50% of metastable incidents"
+> "The most common sustaining effect is due to the retry policy, affecting more than **50%** of the studied incidents."
+
+> "It naturally arises from the optimizations for the common case that lead to sustained work amplification."
+
+22 incidents from 11 organizations — outages: **1.5 to 73.5 hours** ⏰ — at least **4 of 15 major AWS outages** in the last decade.
 
 ---
 
-# "Your retries save you" — the numbers 🔄
+# "Your database does what the docs say" 📖
 
-> "Changes meant to improve the common case — fast paths, caches, retries, failover, load balancing, autoscaling — all make the failure state less resource-efficient"
+*[Jepsen: MariaDB Galera Cluster 12.1.2](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2)*
 
-- 22 incidents from 11 organizations
-- Outages: **1.5 to 73.5 hours** ⏰
-- Universally observed from hyperscalers to small companies
+MariaDB claims: "Galera's tx_isolation is between Serializable and Repeatable Read."
 
-**Your retry logic, your circuit breakers, your autoscaling — they can sustain the failure.**
+Jepsen found — even in **healthy clusters** with zero faults:
+- 💀 **Lost committed transactions**
+- 💀 **Lost Updates**
+- 💀 **Stale Reads**
+
+> "It appears weaker than Read Uncommitted."
 
 ---
 
@@ -273,38 +311,13 @@ The system enters a bad state that **persists even after the trigger is removed*
 
 What about the ones you didn't?
 
----
-
-# The scenarios that page you at 3am 📟
-
-The machine that dies halfway through a write. The retry storm nobody reproduced in CI. The network partition at exactly the wrong moment.
-
-**No test was written for them.**
-
 > "The very reason tests are needed — humans can't enumerate all control flow branches — is what makes it impossible for humans to write comprehensive tests."
+
 > — Will Wilson
 
----
-
-# Prevention vs Discovery ⚖️
-
-|  | Prevention | Discovery |
-|--|-----------|-----------|
-| **Question** | "Did we break what used to work?" | "What else is broken?" |
-| **Method** | Regression tests, CI, code review | Simulation, fault injection, PBT |
-| **Finds** | Known bugs returning | Unknown bugs lurking |
-| **Scales** | Linearly with effort | Multiplicatively with compute |
-| **Coverage** | What you imagined | What nobody imagined |
-
-The industry does 99% prevention, ~0% discovery.
 
 ---
-layout: section
----
 
-# ACT 2: THE SOLUTION 🛠️
-
----
 
 # What developers want from tests ✅
 
@@ -322,10 +335,15 @@ layout: section
 <div class="flex justify-center mt-8">
   <div class="flex flex-col items-center gap-6">
     <div class="flex gap-16">
-      <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">👤 Your Users,<br/>but worse</div>
-      <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">🌍 The World,<br/>but worse</div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">👤 Your Users,<br/>but worse</div>
+        <div class="text-2xl">↕</div>
+      </div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">🌍 The World,<br/>but worse</div>
+        <div class="text-2xl">↕</div>
+      </div>
     </div>
-    <div class="text-2xl">↕</div>
     <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
   </div>
 </div>
@@ -339,10 +357,15 @@ If your system survives this, it's **overqualified for production** 🦸
 <div class="flex justify-center mt-8">
   <div class="flex flex-col items-center gap-6">
     <div class="flex gap-16">
-      <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎲 Simulated Users</div>
-      <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl opacity-40">🌍 The World</div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎲 Simulated Users</div>
+        <div class="text-2xl">↕</div>
+      </div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl opacity-40">🌍 The World</div>
+        <div class="text-2xl opacity-40">↕</div>
+      </div>
     </div>
-    <div class="text-2xl">↕</div>
     <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
   </div>
 </div>
@@ -435,10 +458,15 @@ Smart randomness — stateful, correlated, guided — finds bugs that brute forc
 <div class="flex justify-center mt-8">
   <div class="flex flex-col items-center gap-6">
     <div class="flex gap-16">
-      <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl opacity-40">👤 Your Users</div>
-      <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">😈 Simulated World</div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl opacity-40">👤 Your Users</div>
+        <div class="text-2xl opacity-40">↕</div>
+      </div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">😈 Simulated World</div>
+        <div class="text-2xl">↕</div>
+      </div>
     </div>
-    <div class="text-2xl">↕</div>
     <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
   </div>
 </div>
@@ -595,10 +623,15 @@ Same code runs in both — no `#[cfg(test)]`, no conditional compilation.
 <div class="flex justify-center mt-8">
   <div class="flex flex-col items-center gap-6">
     <div class="flex gap-16">
-      <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎲 Simulated Users</div>
-      <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">😈 Simulated World</div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎲 Simulated Users</div>
+        <div class="text-2xl">↕</div>
+      </div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">😈 Simulated World</div>
+        <div class="text-2xl">↕</div>
+      </div>
     </div>
-    <div class="text-2xl">↕</div>
     <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
   </div>
 </div>
