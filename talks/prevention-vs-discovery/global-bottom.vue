@@ -1,6 +1,6 @@
 <template>
   <footer class="footer-bar">
-    <span>#finistdevs #finistAI #yncrea</span>
+    <span>#finistDevs #finistAI #yncrea</span>
     <span>{{ $nav.currentPage }}</span>
   </footer>
 </template>
@@ -11,7 +11,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 30px;
+  height: 20px;
   background: var(--theme-accent);
   color: white;
   display: flex;

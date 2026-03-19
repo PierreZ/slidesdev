@@ -251,17 +251,19 @@ Tested on PostgreSQL, LMDB, LevelDB, SQLite, Redis — **none handle fsync failu
 
 ---
 
-# "Your disks are reliable" — in practice 💾
+# "ZooKeeper is unbreakable" 💾
 
 *[Protocol-Aware Recovery for Consensus-Based Storage](https://www.usenix.org/system/files/conference/fast18/fast18-alagappan.pdf) — Alagappan et al., FAST 2018*
 
-> "ext4 silently returns corrupted data if the underlying device block is corrupted."
+The researchers injected **2,401 corruption scenarios** into ZooKeeper:
 
-> "None of the current approaches correctly recover from storage faults."
+| Scenario | Result |
+|---|---|
+| Targeted corruptions | Recovers in **46/2,401** cases (1.9%) 💀 |
+| Random block corruptions | **~30%** end in data loss or unavailability |
+| Block errors | **~50%** cluster unavailability — restarting loops forever |
 
-> "All current approaches lead to safety violation (e.g., data loss), low availability, or both."
-
-ZooKeeper's Truncate recovery: a corrupted node truncates its log, forms a majority with lagging nodes → **silent data loss**
+**Why?** ZooKeeper truncates corrupted log entries. If the corrupted node then forms a majority with lagging nodes → **committed data is silently lost**.
 
 ---
 
@@ -554,16 +556,6 @@ Google's SWE Book: `FakeFileSystem` backed by a `HashMap<String, String>`. That'
 
 > A fake with 80% of features is better than no fake at all.
 
----
-
-# Choose your boundary 🎯
-
-| What you control | Fake boundary |
-|---|---|
-| **External deps** (you don't own PostgreSQL) | Your service layer — `UserRepository`, `S3Client` |
-| **Everything** (all code in simulation) | OS primitives — network, disk I/O, clock |
-
-Don't fake PostgreSQL. Fake your access to it.
 
 ---
 layout: two-cols
@@ -599,7 +591,7 @@ Same app code, fake dependencies.
 
 # Model real failures, not documented ones 📖
 
-*Jepsen: MariaDB Galera Cluster 12.1.2*
+*[Jepsen: MariaDB Galera Cluster 12.1.2](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2)*
 
 MariaDB claims "no lost transactions" and "between Serializable and Repeatable Read."
 
@@ -610,19 +602,6 @@ Jepsen found — even in **healthy clusters** with zero faults:
 - 💀 **Stale Reads**
 
 **Weaker than Read Uncommitted.** Your fake should simulate what your DB *actually does*.
-
----
-
-# Generate enough work 💪
-
-- Write workloads that combine operations — full workflows, not just CRUD
-- Generate valid AND invalid inputs
-- Combine adversarial users with a hostile world — at scale
-
-**Process vs Workload separation:**
-
-- 🖥️ **Process** = system under test (crashes, reboots, loses state)
-- 📋 **Workload** = test driver (never crashes, judges correctness)
 
 ---
 
@@ -644,13 +623,16 @@ Jepsen found — even in **healthy clusters** with zero faults:
 
 ---
 
-# Making it deterministic 🔧
+# The reproducibility problem 🔧
 
-**Three sources of non-determinism to eliminate:**
+We have simulated users ✅ and a simulated fallible world ✅
+
+But every run is different. Found a bug? Good luck reproducing it.
+
+**Two sources of non-determinism to eliminate:**
 
 1. 🧵 **Thread scheduling** → single-threaded execution
-2. 💾 **Real I/O** (network, disk, time) → simulated I/O
-3. 🎲 **Random number generation** → seeded PRNG
+2. 🎲 **Random number generation** → seeded PRNG
 
 ```
 u64 seed → entire execution determined
@@ -689,8 +671,7 @@ layout: two-cols
 
 ::default::
 
-> "Probably the most important thing to get great results out of Claude Code — give Claude a way to verify its work. If Claude has that feedback loop, it will 2-3x the quality of the final result."
-> — [Boris Cherny, creator of Claude Code](https://x.com/bcherny/status/2007179861115511237)
+<img src="/boris-cherny-tweet.png" class="rounded shadow" />
 
 **DST IS that feedback loop.**
 
