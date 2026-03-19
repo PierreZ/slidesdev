@@ -15,7 +15,7 @@ Pierre Zemb — Clever Cloud
 - Pierre Zemb — Staff Engineer @ Clever Cloud 🇫🇷
 - Former ISEN student
 - Specialized in distributed systems
-  - Builing,
+  - Building,
   - contributing,
   - operating,
 - OSS maintainer
@@ -49,6 +49,8 @@ layout: two-cols
 ::title::
 
 # 🤖 LLMs generate code faster than ever
+
+**More code, faster. Same blind spots. More potential bugs.**
 
 ::default::
 
@@ -98,6 +100,9 @@ How can we cultivate a production-oriented culture without assigning everyone a 
     <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
   </div>
 </div>
+
+- **Users**: unpredictable behavior, edge cases, adversarial inputs
+- **World**: machines die, networks partition, disks corrupt, clocks drift, dependencies fail
 
 ---
 
@@ -185,11 +190,32 @@ To cover all possibilities, we need to write **4 × 5 × 4 × 3 × 4 × 4 = 3,84
   </div>
 </div>
 
+--- 
+
+# Can our code handle the world? 🌍
+
+<div class="flex justify-center mt-6">
+  <div class="flex flex-col items-center gap-4">
+    <div class="flex gap-6 flex-wrap justify-center">
+      <div class="px-4 py-2 border-2 border-current rounded text-sm">🌐 Network</div>
+      <div class="px-4 py-2 border-2 border-current rounded text-sm">💾 Storage</div>
+      <div class="px-4 py-2 border-2 border-current rounded text-sm">🕰️ Time</div>
+      <div class="px-4 py-2 border-2 border-current rounded text-sm">🔐 Auth</div>
+      <div class="px-4 py-2 border-2 border-current rounded text-sm">⚙️ APIs</div>
+      <div class="px-4 py-2 border-2 border-current rounded text-sm">🗄️ Databases</div>
+    </div>
+    <div class="text-2xl">↕</div>
+    <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">🖥️ Your Application</div>
+  </div>
+</div>
+
+Everything around your app can fail, lie, or slow down.
+
 ---
 
-# "You'd notice a network partition" 🌐
+# "The network is reliable" 🌐
 
-*An Analysis of Network-Partitioning Failures — Alquraan et al., OSDI 2018*
+*[An Analysis of Network-Partitioning Failures](https://www.usenix.org/system/files/osdi18-alquraan.pdf) — Alquraan et al., OSDI 2018*
 
 - **80%** of partition failures have catastrophic impact
 - **27%** lead to data loss
@@ -371,36 +397,39 @@ If your system survives this, it's **overqualified for production** 🦸
 </div>
 
 ---
-
-# Simulating users: randomized input 🎲
-
-```java
-enum UserType { GUEST, LOGGED_IN, PREMIUM, BUSINESS }
-enum PaymentMethod { CARD, PAYPAL, APPLE_PAY, GIFT_CARD, BANK_TRANSFER }
-
-// …
-Random rand = new Random(); // random seed
-UserType user = pickRandom(rand, UserType.values());
-PaymentMethod payment = pickRandom(rand, PaymentMethod.values());
-```
-
+layout: two-cols
 ---
 
-# Simulating users: checking the state ✅
+::title::
+
+# Properties, not test cases 🧪
+
+::default::
 
 ```java
-// move from hardcoded test case (prevention)
-assertFalse(new User(GUEST).canUse(SAVED_CARD));
+// prevention: one hardcoded case
+assertFalse(new User(GUEST).canUseSavedCards());
+```
 
-// to a test property (discovery)
-assertEquals(user.isAuthenticated(), user.canUse(SAVED_CARD));
+- Tests **one specific scenario**
+- You write one test per case
+- Breaks if requirements change
+
+::right::
+
+```java
+// discovery: holds for ALL inputs
+assertEquals(
+  user.isAuthenticated(),
+  user.canUseSavedCards()
+);
 ```
 
 Properties look like specs. They compile as code. They work for ALL random inputs.
 
 ---
 
-# Yep, it's "just" property-based testing 🧪
+# Property-based testing 🧪
 
 - 🐍 Python: [Hypothesis](https://hypothesis.readthedocs.io/en/latest/)
 - ☕ Java: [jqwik](https://jqwik.net/)
@@ -409,47 +438,17 @@ Properties look like specs. They compile as code. They work for ALL random input
 
 **Instead of writing N tests, write a test GENERATOR.**
 
-Add a feature? Add one enum value, not 100 tests.
-
----
-
-# From tests to test generators 🏭
-
-```java
-// Instead of 648 individual test cases...
-enum UserType { GUEST, REGISTERED, PREMIUM, BUSINESS }
-enum PaymentMethod { CREDIT_CARD, PAYPAL, BANK_TRANSFER }
-
-// ...write one generator
-UserType user = randomEnum(UserType.class);
-PaymentMethod payment = randomEnum(PaymentMethod.class);
-// ... run the scenario
-```
-
-A test generator run long enough will eventually output all possible tests you could have written.
+Add a feature? Add one enum value, not 100 tests. A test generator run long enough will eventually output all possible tests you could have written.
 
 ---
 
 # Guided exploration beats brute force 🎮
 
-**Pure random inputs don't work.**
+[Antithesis](https://antithesis.com/) is the leader in autonomous testing — their platform uses **guided random exploration** to find bugs in any software.
 
-Random button presses on Super Mario Bros: Mario dies in the first 5 seconds. Every time. 💀
+**Demo:** they beat Super Mario Bros using only random inputs — no human, no scripting. Pure guided exploration. 🏆 See [Testing a Single-Node, Single Threaded, Distributed System Written in 1985](https://www.youtube.com/watch?v=m3HwXlQPCEU) by Will Wilson.
 
-**Guided exploration beats the game.** 🏆
-
-Smart randomness — stateful, correlated, guided — finds bugs that brute force never will.
-
----
-
-# 🎮 Antithesis beating Super Mario Bros
-
-<div class="flex justify-center items-center mt-12">
-  <div class="px-12 py-8 border-2 border-dashed border-current rounded-lg text-center opacity-70">
-    <p class="text-xl mb-2">🎬 VIDEO</p>
-    <p>Antithesis beating Super Mario Bros with guided random exploration</p>
-  </div>
-</div>
+<img src="/mario.png" class="h-40 mx-auto" />
 
 ---
 
@@ -480,8 +479,9 @@ We need to inject chaos on our world:
 - 🕰️ **Time**: delays, timeouts, retries, race conditions
 - 🌐 **Network**: latency, failure, disconnection, partitions
 - 💾 **Storage**: corruption, slow disks, full disks, misdirected I/O
+- 🗄️ **Databases**: stale reads, lost updates, connection drops mid-transaction
 - ⚙️ **External APIs**: timeouts, rate limits, partial failures
-- 📊 **Load**: 10 users vs 10,000 users
+- 🔐 **DNS, Auth, Caches**: resolution failures, token expiry, thundering herd
 
 To inject, you need to **control everything**.
 
@@ -490,17 +490,55 @@ To inject, you need to **control everything**.
 # Fakes: Simulating the World 🎭
 
 > "The system under test shouldn't even be able to tell whether it is interacting with a real implementation or a fake."
+
 > — Software Engineering at Google, Ch. 13
 
 A **fake** = working in-memory implementation. Stateful. Correct behavior. Injectable failures. Zero I/O. ⚡
 
+
 ---
+layout: two-cols
+---
+
+::title::
 
 # Fakes vs Mocks vs Testcontainers 🎭
 
-- 🃏 **Mocks** leak implementation details — 5 lines of `when().thenReturn()` that break when you refactor
-- 🐳 **Testcontainers** are heavy, slow, non-deterministic, can't inject specific faults
-- ✅ **Fakes** verify state, not calls. They survive refactoring. They run in milliseconds.
+::default::
+
+🃏 **Mocks**
+
+```java
+when(repo.findById(1))
+  .thenReturn(Optional.of(user));
+```
+
+- Verify **calls**, not state
+- Break when you refactor
+- Don't catch real bugs
+
+::right::
+
+✅ **Fakes**
+
+```java
+FakeUserRepo repo = new FakeUserRepo();
+repo.save(user);
+assertEquals(user, repo.findById(1));
+```
+
+- Verify **state**, not calls
+- Survive refactoring
+- Run in milliseconds
+
+---
+
+# 🐳 What about Testcontainers?
+
+- Heavy, slow startup
+- Non-deterministic (network, timing)
+- Can't inject **specific** faults (corrupt this block, delay that packet)
+- Great for integration smoke tests, **not for discovery**
 
 ---
 
@@ -526,6 +564,36 @@ Google's SWE Book: `FakeFileSystem` backed by a `HashMap<String, String>`. That'
 | **Everything** (all code in simulation) | OS primitives — network, disk I/O, clock |
 
 Don't fake PostgreSQL. Fake your access to it.
+
+---
+layout: two-cols
+---
+
+::title::
+
+# Choose your boundary — examples 🔌
+
+::default::
+
+**🗄️ Database** — you control everything
+
+Swap OS primitives:
+- 📡 TCP → in-memory channels
+- 💾 ext4 → HashMap + fault injection
+- 🕰️ System clock → simulated clock
+
+Same binary, different I/O backends.
+
+::right::
+
+**☁️ Control plane** — you don't own the data service
+
+Swap your service layer:
+- 🗄️ `DataService` → `FakeDataService`
+- 📡 `QueuePublisher` → `FakeQueue`
+- 🔐 `AuthProvider` → `FakeAuth`
+
+Same app code, fake dependencies.
 
 ---
 
@@ -593,31 +661,6 @@ A failing seed is a time machine ⏪ — rewind, inspect, experiment.
 
 ---
 
-# The Provider Pattern 🏗️
-
-**Abstract I/O behind traits, implement twice:**
-
-<div class="flex justify-center mt-4">
-  <div class="border-2 border-current rounded-lg overflow-hidden w-4/5">
-    <div class="px-4 py-2 border-b-2 border-current text-center font-bold">🖥️ Your Application (same code, always)</div>
-    <div class="px-4 py-2 border-b-2 border-current text-center text-sm">Provider Traits: TimeProvider · NetworkProvider · StorageProvider · RandomProvider</div>
-    <div class="grid grid-cols-2">
-      <div class="px-4 py-3 border-r-2 border-current">
-        <div class="font-bold mb-1">🏭 Production</div>
-        <div class="text-sm">Real OS · Real TCP · Real fs · OS RNG</div>
-      </div>
-      <div class="px-4 py-3">
-        <div class="font-bold mb-1">🧪 Simulation</div>
-        <div class="text-sm">Event queue · In-memory network · In-memory fs · Seeded ChaCha8</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-Same code runs in both — no `#[cfg(test)]`, no conditional compilation.
-
----
-
 # Simulating all the things 🎯
 
 <div class="flex justify-center mt-8">
@@ -637,88 +680,65 @@ Same code runs in both — no `#[cfg(test)]`, no conditional compilation.
 </div>
 
 ---
+layout: two-cols
+---
+
+::title::
 
 # DST: The ultimate LLM feedback loop 🤖🔁
 
-> "The most important thing to get great results out of Claude Code — give Claude a way to verify its work."
-> — Boris Cherny, creator of Claude Code
+::default::
+
+> "Probably the most important thing to get great results out of Claude Code — give Claude a way to verify its work. If Claude has that feedback loop, it will 2-3x the quality of the final result."
+> — [Boris Cherny, creator of Claude Code](https://x.com/bcherny/status/2007179861115511237)
 
 **DST IS that feedback loop.**
 
-<div class="flex justify-center mt-4">
-  <div class="flex items-center gap-3 text-base">
-    <div class="px-3 py-2 border-2 border-current rounded">🤖 LLM writes code</div>
-    <span>→</span>
-    <div class="px-3 py-2 border-2 border-current rounded">🧪 Simulation finds bug</div>
-    <span>→</span>
-    <div class="px-3 py-2 border-2 border-current rounded">🔍 LLM reads seed</div>
-    <span>→</span>
-    <div class="px-3 py-2 border-2 border-current rounded">🔧 LLM fixes</div>
-    <span>→ 🔁</span>
+All autonomously. No human in the loop.
+
+::right::
+
+<div class="flex justify-center">
+  <div class="flex flex-col items-center gap-1 text-sm">
+    <div class="px-4 py-2 border-2 border-current rounded">🤖 LLM writes code</div>
+    <div>↓</div>
+    <div class="px-4 py-2 border-2 border-current rounded">🧪 Simulation finds bug</div>
+    <div>↓</div>
+    <div class="px-4 py-2 border-2 border-current rounded">🔍 LLM reads failing seed</div>
+    <div>↓</div>
+    <div class="px-4 py-2 border-2 border-current rounded">🔧 LLM fixes code</div>
+    <div>↓</div>
+    <div>🔁</div>
   </div>
 </div>
 
 ---
 
-# 🤖 Claude fixing moonpool with DST
+# 🤖 Claude fixing software with DST
 
-<div class="flex justify-center items-center mt-12">
-  <div class="px-12 py-8 border-2 border-dashed border-current rounded-lg text-center opacity-70">
-    <p class="text-xl mb-2">📸 SCREENSHOT</p>
-    <p>Claude fixing moonpool using deterministic replay</p>
-  </div>
-</div>
-
----
-layout: section
----
-
-# ACT 3: IN PRACTICE 🚀
-
----
-
-# Who does deterministic simulation? 🌍
-
-**This isn't theoretical.**
-
-| Project | What | Scale |
-|---------|------|-------|
-| **FoundationDB** 🍎 | The pioneer. Simulator before database. | Trillions of CPU-hours |
-| **TigerBeetle** 🐯 | Financial transactions DB | VOPR on 1024 cores |
-| **Antithesis** 🔬 | Deterministic hypervisor | Bugs in 2-3 weeks |
-| **Dropbox** 📦 | Sync engine | Full simulation |
-| **WarpStream** 🌊 | Kafka-compatible streaming | Full SaaS under DST |
-| **Clever Cloud** ☁️ | Materia distributed DB | Team of 5 🦀 |
+![Claude fixing moonpool using deterministic replay](https://pierrezemb.fr/images/testing-prevention-vs-discovery/claude-moonpool.png)
 
 ---
 
 # Clever Cloud / Materia ☁️🦀
 
-- 80 employees, **team of 5** (including 2 junior apprentices!)
-- Building a **distributed multi-model multi-tenant database** on FoundationDB
-- Only team in the world running Rust code inside FDB's simulation 🚀
-- **Simulation-driven development**: write the workload first, then implement
-
----
-
-# Clever Cloud / Materia — discoveries 🔍
-
-**Concrete discovery:** simulation found that certain index types failed when a `delete all` operation passed through — an edge case nobody imagined 💡
-
-**On-prem business case:** Clever Cloud deploys on-prem where they don't control hardware quality. Simulation ensures software works on degraded networks and disks.
+- ~90 employees — a **full cloud provider** with our own LB, Linux distro, and orchestrator
+- Already have our hands full — then we decided to build a **distributed multi-model database** 🤯
+  - Team grew from 1 to 6 persons
+- The question isn't *why* — it's **how do you build something this hard with a small team?**
+- The answer: **simulation-driven development** — write the workload first, then implement
+  - All our stack is under simulation: KV, KMS, ETCD, workflow engine, leader election...
 
 > "We would never have succeeded without simulation." 🦸
 
+
 ---
 
-# Materia simulation runs 🖥️
+<img src="/materia-sim-single.png" class="w-full" />
 
-<div class="flex justify-center items-center mt-12">
-  <div class="px-12 py-8 border-2 border-dashed border-current rounded-lg text-center opacity-70">
-    <p class="text-xl mb-2">📸 SCREENSHOTS</p>
-    <p>Materia simulation runs — workloads, fault injection, results</p>
-  </div>
-</div>
+---
+
+<img src="/materia-sim-triple.png" class="w-full" />
 
 ---
 
@@ -730,17 +750,9 @@ layout: section
 
 **BindingTester**: randomized, seeded operations that explore the API surface continuously 🔄
 
+- Compares Rust implementation against reference implementations
 - Runs **hourly on GitHub Actions** — ~219 days of continuous exploration per month
 - Tests across multiple OS, FDB versions, Rust compiler versions
-
----
-
-# Leader Election: LLM + Simulation 🤖⚡
-
-- Claude Code implemented a full ballot-based leader election on FoundationDB. **Autonomously.**
-- It generated 13 machine-checkable invariants to verify its own work ✅
-- Simulation threw network partitions, process crashes, and clock skew 💥
-- **The LLM proposes, simulation disposes.**
 
 ---
 
@@ -748,14 +760,9 @@ layout: section
 
 - 📊 **Performance is invisible** — you still need a perf/bench farm
 - 🧩 **Your model can be wrong** — if you don't simulate it, you won't find it
+- 🏭 **Production fakes need chaos too** — your production implementations need their own fault injection
 - 🎲 **Rare bugs need smart exploration** — brute force isn't enough
 - ⏰ **Bug-finding latency** — a bug can hide in a seed for months
-
----
-layout: section
----
-
-# CONCLUSION 🏁
 
 ---
 
@@ -765,7 +772,9 @@ Remember the HDFS incident? Network partition + disk full + restart = NullPointe
 
 That exact combination? **It's a seed in a simulation.** Found in seconds. Fixed before production. **No 3am wake-up call.** 😴
 
-Your tests check what you imagined. Simulation discovers what you didn't.
+LLMs generate code faster than ever. DST catches the bugs they introduce. Together: **autonomous discovery**.
+
+**The tools exist. The techniques are proven. Testing must evolve from prevention to discovery.**
 
 ---
 
@@ -780,20 +789,6 @@ Your tests check what you imagined. Simulation discovers what you didn't.
 | **3** 😈 | Fault-injectable fakes | Discover edge cases |
 | **4** ⚙️ | Seed-driven DST | Reproducible bugs, autonomous discovery |
 
----
-
-# Resources 📚
-
-**Blog posts:**
-[Testing: Prevention vs Discovery](https://pierrezemb.fr/posts/testing-prevention-vs-discovery/) · [Simulation-Driven Development](https://pierrezemb.fr/posts/simulation-driven-development/) · [Diving into FDB Simulation](https://pierrezemb.fr/posts/diving-into-foundationdb-simulation/) · [Why Fakes Beat Mocks](https://pierrezemb.fr/posts/why-fakes-beat-mocks-and-test-containers/) · [Deterministic Simulation from Scratch (4 parts)](https://pierrezemb.fr/posts/deterministic-simulation-from-scratch-stage-1/) · [Simulating Leader Election on FDB](https://pierrezemb.fr/posts/simulating-leader-election-on-foundationdb/)
-
-**Projects:**
-[moonpool](https://github.com/PierreZ/moonpool) · [foundationdb-rs](https://github.com/PierreZ/foundationdb-rs)
-
-**References:**
-[Antithesis](https://antithesis.com/) · [TigerBeetle Safety](https://docs.tigerbeetle.com/concepts/safety/) · [Jepsen](https://jepsen.io/) · [SWE Book Ch. 13](https://abseil.io/resources/swe-book/html/ch13.html)
-
-**Papers:** Yuan OSDI'14 · Alquraan OSDI'18 · Alagappan FAST'18 · Ganesan FAST'17 · TaxDC ASPLOS'16 · Huang OSDI'22 · SWE-CI 2026
 
 ---
 layout: end
