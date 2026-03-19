@@ -34,6 +34,10 @@ pnpm export           # Export to PDF (needs playwright-chromium)
 3. Optionally add `global-bottom.vue` for a footer bar
 4. Run `pnpm install` then `pnpm dev`
 
+## Slide Conventions
+
+- **No click animations** (`v-click`, `v-clicks`) — split content into separate slides instead if a slide is too dense
+
 ## Theme Conventions
 
 - Two-cols layout uses named slots: `::title::` (full-width header), `::default::` (left), `::right::` (right)

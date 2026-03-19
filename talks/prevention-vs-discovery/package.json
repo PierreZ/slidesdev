@@ -1,0 +1,13 @@
+{
+  "name": "prevention-vs-discovery",
+  "private": true,
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52",
+    "slidev-theme-pz": "link:../../theme"
+  }
+}
