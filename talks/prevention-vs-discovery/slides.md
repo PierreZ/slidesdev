@@ -15,18 +15,13 @@ Pierre Zemb — Clever Cloud
 - Pierre Zemb — Staff Engineer @ Clever Cloud 🇫🇷
 - Former ISEN student
 - Specialized in distributed systems
-  - Building,
-  - contributing,
-  - operating,
+  - Building, contributing, operating...
 - OSS maintainer
 - Squash player
 
-
 ---
 
-# $ (also) whoami 👋
-
-TODO black cat
+<img src="/thisisfine.gif" class="mx-auto" />
 
 ---
 
@@ -41,6 +36,18 @@ TODO black cat
 5. Emergency: backport patch, recompile, redeploy on critical 70 machines cluster
 
 **The question:** Why does a NullPointerException happen during *recovery*?
+
+---
+
+# Dev vs Prod 🚗
+
+**Learning to drive ≠ Driving in Paris**
+
+- 📝 Dev = passing the theory exam
+- 🏎️ Prod = driving in Paris rush hour
+- Recovery paths, split brain, cascading failures — none of this exists on localhost
+
+How can we cultivate a production-oriented culture without assigning everyone a pager?
 
 ---
 layout: two-cols
@@ -68,18 +75,6 @@ Junior and mid-level engineers now require senior sign-off for any AI-assisted c
 > "Most models achieve a zero-regression rate below 0.25"
 
 > "Current LLMs still struggle to sustain code quality over extended evolution, particularly in controlling regressions."
-
----
-
-# Dev vs Prod 🚗
-
-**Learning to drive ≠ Driving in Paris**
-
-- 📝 Dev = passing the theory exam
-- 🏎️ Prod = driving in Paris rush hour
-- Recovery paths, split brain, cascading failures — none of this exists on localhost
-
-How can we cultivate a production-oriented culture without assigning everyone a pager?
 
 ---
 
@@ -210,6 +205,8 @@ To cover all possibilities, we need to write **4 × 5 × 4 × 3 × 4 × 4 = 3,84
 </div>
 
 Everything around your app can fail, lie, or slow down.
+
+How well do you know your world?
 
 ---
 
@@ -354,8 +351,6 @@ What about the ones you didn't?
 - 🏗️ **Full system** — not just isolated units
 - 💪 **Robust** — no flaky tests, no `sleep()` in tests
 
-> Who has written a `sleep()` in a test? 🙋
-
 ---
 
 # We must test the worst 🦹
@@ -376,7 +371,7 @@ What about the ones you didn't?
   </div>
 </div>
 
-If your system survives this, it's **overqualified for production** 🦸
+If your system survives this, we can have more confidence it will **survive production** 🦸
 
 ---
 
@@ -492,11 +487,44 @@ To inject, you need to **control everything**.
 # Fakes: Simulating the World 🎭
 
 > "The system under test shouldn't even be able to tell whether it is interacting with a real implementation or a fake."
-
 > — Software Engineering at Google, Ch. 13
 
-A **fake** = working in-memory implementation. Stateful. Correct behavior. Injectable failures. Zero I/O. ⚡
-
+<div class="flex justify-center mt-4">
+  <div class="flex flex-col items-center gap-3">
+    <div class="flex gap-6 items-start">
+      <div class="flex flex-col items-center gap-2 opacity-40">
+        <div class="text-xs font-bold uppercase tracking-wide">Production</div>
+        <div class="px-3 py-1 border-2 border-current rounded text-sm">🗄️ Real DB</div>
+        <div class="px-3 py-1 border-2 border-current rounded text-sm">🌐 Real Network</div>
+        <div class="px-3 py-1 border-2 border-current rounded text-sm">💾 Real Disk</div>
+      </div>
+      <div class="flex flex-col items-center gap-2 mt-5">
+        <div class="text-lg">←</div>
+        <div class="text-lg">←</div>
+        <div class="text-lg">←</div>
+      </div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="text-xs font-bold uppercase tracking-wide" style="color: var(--theme-accent);">Interface</div>
+        <div class="px-3 py-1 border-2 rounded text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">Storage</div>
+        <div class="px-3 py-1 border-2 rounded text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">Network</div>
+        <div class="px-3 py-1 border-2 rounded text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">FileSystem</div>
+      </div>
+      <div class="flex flex-col items-center gap-2 mt-5">
+        <div class="text-lg">→</div>
+        <div class="text-lg">→</div>
+        <div class="text-lg">→</div>
+      </div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="text-xs font-bold uppercase tracking-wide" style="color: var(--theme-accent);">Testing</div>
+        <div class="px-3 py-1 border-2 rounded text-sm" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎭 FakeDB + 💥</div>
+        <div class="px-3 py-1 border-2 rounded text-sm" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎭 FakeNet + 💥</div>
+        <div class="px-3 py-1 border-2 rounded text-sm" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎭 FakeFS + 💥</div>
+      </div>
+    </div>
+    <div class="text-xl">↕</div>
+    <div class="px-10 py-3 border-2 border-current rounded-lg font-bold text-lg">🖥️ Your System</div>
+  </div>
+</div>
 
 ---
 layout: two-cols
@@ -504,7 +532,7 @@ layout: two-cols
 
 ::title::
 
-# Fakes vs Mocks vs Testcontainers 🎭
+# Fakes vs Mocks 🎭
 
 ::default::
 
@@ -535,57 +563,55 @@ assertEquals(user, repo.findById(1));
 
 ---
 
-# 🐳 What about Testcontainers?
-
-- Heavy, slow startup
-- Non-deterministic (network, timing)
-- Can't inject **specific** faults (corrupt this block, delay that packet)
-- Great for integration smoke tests, **not for discovery**
-
----
-
 # Fakes are easier than you think 🗺️
 
 Google's SWE Book: `FakeFileSystem` backed by a `HashMap<String, String>`. That's it.
 
-- 📁 File system? **A HashMap.**
-- ☁️ S3? **A HashMap.**
-- 🌐 DNS? **A HashMap.**
-- 🗄️ Database? **A HashMap.**
-- 📡 Network? **A buffer.**
+<div class="flex flex-col items-center gap-2 mt-4">
+  <div class="flex items-center gap-3 text-sm">
+    <div class="px-3 py-1 border-2 border-current rounded opacity-40 w-28 text-center">📁 File system</div>
+    <div>→</div>
+    <div class="px-3 py-1 border-2 rounded font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">HashMap</div>
+  </div>
+  <div class="flex items-center gap-3 text-sm">
+    <div class="px-3 py-1 border-2 border-current rounded opacity-40 w-28 text-center">☁️ S3</div>
+    <div>→</div>
+    <div class="px-3 py-1 border-2 rounded font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">HashMap</div>
+  </div>
+  <div class="flex items-center gap-3 text-sm">
+    <div class="px-3 py-1 border-2 border-current rounded opacity-40 w-28 text-center">🌐 DNS</div>
+    <div>→</div>
+    <div class="px-3 py-1 border-2 rounded font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">HashMap</div>
+  </div>
+  <div class="flex items-center gap-3 text-sm">
+    <div class="px-3 py-1 border-2 border-current rounded opacity-40 w-28 text-center">🗄️ Database</div>
+    <div>→</div>
+    <div class="px-3 py-1 border-2 rounded font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">HashMap</div>
+  </div>
+  <div class="flex items-center gap-3 text-sm">
+    <div class="px-3 py-1 border-2 border-current rounded opacity-40 w-28 text-center">📡 Network</div>
+    <div>→</div>
+    <div class="px-3 py-1 border-2 rounded font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">Buffer</div>
+  </div>
+</div>
 
 > A fake with 80% of features is better than no fake at all.
 
 
 ---
-layout: two-cols
----
 
-::title::
+# Choose your boundary 🔌
 
-# Choose your boundary — examples 🔌
+**Don't fake PostgreSQL. Fake your access to it.**
 
-::default::
+The boundary depends on what you control:
 
-**🗄️ Database** — you control everything
+| What you control | Fake boundary | Examples |
+|---|---|---|
+| **External deps** (you don't own 🐘) | Your service layer | `UserRepository`, `S3Client`, `QueuePublisher` |
+| **Everything** (you build the infra) | OS primitives | network, disk I/O, clock |
 
-Swap OS primitives:
-- 📡 TCP → in-memory channels
-- 💾 ext4 → HashMap + fault injection
-- 🕰️ System clock → simulated clock
-
-Same binary, different I/O backends.
-
-::right::
-
-**☁️ Control plane** — you don't own the data service
-
-Swap your service layer:
-- 🗄️ `DataService` → `FakeDataService`
-- 📡 `QueuePublisher` → `FakeQueue`
-- 🔐 `AuthProvider` → `FakeAuth`
-
-Same app code, fake dependencies.
+The fake can only be autonomous at the boundary you fully control.
 
 ---
 
@@ -601,7 +627,7 @@ Jepsen found — even in **healthy clusters** with zero faults:
 - 💀 **Lost Updates**
 - 💀 **Stale Reads**
 
-**Weaker than Read Uncommitted.** Your fake should simulate what your DB *actually does*.
+**Weaker than Read Uncommitted.** Your fake should simulate how your system **behave in production**.
 
 ---
 
@@ -715,11 +741,55 @@ All autonomously. No human in the loop.
 
 ---
 
+<img src="/fdb-sim-config-full.png" class="w-full" />
+
+---
+
+<img src="/fdb-sim-config-cycle.png" class="w-full" />
+
+---
+
+<img src="/fdb-sim-config-clogging.png" class="w-full" />
+
+---
+
+<img src="/fdb-sim-config-attrition.png" class="w-full" />
+
+---
+
+<img src="/fdb-sim-config-attrition-code.png" class="w-full" />
+
+---
+
+<img src="/fdb-sim-config-concurrent.png" class="w-full" />
+
+---
+
 <img src="/materia-sim-single.png" class="w-full" />
 
 ---
 
 <img src="/materia-sim-triple.png" class="w-full" />
+
+---
+layout: two-cols
+---
+
+::title::
+
+# Simulation runs continuously 🔄
+
+::default::
+
+- 💻 Engineers run a **few seeds locally** during development
+- 🔁 CI runs **more iterations** on every push
+- ☁️ Cloud runs simulation **continuously**
+- ⏱️ **30 minutes** of simulation = **24 hours** of chaos testing
+- 🎲 Faulty seed found? **Replay it locally**, deterministically
+
+::right::
+
+<img src="/materia-sim-ci.png" class="rounded shadow" />
 
 ---
 
