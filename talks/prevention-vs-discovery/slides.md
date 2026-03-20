@@ -78,6 +78,20 @@ Junior and mid-level engineers now require senior sign-off for any AI-assisted c
 
 ---
 
+# Code is cheap, verification is scarce 💡
+
+> "Code is becoming like fast food. Cheap, fast, everywhere."
+> — João Alves
+
+- 🧠 **LLMs amplify expertise, they don't replace it**
+- The knowledge of **what to build and why** remains the bottleneck
+- The execution barrier dropped — **design and verification** became more valuable
+
+> "AI will in the very best case drastically increase the stakes for software correctness."
+> — Will Wilson
+
+---
+
 # Your system interacts with two things
 
 <div class="flex justify-center mt-8">
@@ -164,6 +178,8 @@ To cover all possibilities, we need to write **4 × 5 × 4 × 3 × 4 × 4 = 3,84
 - **We cannot know how our software will be used!**
 
 > "You test what you imagine. Bugs hide in combinations you didn't."
+
+LLMs generate code fast but don't imagine edge cases either.
 
 ---
 
@@ -290,7 +306,7 @@ All problems observed at R=1 **persist at R=3**.
 
 ---
 
-# "Your error handling catches it" — concurrency bugs ⚠️
+# "My app has no concurrency bugs" ⚠️
 
 *[TaxDC: A Taxonomy of Non-Deterministic Concurrency Bugs](https://ucare.cs.uchicago.edu/pdf/asplos16-TaxDC.pdf) — Leesatapornwongsa et al., ASPLOS 2016*
 
@@ -340,9 +356,20 @@ What about the ones you didn't?
 
 > — Will Wilson
 
-
 ---
 
+# Prevention vs Discovery 🔬
+
+|  | Prevention | Discovery |
+|--|-----------|-----------|
+| **Question** | "Did we break what used to work?" | "What else is broken?" |
+| **Method** | Regression tests, CI, code review | Simulation, fault injection, PBT |
+| **Finds** | Known bugs returning | Unknown bugs lurking |
+| **Scales** | Linearly with developer effort | Multiplicatively with compute |
+
+LLMs excel at prevention — give them a spec, they write tests. But discovery requires different infrastructure.
+
+---
 
 # What developers want from tests ✅
 
@@ -392,6 +419,43 @@ If your system survives this, we can have more confidence it will **survive prod
     <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
   </div>
 </div>
+
+---
+layout: two-cols
+---
+
+::title::
+
+# From tests to test generators 🎲
+
+::default::
+
+```java
+// ❌ One test = one combination
+@Test void guestCreditCardStandard() {
+  checkout(GUEST, CREDIT_CARD, STANDARD,
+           NO_PROMO, IN_STOCK, EUR);
+  // assert...
+}
+// × 648 more...
+```
+
+::right::
+
+```java
+// ✅ One generator = all combinations
+Random rand = new Random();
+
+UserType user =
+  pickRandom(rand, UserType.values());
+PaymentMethod payment =
+  pickRandom(rand, PaymentMethod.values());
+// …
+checkout(user, payment, shipping,
+         promo, stock, currency);
+```
+
+Add a feature? Add one enum value, not 100 tests.
 
 ---
 layout: two-cols
@@ -703,6 +767,8 @@ layout: two-cols
 
 All autonomously. No human in the loop.
 
+The feedback loop works as well for junior engineers as for AI — it lets them discover what they don't know.
+
 ::right::
 
 <div class="flex justify-center">
@@ -793,17 +859,16 @@ layout: two-cols
 
 ---
 
-# foundationdb-rs: Discovery at scale 🦀
+# Claude Code + Simulation in action 🤖🔬
 
-- **~15 million downloads**, solo maintainer
-- Used by Apache OpenDAL, SurrealDB, and others
-- ~130 unsafe blocks requiring careful FFI management
+**Claude Code autonomously implemented real components under simulation:**
 
-**BindingTester**: randomized, seeded operations that explore the API surface continuously 🔄
+- 🦀 **foundationdb-rs** — binding tester with ~219 days of continuous exploration/month
+- 🗳️ **Leader election** — generated **13 machine-checkable invariants**, verified under network partitions, process crashes, and clock skew
+- 🏗️ **Materia** — implemented workflow engine, index types, query support — and found deep bugs through simulation along the way
+- 🔍 **moonpool** — Developing a distributed system simulation framework
 
-- Compares Rust implementation against reference implementations
-- Runs **hourly on GitHub Actions** — ~219 days of continuous exploration per month
-- Tests across multiple OS, FDB versions, Rust compiler versions
+> "The LLM proposes, simulation disposes."
 
 ---
 
@@ -823,7 +888,9 @@ Remember the HDFS incident? Network partition + disk full + restart = NullPointe
 
 That exact combination? **It's a seed in a simulation.** Found in seconds. Fixed before production. **No 3am wake-up call.** 😴
 
-LLMs generate code faster than ever. DST catches the bugs they introduce. Together: **autonomous discovery**.
+LLMs generate code faster than ever. DST catches the bugs they introduce. Together: **autonomous discovery** 🤖🧪
+
+The feedback loop works for junior engineers and AI alike — it lets them discover what they don't know.
 
 **The tools exist. The techniques are proven. Testing must evolve from prevention to discovery.**
 
