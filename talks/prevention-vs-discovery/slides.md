@@ -621,24 +621,6 @@ Run it all at once, with random inputs, checking properties...
 
 ---
 
-# Teach a computer to test 🤖
-
-**Give a computer a test, it finds a bug. Teach a computer to test, it finds bugs forever.**
-
-<div class="flex justify-center mt-6">
-  <div class="flex items-center gap-4 text-lg">
-    <div class="px-4 py-2 border-2 border-current rounded">🧪 Properties</div>
-    <span class="text-2xl">+</span>
-    <div class="px-4 py-2 border-2 border-current rounded">🎲 Randomness</div>
-    <span class="text-2xl">+</span>
-    <div class="px-4 py-2 border-2 border-current rounded">💪 Enough work</div>
-    <span class="text-2xl">=</span>
-    <div class="px-6 py-3 border-2 rounded font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">⚙️ DST</div>
-  </div>
-</div>
-
----
-
 # The price of determinism 🔧
 
 Sources of non-determinism you must eliminate:
@@ -660,21 +642,21 @@ A failing seed is a time machine ⏪
 
 ---
 
-# Simulating all the things 🎯
+# Teach a computer to test 🤖
 
-<div class="flex justify-center mt-8">
-  <div class="flex flex-col items-center gap-6">
-    <div class="flex gap-16">
-      <div class="flex flex-col items-center gap-4">
-        <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎲 Simulated Users</div>
-        <div class="text-2xl">↕</div>
-      </div>
-      <div class="flex flex-col items-center gap-4">
-        <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">😈 Simulated World</div>
-        <div class="text-2xl">↕</div>
-      </div>
-    </div>
-    <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
+**Give a computer a test, it finds a bug. Teach a computer to test, it finds bugs forever.**
+
+<div class="flex justify-center mt-6">
+  <div class="flex items-center gap-4 text-lg">
+    <div class="px-4 py-2 border-2 border-current rounded">🧪 Properties</div>
+    <span class="text-2xl">+</span>
+    <div class="px-4 py-2 border-2 border-current rounded">🎲 Randomness</div>
+    <span class="text-2xl">+</span>
+    <div class="px-4 py-2 border-2 border-current rounded">🎯 Determinism</div>
+    <span class="text-2xl">+</span>
+    <div class="px-4 py-2 border-2 border-current rounded">💪 Enough work</div>
+    <span class="text-2xl">=</span>
+    <div class="px-6 py-3 border-2 rounded font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">⚙️ DST</div>
   </div>
 </div>
 
