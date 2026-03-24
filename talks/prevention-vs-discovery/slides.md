@@ -14,7 +14,7 @@ Pierre Zemb — Clever Cloud
 
 # $ whoami 👋
 
-- Pierre Zemb — Staff Engineer @ Clever Cloud 🇫🇷
+- Pierre Zemb — Staff Engineer @ [Clever Cloud](https://clever.cloud) 🇫🇷
 - Former ISEN student
 - Specialized in distributed systems
   - Building, contributing, operating...
@@ -22,6 +22,8 @@ Pierre Zemb — Clever Cloud
 - Squash player
 
 ---
+
+# $ (also) whoami 👋
 
 <img src="/thisisfine.gif" class="mx-auto" />
 
@@ -43,7 +45,7 @@ Pierre Zemb — Clever Cloud
 
 # Dev vs Prod 🚗
 
-**Learning to drive ≠ Driving in Paris**
+**Learning to drive ≠ Driving in real-life**
 
 - 📝 Dev = passing the theory exam
 - 🏎️ Prod = driving in Paris rush hour
@@ -95,6 +97,8 @@ LLMs **amplify expertise, they don't replace it.**
 ---
 
 # Let's focus on testing 🔍
+
+The goal isn't faster code. It's **better software**.
 
 We can generate code. But how do we verify it actually works?
 
@@ -464,7 +468,7 @@ Add a feature? Add one enum value, not 100 tests.
 
 # Properties, not test cases 🧪
 
-```java
+```java {4}
 // Don't assert specific values — assert relationships
 for (int i = 0; i < 1000; i++) {
   UserType user = pickRandom(rand, UserType.values());
@@ -506,6 +510,24 @@ Properties look like specs. They compile as code. They hold for **all** inputs.
     <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
   </div>
 </div>
+
+---
+
+# Choose your boundary 🔌
+
+**Don't fake PostgreSQL. Fake your access to it.**
+
+<div class="flex justify-center mt-4">
+  <div class="flex flex-col items-stretch w-96">
+    <div class="px-4 py-2 border-2 border-current rounded-t-lg text-center text-sm font-bold">Your Business Logic</div>
+    <div class="px-4 py-2 border-2 border-x-current border-b-current text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">✂️ Service Layer — UserRepository, S3Client, ...</div>
+    <div class="px-4 py-2 border-2 border-x-current border-b-current text-center text-sm opacity-40">Client Libraries (JDBC, AWS SDK, ...)</div>
+    <div class="px-4 py-2 border-2 border-x-current border-b-current text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">✂️ OS primitives — network, disk, clock</div>
+    <div class="px-4 py-2 border-2 border-x-current border-b-current rounded-b-lg text-center text-sm opacity-40">Hardware</div>
+  </div>
+</div>
+
+Your fake must be **self-sustaining** — a state machine, not canned responses.
 
 ---
 
@@ -561,24 +583,9 @@ Same interface. One talks to Postgres. One lives in memory. **Your system can't 
 
 ---
 
-# Choose your boundary 🔌
-
-**Don't fake PostgreSQL. Fake your access to it.**
-
-The boundary depends on what you control:
-
-| What you control | Fake boundary | Examples |
-|---|---|---|
-| **External deps** (you don't own 🐘) | Your service layer | `UserRepository`, `S3Client`, `QueuePublisher` |
-| **Everything** (you build the infra) | OS primitives | network, disk I/O, clock |
-
-The fake can only be autonomous at the boundary you fully control.
-
----
-
 # Step 2: Now break everything 💥
 
-```java {6-7}
+```java {5-9}
 class FakeUserRepository implements UserRepository {
   Map<Long, User> store = new HashMap<>();
   Random rand;
@@ -671,7 +678,8 @@ A failing seed is a time machine ⏪
   </div>
 </div>
 
-This is **Deterministic simulation testing (DST)!**
+**Deterministic Simulation Testing (DST):**
+Simulated users + simulated world + seeded determinism = reproducible bug discovery at scale.
 
 ---
 layout: two-cols
