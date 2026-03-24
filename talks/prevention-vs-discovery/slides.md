@@ -371,17 +371,6 @@ Jepsen found — even in **healthy clusters** with zero faults:
   </div>
 </div>
 
----
-
-# Prevention vs Discovery 🔬
-
-|  | Prevention | Discovery |
-|--|-----------|-----------|
-| **Question** | "Did we break what used to work?" | "What else is broken?" |
-| **Method** | Regression tests, CI, code review | Simulation, fault injection, PBT |
-| **Finds** | Known bugs returning | Unknown bugs lurking |
-| **Scales** | Linearly with developer effort | Multiplicatively with compute |
-
 LLMs excel at prevention — give them a spec, they write tests. But discovery requires different infrastructure.
 
 ---
@@ -495,7 +484,9 @@ Properties look like specs. They compile as code. They hold for **all** inputs.
 
 # How to simulate the world? 🌍
 
-<div class="flex justify-center mt-8">
+Replace real dependencies with **fakes** — lightweight, in-memory implementations that actually hold state.
+
+<div class="flex justify-center mt-4">
   <div class="flex flex-col items-center gap-6">
     <div class="flex gap-16">
       <div class="flex flex-col items-center gap-4">
@@ -513,25 +504,23 @@ Properties look like specs. They compile as code. They hold for **all** inputs.
 
 ---
 
-# Choose your boundary 🔌
-
-**Don't fake PostgreSQL. Fake your access to it.**
+# Step 1: Identify fallible parts of your code 🔌
 
 <div class="flex justify-center mt-4">
-  <div class="flex flex-col items-stretch w-96">
+  <div class="flex flex-col items-stretch w-[28rem]">
     <div class="px-4 py-2 border-2 border-current rounded-t-lg text-center text-sm font-bold">Your Business Logic</div>
-    <div class="px-4 py-2 border-2 border-x-current border-b-current text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">✂️ Service Layer — UserRepository, S3Client, ...</div>
-    <div class="px-4 py-2 border-2 border-x-current border-b-current text-center text-sm opacity-40">Client Libraries (JDBC, AWS SDK, ...)</div>
-    <div class="px-4 py-2 border-2 border-x-current border-b-current text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">✂️ OS primitives — network, disk, clock</div>
+    <div class="relative px-4 py-2 border-2 border-x-current border-b-current text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">✂️ Service Layer — UserRepository, S3Client, ...<span class="absolute -right-28 top-1/2 -translate-y-1/2 text-xs opacity-60">← fake here</span></div>
+    <div class="px-4 py-2 border-2 border-x-current border-b-current text-center text-sm opacity-40">Client Libraries (JDBC, SDK, HTTP,...)</div>
+    <div class="relative px-4 py-2 border-2 border-x-current border-b-current text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">✂️ OS primitives — network, disk, clock<span class="absolute -right-28 top-1/2 -translate-y-1/2 text-xs opacity-60">← fake here</span></div>
     <div class="px-4 py-2 border-2 border-x-current border-b-current rounded-b-lg text-center text-sm opacity-40">Hardware</div>
   </div>
 </div>
 
-Your fake must be **self-sustaining** — a state machine, not canned responses.
+Don't fake PostgreSQL. Fake your **access** to it.
 
 ---
 
-# Step 1: Define the boundary 🎭
+# Step 2: Define the boundary 🎭
 
 ```java
 interface UserRepository {
@@ -583,7 +572,7 @@ Same interface. One talks to Postgres. One lives in memory. **Your system can't 
 
 ---
 
-# Step 2: Now break everything 💥
+# Step 3: Now break everything 💥
 
 ```java {5-9}
 class FakeUserRepository implements UserRepository {
