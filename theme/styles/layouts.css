@@ -2,6 +2,10 @@
   --theme-accent: #F57C00;
 }
 
+body {
+  --theme-accent: var(--slidev-theme-accent, #F57C00);
+}
+
 .slidev-layout {
   background: #ffffff;
   color: #1a1a1a;

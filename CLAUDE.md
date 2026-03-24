@@ -45,5 +45,5 @@ pnpm export           # Export to PDF (needs playwright-chromium)
 ## Theme Conventions
 
 - Two-cols layout uses named slots: `::title::` (full-width header), `::default::` (left), `::right::` (right)
-- Override accent color per deck: add `:root { --theme-accent: #yourcolor; }` in a `<style>` block
+- Override accent color per deck via headmatter: `themeConfig: { accent: '#yourcolor' }`
 - Bold text (`**text**`) renders in accent color

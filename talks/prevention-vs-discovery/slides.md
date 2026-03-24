@@ -1,6 +1,8 @@
 ---
 theme: slidev-theme-pz
 title: "Testing: Prevention vs Discovery"
+themeConfig:
+  accent: '#ce3942'
 ---
 
 # Testing: Prevention vs Discovery 🔬
@@ -46,8 +48,9 @@ Pierre Zemb — Clever Cloud
 - 📝 Dev = passing the theory exam
 - 🏎️ Prod = driving in Paris rush hour
 - Recovery paths, split brain, cascading failures — none of this exists on localhost
-
-How can we cultivate a production-oriented culture without assigning everyone a pager?
+- And more importantly:
+  - **how can we test any fix?**
+  - How can we **cultivate a production-oriented culture** for developers?
 
 ---
 layout: two-cols
@@ -61,7 +64,7 @@ layout: two-cols
 
 ::default::
 
-*Amazon, March 2026*
+[*Amazon holds engineering meeting following AI-related outages, March 2026*](https://www.ft.com/content/7cab4ec7-4712-4137-b602-119a44f771de)
 
 > "Trend of incidents" with "high blast radius" and "Gen-AI assisted changes"
 > — Amazon internal briefing, reported by the Financial Times
@@ -70,7 +73,7 @@ Junior and mid-level engineers now require senior sign-off for any AI-assisted c
 
 ::right::
 
-*SWE-CI — Chen et al., 2026*
+[*SWE-CI: Evaluating Agent Capabilities in Maintaining Codebases via Continuous Integration — Chen et al., 2026*](https://arxiv.org/pdf/2603.03823)
 
 > "Most models achieve a zero-regression rate below 0.25"
 
@@ -78,21 +81,26 @@ Junior and mid-level engineers now require senior sign-off for any AI-assisted c
 
 ---
 
-# Code is cheap, verification is scarce 💡
+# When code becomes cheap, what becomes expensive? 💡
 
 > "Code is becoming like fast food. Cheap, fast, everywhere."
-> — João Alves
+> — [João Alves](https://world.hey.com/joaoqalves/when-software-becomes-fast-food-23147c9b)
 
-- 🧠 **LLMs amplify expertise, they don't replace it**
-- The knowledge of **what to build and why** remains the bottleneck
-- The execution barrier dropped — **design and verification** became more valuable
+- 🧠 **Knowing what to build** — specs, design, architecture
+- 🔍 **Knowing if it works** — testing, verification, observability
+- ⚖️ **Knowing when it breaks** — failure modes, edge cases, regressions
 
-> "AI will in the very best case drastically increase the stakes for software correctness."
-> — Will Wilson
+LLMs **amplify expertise, they don't replace it.**
 
 ---
 
-# Your system interacts with two things
+# Let's focus on testing 🔍
+
+We can generate code. But how do we verify it actually works?
+
+---
+
+# Your system interacts with two things 🖥️
 
 <div class="flex justify-center mt-8">
   <div class="flex flex-col items-center gap-6">
@@ -109,9 +117,6 @@ Junior and mid-level engineers now require senior sign-off for any AI-assisted c
     <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
   </div>
 </div>
-
-- **Users**: unpredictable behavior, edge cases, adversarial inputs
-- **World**: machines die, networks partition, disks corrupt, clocks drift, dependencies fail
 
 ---
 
@@ -171,15 +176,10 @@ To cover all possibilities, we need to write **4 × 5 × 4 × 3 × 4 × 4 = 3,84
 
 # We can't test everything 🤯
 
-- Every new feature or edge case **multiplies** the complexity
+- You test what you imagine. Bugs hide in combinations you didn't.
 - Manual or naive testing strategies can't keep up
-- Bugs hide in rare, high-dimensional combos
-- You may spend days writing tests for a relatively small feature
-- **We cannot know how our software will be used!**
 
-> "You test what you imagine. Bugs hide in combinations you didn't."
-
-LLMs generate code fast but don't imagine edge cases either.
+**We need a way to explore!**
 
 ---
 
@@ -201,9 +201,9 @@ LLMs generate code fast but don't imagine edge cases either.
   </div>
 </div>
 
---- 
+---
 
-# Can our code handle the world? 🌍
+# What can go wrong? 🌍
 
 <div class="flex justify-center mt-6">
   <div class="flex flex-col items-center gap-4">
@@ -220,9 +220,11 @@ LLMs generate code fast but don't imagine edge cases either.
   </div>
 </div>
 
-Everything around your app can fail, lie, or slow down.
+You probably handle the happy path. What about the other **3,839 combinations**?
 
-How well do you know your world?
+---
+
+# What do you believe about your system? 🤔
 
 ---
 
@@ -238,7 +240,10 @@ How well do you know your world?
 
 ---
 
-# "Your disks are reliable" 💾
+# "My data is safe on disk" 💾
+
+* [*SSD Reliability*](https://www.usenix.org/system/files/fast20-maneas.pdf) FAST 2020
+* [*Data Corruption in the Storage Stack*](https://www.usenix.org/legacy/events/fast08/tech/full_papers/bairavasundaram/bairavasundaram.pdf) FAST 2008
 
 - Silent corruption
   - 0.031% of SSDs per year
@@ -248,11 +253,10 @@ How well do you know your world?
   - 0.023% of SSDs per year
   - 0.466% of Nearline HDDs per year
 
-Sources: [*SSD Reliability*](https://www.usenix.org/system/files/fast20-maneas.pdf) FAST 2020 · [*Data Corruption in the Storage Stack*](https://www.usenix.org/legacy/events/fast08/tech/full_papers/bairavasundaram/bairavasundaram.pdf) FAST 2008
 
 ---
 
-# "fsync is reliable" 💾
+# "I called fsync, my data is safe" 💾
 
 *[Can Applications Recover from fsync Failures?](https://www.usenix.org/system/files/atc20-rebello.pdf) — Rebello et al., ATC 2020*
 
@@ -264,7 +268,7 @@ Tested on PostgreSQL, LMDB, LevelDB, SQLite, Redis — **none handle fsync failu
 
 ---
 
-# "ZooKeeper is unbreakable" 💾
+# "Consensus will recover from crashes" 💾
 
 *[Protocol-Aware Recovery for Consensus-Based Storage](https://www.usenix.org/system/files/conference/fast18/fast18-alagappan.pdf) — Alagappan et al., FAST 2018*
 
@@ -280,7 +284,7 @@ The researchers injected **2,401 corruption scenarios** into ZooKeeper:
 
 ---
 
-# "Your replicas protect you" 🛡️
+# "I have 3 replicas, I'm safe" 🛡️
 
 *[Redundancy Does Not Imply Fault Tolerance](https://www.usenix.org/system/files/conference/fast17/fast17-ganesan.pdf) — Ganesan et al., FAST 2017*
 
@@ -294,7 +298,7 @@ All problems observed at R=1 **persist at R=3**.
 
 ---
 
-# "Your error handling catches it" ⚠️
+# "We handle all our errors" ⚠️
 
 *[Simple Testing Can Prevent Most Critical Failures](https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-yuan.pdf) — Yuan et al., OSDI 2014*
 
@@ -306,7 +310,7 @@ All problems observed at R=1 **persist at R=3**.
 
 ---
 
-# "My app has no concurrency bugs" ⚠️
+# "We don't have concurrency bugs" ⚠️
 
 *[TaxDC: A Taxonomy of Non-Deterministic Concurrency Bugs](https://ucare.cs.uchicago.edu/pdf/asplos16-TaxDC.pdf) — Leesatapornwongsa et al., ASPLOS 2016*
 
@@ -316,7 +320,7 @@ All problems observed at R=1 **persist at R=3**.
 
 ---
 
-# "Your retries save you" 🔄
+# "We just retry on failure" 🔄
 
 *[Metastable Failures in the Wild](https://www.usenix.org/system/files/osdi22-huang-lexiang.pdf) — Huang et al., OSDI 2022*
 
@@ -330,7 +334,7 @@ All problems observed at R=1 **persist at R=3**.
 
 ---
 
-# "Your database does what the docs say" 📖
+# "We follow the documentation" 📖
 
 *[Jepsen: MariaDB Galera Cluster 12.1.2](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2)*
 
@@ -345,16 +349,23 @@ Jepsen found — even in **healthy clusters** with zero faults:
 
 ---
 
-# The Thesis 📜
+# We need to explore 🚀
 
-**Passing tests don't mean your system is reliable.**
-**They mean your system can handle the scenarios you imagined.**
-
-What about the ones you didn't?
-
-> "The very reason tests are needed — humans can't enumerate all control flow branches — is what makes it impossible for humans to write comprehensive tests."
-
-> — Will Wilson
+<div class="flex justify-center mt-8">
+  <div class="flex flex-col items-center gap-6">
+    <div class="grid grid-cols-2 gap-16">
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl text-center w-full">👤 <span style="color: var(--theme-accent);">Discover</span> user bugs?</div>
+        <div class="text-2xl">↕</div>
+      </div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl text-center w-full">🌍 <span style="color: var(--theme-accent);">Discover</span> infra bugs?</div>
+        <div class="text-2xl">↕</div>
+      </div>
+    </div>
+    <div class="px-12 py-6 border-2 border-current rounded-lg font-bold text-2xl">🖥️ Your System</div>
+  </div>
+</div>
 
 ---
 
@@ -421,72 +432,47 @@ If your system survives this, we can have more confidence it will **survive prod
 </div>
 
 ---
-layout: two-cols
----
 
-::title::
+# Remember our e-commerce API? 🛒
+
+**3,840 test cases** — and that was just the happy path.
+
+Writing them by hand? Not an option.
+
+What if we could **generate** them instead?
+
+---
 
 # From tests to test generators 🎲
 
-::default::
-
-```java
-// ❌ One test = one combination
-@Test void guestCreditCardStandard() {
-  checkout(GUEST, CREDIT_CARD, STANDARD,
-           NO_PROMO, IN_STOCK, EUR);
-  // assert...
-}
-// × 648 more...
-```
-
-::right::
-
 ```java
 // ✅ One generator = all combinations
-Random rand = new Random();
-
-UserType user =
-  pickRandom(rand, UserType.values());
-PaymentMethod payment =
-  pickRandom(rand, PaymentMethod.values());
+enum UserType { GUEST, LOGGED_IN, PREMIUM, BUSINESS }
+enum PaymentMethod { CREDIT_CARD, PAYPAL, APPLE_PAY, GIFT_CARD, BANK_TRANSFER }
 // …
-checkout(user, payment, shipping,
-         promo, stock, currency);
+
+Random rand = new Random();
+UserType user = pickRandom(rand, UserType.values());
+PaymentMethod payment = pickRandom(rand, PaymentMethod.values());
+// …
+checkout(user, payment, shipping, promo, stock, currency);
 ```
 
 Add a feature? Add one enum value, not 100 tests.
 
 ---
-layout: two-cols
----
-
-::title::
 
 # Properties, not test cases 🧪
 
-::default::
-
 ```java
-// prevention: one hardcoded case
-assertFalse(new User(GUEST).canUseSavedCards());
+// Don't assert specific values — assert relationships
+for (int i = 0; i < 1000; i++) {
+  UserType user = pickRandom(rand, UserType.values());
+  assertEquals(user.isAuthenticated(), user.canUseSavedCards());
+}
 ```
 
-- Tests **one specific scenario**
-- You write one test per case
-- Breaks if requirements change
-
-::right::
-
-```java
-// discovery: holds for ALL inputs
-assertEquals(
-  user.isAuthenticated(),
-  user.canUseSavedCards()
-);
-```
-
-Properties look like specs. They compile as code. They work for ALL random inputs.
+Properties look like specs. They compile as code. They hold for **all** inputs.
 
 ---
 
@@ -497,19 +483,9 @@ Properties look like specs. They compile as code. They work for ALL random input
 - 🦀 Rust: [proptest](https://docs.rs/proptest/latest/proptest/)
 - λ Haskell: QuickCheck
 
-**Instead of writing N tests, write a test GENERATOR.**
-
-Add a feature? Add one enum value, not 100 tests. A test generator run long enough will eventually output all possible tests you could have written.
-
----
-
-# Guided exploration beats brute force 🎮
-
-[Antithesis](https://antithesis.com/) is the leader in autonomous testing — their platform uses **guided random exploration** to find bugs in any software.
-
-**Demo:** they beat Super Mario Bros using only random inputs — no human, no scripting. Pure guided exploration. 🏆 See [Testing a Single-Node, Single Threaded, Distributed System Written in 1985](https://www.youtube.com/watch?v=m3HwXlQPCEU) by Will Wilson.
-
-<img src="/mario.png" class="h-40 mx-auto" />
+**The recipe:**
+- 🎲 **Randomize inputs** — let the computer explore combinations you'd never write by hand
+- 🧪 **Validate properties** — assert relationships that must hold for all inputs
 
 ---
 
@@ -533,62 +509,17 @@ Add a feature? Add one enum value, not 100 tests. A test generator run long enou
 
 ---
 
-# Simulating the World 🌐😈
+# Step 1: Define the boundary 🎭
 
-We need to inject chaos on our world:
+```java
+interface UserRepository {
+  void save(User user);
+  Optional<User> findById(long id);
+  List<User> findAll();
+}
+```
 
-- 🕰️ **Time**: delays, timeouts, retries, race conditions
-- 🌐 **Network**: latency, failure, disconnection, partitions
-- 💾 **Storage**: corruption, slow disks, full disks, misdirected I/O
-- 🗄️ **Databases**: stale reads, lost updates, connection drops mid-transaction
-- ⚙️ **External APIs**: timeouts, rate limits, partial failures
-- 🔐 **DNS, Auth, Caches**: resolution failures, token expiry, thundering herd
-
-To inject, you need to **control everything**.
-
----
-
-# Fakes: Simulating the World 🎭
-
-> "The system under test shouldn't even be able to tell whether it is interacting with a real implementation or a fake."
-> — Software Engineering at Google, Ch. 13
-
-<div class="flex justify-center mt-4">
-  <div class="flex flex-col items-center gap-3">
-    <div class="flex gap-6 items-start">
-      <div class="flex flex-col items-center gap-2 opacity-40">
-        <div class="text-xs font-bold uppercase tracking-wide">Production</div>
-        <div class="px-3 py-1 border-2 border-current rounded text-sm">🗄️ Real DB</div>
-        <div class="px-3 py-1 border-2 border-current rounded text-sm">🌐 Real Network</div>
-        <div class="px-3 py-1 border-2 border-current rounded text-sm">💾 Real Disk</div>
-      </div>
-      <div class="flex flex-col items-center gap-2 mt-5">
-        <div class="text-lg">←</div>
-        <div class="text-lg">←</div>
-        <div class="text-lg">←</div>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <div class="text-xs font-bold uppercase tracking-wide" style="color: var(--theme-accent);">Interface</div>
-        <div class="px-3 py-1 border-2 rounded text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">Storage</div>
-        <div class="px-3 py-1 border-2 rounded text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">Network</div>
-        <div class="px-3 py-1 border-2 rounded text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">FileSystem</div>
-      </div>
-      <div class="flex flex-col items-center gap-2 mt-5">
-        <div class="text-lg">→</div>
-        <div class="text-lg">→</div>
-        <div class="text-lg">→</div>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <div class="text-xs font-bold uppercase tracking-wide" style="color: var(--theme-accent);">Testing</div>
-        <div class="px-3 py-1 border-2 rounded text-sm" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎭 FakeDB + 💥</div>
-        <div class="px-3 py-1 border-2 rounded text-sm" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎭 FakeNet + 💥</div>
-        <div class="px-3 py-1 border-2 rounded text-sm" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎭 FakeFS + 💥</div>
-      </div>
-    </div>
-    <div class="text-xl">↕</div>
-    <div class="px-10 py-3 border-2 border-current rounded-lg font-bold text-lg">🖥️ Your System</div>
-  </div>
-</div>
+Your code depends on this interface, not on PostgreSQL.
 
 ---
 layout: two-cols
@@ -596,71 +527,37 @@ layout: two-cols
 
 ::title::
 
-# Fakes vs Mocks 🎭
+# Two implementations, one interface
 
 ::default::
 
-🃏 **Mocks**
+🗄️ **Production**
 
 ```java
-when(repo.findById(1))
-  .thenReturn(Optional.of(user));
+class PostgresUserRepository
+    implements UserRepository {
+  void save(User user) {
+    jdbc.execute(
+      "INSERT INTO users ...", user);
+  }
+}
 ```
-
-- Verify **calls**, not state
-- Break when you refactor
-- Don't catch real bugs
 
 ::right::
 
-✅ **Fakes**
+🎭 **Simulation**
 
 ```java
-FakeUserRepo repo = new FakeUserRepo();
-repo.save(user);
-assertEquals(user, repo.findById(1));
+class FakeUserRepository
+    implements UserRepository {
+  Map<Long, User> store = new HashMap<>();
+  void save(User user) {
+    store.put(user.id(), user);
+  }
+}
 ```
 
-- Verify **state**, not calls
-- Survive refactoring
-- Run in milliseconds
-
----
-
-# Fakes are easier than you think 🗺️
-
-Google's SWE Book: `FakeFileSystem` backed by a `HashMap<String, String>`. That's it.
-
-<div class="flex flex-col items-center gap-2 mt-4">
-  <div class="flex items-center gap-3 text-sm">
-    <div class="px-3 py-1 border-2 border-current rounded opacity-40 w-28 text-center">📁 File system</div>
-    <div>→</div>
-    <div class="px-3 py-1 border-2 rounded font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">HashMap</div>
-  </div>
-  <div class="flex items-center gap-3 text-sm">
-    <div class="px-3 py-1 border-2 border-current rounded opacity-40 w-28 text-center">☁️ S3</div>
-    <div>→</div>
-    <div class="px-3 py-1 border-2 rounded font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">HashMap</div>
-  </div>
-  <div class="flex items-center gap-3 text-sm">
-    <div class="px-3 py-1 border-2 border-current rounded opacity-40 w-28 text-center">🌐 DNS</div>
-    <div>→</div>
-    <div class="px-3 py-1 border-2 rounded font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">HashMap</div>
-  </div>
-  <div class="flex items-center gap-3 text-sm">
-    <div class="px-3 py-1 border-2 border-current rounded opacity-40 w-28 text-center">🗄️ Database</div>
-    <div>→</div>
-    <div class="px-3 py-1 border-2 rounded font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">HashMap</div>
-  </div>
-  <div class="flex items-center gap-3 text-sm">
-    <div class="px-3 py-1 border-2 border-current rounded opacity-40 w-28 text-center">📡 Network</div>
-    <div>→</div>
-    <div class="px-3 py-1 border-2 rounded font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">Buffer</div>
-  </div>
-</div>
-
-> A fake with 80% of features is better than no fake at all.
-
+Same interface. One talks to Postgres. One lives in memory. **Your system can't tell the difference.**
 
 ---
 
@@ -679,19 +576,41 @@ The fake can only be autonomous at the boundary you fully control.
 
 ---
 
-# Model real failures, not documented ones 📖
+# Step 2: Now break everything 💥
 
-*[Jepsen: MariaDB Galera Cluster 12.1.2](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2)*
+```java {6-7}
+class FakeUserRepository implements UserRepository {
+  Map<Long, User> store = new HashMap<>();
+  Random rand;
 
-MariaDB claims "no lost transactions" and "between Serializable and Repeatable Read."
+  void save(User user) {
+    if (rand.nextFloat() < 0.5)
+      throw new StorageException("Connection lost");
+    store.put(user.id(), user);
+  }
+}
+```
 
-Jepsen found — even in **healthy clusters** with zero faults:
+Same fake from Step 1. Now it fights back.
 
-- 💀 **Lost committed transactions**
-- 💀 **Lost Updates**
-- 💀 **Stale Reads**
+---
 
-**Weaker than Read Uncommitted.** Your fake should simulate how your system **behave in production**.
+# Be worse than production 😈
+
+Remember MariaDB Galera? Jepsen found **stale reads in healthy clusters**.
+
+Your fake should be **worse**: 50% stale reads, not 0.1%.
+
+If your system survives this, it **survives production**.
+
+---
+
+# What if we combined both? 🧩
+
+- 🎭 Fakes that **control** the world
+- 💥 Chaos that **injects failures** everywhere
+
+Run it all at once, with random inputs, checking properties...
 
 ---
 
@@ -713,23 +632,24 @@ Jepsen found — even in **healthy clusters** with zero faults:
 
 ---
 
-# The reproducibility problem 🔧
+# The price of determinism 🔧
 
-We have simulated users ✅ and a simulated fallible world ✅
+Sources of non-determinism you must eliminate:
 
-But every run is different. Found a bug? Good luck reproducing it.
+- 🧵 **Thread scheduling** → single-threaded cooperative execution
+- 🎲 **Random numbers** → seeded PRNG
+- 🕰️ **System time** → simulated clock
+- 📋 **HashMap iteration** → deterministic data structures
+- 🌐 **I/O** → simulated through fakes
 
-**Two sources of non-determinism to eliminate:**
-
-1. 🧵 **Thread scheduling** → single-threaded execution
-2. 🎲 **Random number generation** → seeded PRNG
+The payoff:
 
 ```
 u64 seed → entire execution determined
-Same seed = same decisions = same bugs. Every time.
+Same seed = same bugs. Every time.
 ```
 
-A failing seed is a time machine ⏪ — rewind, inspect, experiment.
+A failing seed is a time machine ⏪
 
 ---
 
@@ -751,6 +671,8 @@ A failing seed is a time machine ⏪ — rewind, inspect, experiment.
   </div>
 </div>
 
+This is **Deterministic simulation testing (DST)!**
+
 ---
 layout: two-cols
 ---
@@ -763,11 +685,11 @@ layout: two-cols
 
 <img src="/boris-cherny-tweet.png" class="rounded shadow" />
 
-**DST IS that feedback loop.**
+DST as **a feedback loop** works as well for:
+* junior engineers
+* AI
 
-All autonomously. No human in the loop.
-
-The feedback loop works as well for junior engineers as for AI — it lets them discover what they don't know.
+because it lets them **discover what they don't know**.
 
 ::right::
 
@@ -806,6 +728,8 @@ The feedback loop works as well for junior engineers as for AI — it lets them 
 
 
 ---
+
+# FoundationDB's simulation config 🔧
 
 <img src="/fdb-sim-config-full.png" class="w-full" />
 
@@ -868,7 +792,15 @@ layout: two-cols
 - 🏗️ **Materia** — implemented workflow engine, index types, query support — and found deep bugs through simulation along the way
 - 🔍 **moonpool** — Developing a distributed system simulation framework
 
-> "The LLM proposes, simulation disposes."
+---
+
+# What is the state of autonomous testing? 🎮
+
+[Antithesis](https://antithesis.com/) is the leader in autonomous testing — their platform uses **guided random exploration** to find bugs in any software.
+
+**Demo:** they beat Super Mario Bros using only random inputs — no human, no scripting. Pure guided exploration. 🏆 See [Testing a Single-Node, Single Threaded, Distributed System Written in 1985](https://www.youtube.com/watch?v=m3HwXlQPCEU) by Will Wilson.
+
+<img src="/mario.png" class="h-40 mx-auto" />
 
 ---
 
@@ -902,10 +834,11 @@ The feedback loop works for junior engineers and AI alike — it lets them disco
 
 | Level | What to do | What you get |
 |-------|-----------|-------------|
-| **1** 🧪 | Property-based testing | Explore user code paths |
-| **2** 🎭 | Fakes | Fast, deterministic tests |
-| **3** 😈 | Fault-injectable fakes | Discover edge cases |
-| **4** ⚙️ | Seed-driven DST | Reproducible bugs, autonomous discovery |
+| **1** 🎲 | Random workload generation | Test unusual combinations |
+| **2** 🧪 | Property-based testing | Flush out your system spec |
+| **3** 🎭 | Fakes | Fast, deterministic tests |
+| **4** 😈 | Fault-injectable fakes | Discover edge cases |
+| **5** ⚙️ | Seed-driven DST | Reproducible bugs, autonomous discovery |
 
 
 ---
