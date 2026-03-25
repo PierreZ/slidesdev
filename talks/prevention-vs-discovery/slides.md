@@ -5,6 +5,20 @@ themeConfig:
   accent: '#ce3942'
 ---
 
+<img src="/title.png" class="mx-auto h-96" />
+
+---
+
+<img src="/1774372533908.jpg" class="mx-auto h-96" />
+
+---
+
+<img src="/finistai-next.png" class="mx-auto h-96" />
+
+---
+layout: cover
+---
+
 # Testing: Prevention vs Discovery 🔬
 ## rethinking testing in the age of LLMs 🤔
 
@@ -19,6 +33,7 @@ Pierre Zemb — Clever Cloud
 - Specialized in distributed systems
   - Building, contributing, operating...
 - OSS maintainer
+- Co-leading the FinistDevs
 - Squash player
 
 ---
@@ -83,7 +98,7 @@ Junior and mid-level engineers now require senior sign-off for any AI-assisted c
 
 ---
 
-# When code becomes cheap, what becomes expensive? 💡
+# Cheap code, expensive what? 💡
 
 > "Code is becoming like fast food. Cheap, fast, everywhere."
 > — [João Alves](https://world.hey.com/joaoqalves/when-software-becomes-fast-food-23147c9b)
@@ -96,7 +111,7 @@ LLMs **amplify expertise, they don't replace it.**
 
 ---
 
-# Let's focus on testing 🔍
+# Let's focus on quality 🔍
 
 The goal isn't faster code. It's **better software**.
 
@@ -403,6 +418,8 @@ LLMs excel at prevention — give them a spec, they write tests. But discovery r
 </div>
 
 If your system survives this, we can have more confidence it will **survive production** 🦸
+
+Let's tackle these **one at a time**.
 
 ---
 
