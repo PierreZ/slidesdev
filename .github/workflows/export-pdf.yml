@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        talk: [demo, prevention-vs-discovery]
+        talk: [prevention-vs-discovery]
 
     steps:
       - uses: actions/checkout@v4
