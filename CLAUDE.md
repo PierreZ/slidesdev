@@ -36,11 +36,67 @@ pnpm export           # Export to PDF (needs playwright-chromium)
 
 ## Slide Conventions
 
-- **Storytelling above all** — slides should feel like a coffee break with a whiteboard, not an academic paper
-- **No click animations** (`v-click`, `v-clicks`) — split content into separate slides instead if a slide is too dense
-- Use emojis liberally on most slides (section headers, bullets, titles)
-- Keep slides punchy: 2-3 bullet points max per slide, split if denser
-- Use recurring visual motifs to create a narrative thread
+**Storytelling above all** — slides should feel like a coffee break with a whiteboard, not an academic paper. **No click animations** (`v-click`, `v-clicks`) — split content into separate slides instead.
+
+### Narrative Structure
+- Follow a **problem → evidence → solution → proof → call-to-action** arc
+- Open with a specific war story (inciting incident), close by calling back to it (**bookending**)
+- Introduce a recurring visual motif early (e.g. a diagram), then modify it throughout the talk (highlight/dim elements to shift focus)
+- **Concrete before abstract**: always a story or example first, then the concept
+- Build concepts incrementally — each section's output becomes the next section's input
+- Include a "not a silver bullet" / limitations slide before concluding
+- End with an actionable takeaway (adoption table, checklist, or spectrum)
+- Alternate pace: heavy content slide → breather/transition slide → heavy content slide
+
+### Slide Titles
+- Every `# h1` ends with a trailing emoji: `# Title here 🔬`
+- Titles are conversational: questions, imperatives, or quoted beliefs to bust
+- Good: `# What do you believe about your system? 🤔`, `# Be worse than production 😈`, `# "The network is reliable" 🌐`
+- Bad: `# Network Reliability Analysis`, `# Section 3: Testing Approaches`
+
+### Content Density
+- **Bullet slides**: 2-4 bullets, 1 line each, 1 level of sub-bullets max
+- **Quote slides**: 1-2 blockquotes + 1-2 lines of commentary below
+- **Code slides**: <15 lines with line highlighting (` ```java {4} `, ` ```java {5-9} `)
+- **Diagram slides**: single visual element, no competing text
+- **Transition slides**: 1-3 punchy lines to shift topic (often a rhetorical question)
+- If a slide feels dense, **split it** — don't compress
+
+### Emoji Conventions
+- Trailing emoji on every h1 title
+- Leading emoji on bullet points as visual anchors
+- Assign one emoji per concept and reuse it consistently throughout the talk (e.g. 👤=users, 🌍=world, 🖥️=system)
+
+### Formatting
+- `**bold**` for key phrases (renders in accent color via theme)
+- `*italics*` for paper/article titles
+- Inline `[links](url)` to sources — always cite
+- Code blocks with language tag + optional line highlighting
+- Blockquotes (`>`) for direct quotes, always attributed
+
+### Visual Diagrams (HTML)
+- Use Tailwind HTML for structural diagrams: `flex`, `border-2`, `rounded-lg`, `gap`, `grid`
+- Highlight focused elements with accent color: `style="border-color: var(--theme-accent); color: var(--theme-accent);"`
+- Dim de-emphasized elements with `opacity-40` class
+- Reuse the same diagram template with progressive modifications across slides — this creates the visual motif
+
+### Tone & Voice
+- Conversational: "Let's imagine...", "What if we...", "Remember our..."
+- Slightly irreverent, no hedging — strong statements backed by data
+- Rhetorical questions as slide titles to engage the audience
+- Humor through emoji reactions to serious stats (😱, 💀, 😈)
+
+### Research Citations
+- Format: `*[Paper Title](url) — Author et al., Venue Year*`
+- Follow with blockquoted key findings, **bold the key numbers/percentages**
+- Add 1-2 lines of commentary that contextualizes for the audience
+
+### Layout Guidance
+- `cover` → title slide only (once, at the start)
+- default (no layout) → most content slides
+- `two-cols` → comparisons (code vs code, concept vs visual, tweet + diagram)
+- `end` → closing slide only (once, at the end)
+- Image-only slides → just `<img>` tag centered, no layout specified
 
 ## Theme Conventions
 
