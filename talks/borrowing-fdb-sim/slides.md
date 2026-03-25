@@ -1,37 +1,26 @@
 ---
 theme: slidev-theme-pz
 title: "Borrowing FoundationDB's Simulator for Layer Development"
+layout: cover
 themeConfig:
   accent: '#BB77FF'
----
-layout: cover
 ---
 
 # Borrowing FoundationDB's Simulator 🧪
 ## for Layer Development
 
-Pierre Zemb — Staff Engineer @ Clever Cloud · Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs)
+Pierre Zemb — Staff Engineer @ Clever Cloud 🇫🇷 · Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs)
 
 ---
 
-# We were traumatized by HBase 😱
+# From HBase trauma to Materia 🏗️
 
-- Previously operated a **70-machine Hadoop/HBase cluster**
-- We knew the value of key-value stores, but we needed something **rock-solid**
-- Found FoundationDB: **deterministic simulation testing** baked into the core
-- 3+ years in production — **FDB never woke us up at 3 AM** 😴
-
----
-
-# Then we started building Materia 🏗️
-
-A **serverless multi-model database** on top of FoundationDB:
-
-- 🗃️ Schema enforcement & record types
-- 🔍 Secondary indexes (count, max-ever, fan-out, composite, nested)
-- 📊 Query optimization with DataFusion
-- 🏢 Multi-tenant isolation — billions of logical databases
-- 👥 Team of **6 engineers** building what normally takes 60
+- 😱 Operated a **270-machine HBase cluster**. Never again.
+- Found FDB: **simulation-tested**, rock-solid — never woke us up at 3 AM
+- Built **Materia**: serverless multi-model database on FDB
+  - Indexes, query planner, quotas, multi-tenant isolation
+- 👥 Team of **6 engineers, only 1 with distributed systems background**
+  - How do you let everyone contribute to a distributed database **safely**?
 
 ---
 
@@ -48,33 +37,17 @@ FoundationDB tests itself brilliantly via **deterministic simulation**:
 
 ---
 
-# But our layer code... 😰
+# But our layer code... 🤔
 
 FDB tests **FDB**. Not our code.
 
-<div class="flex justify-center mt-8">
+<div class="flex justify-center mt-6">
   <div class="flex flex-col items-center gap-4">
     <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl opacity-40">🛡️ FDB Core — battle-tested under simulation</div>
     <div class="text-2xl">↕</div>
     <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">😰 Our Layer — indexes, queries, quotas, KV, KMS, ETCD...</div>
   </div>
 </div>
-
-Our indexes, our query planner, our quota system — **untested under chaos**.
-
----
-
-# Can we just... borrow their simulator? 🤔
-
-The complexity was coming fast:
-
-- 🗃️ Secondary indexes with concurrent updates
-- 📊 Query planner correctness
-- 💰 Quota enforcement under failures
-- 🔐 KMS key management
-- 🗳️ Leader election
-
-We couldn't wait for production to tell us if our code was correct.
 
 **What if we could run our Rust code inside FDB's actual simulator?**
 
@@ -106,42 +79,24 @@ Same deterministic chaos. Same network partitions. Same machine crashes. **But n
 
 ---
 
-# The async runtime swap 🔄
+# Hacking in: async swap + determinism 🔄
 
-The key insight: Rust's **swappable async runtime** is the unlock.
+Rust's **swappable async runtime** is the unlock:
 
 ```rust
-// Instead of tokio, we use FDB's event loop as our executor
+// Replace tokio with FDB's event loop as our executor
 foundationdb::future::CUSTOM_EXECUTOR_HOOK
     .set(poll_pending_tasks)
     .unwrap();
 ```
 
-Our custom executor hooks into **fdbserver's event loop**:
+The determinism tax — everything non-deterministic must go:
 
-- FDB futures resolve through the simulator's deterministic scheduler
-- No tokio, no real threads — everything under simulation's control
-- `fdb_spawn()` queues tasks, simulator advances them cooperatively
+- 🎲 `rand` crate → `context.rnd()` (seeded by simulator)
+- 🕰️ `SystemTime::now()` → `context.now()` (simulated clock)
+- 📋 `HashMap` → `BTreeMap` (RandomState breaks reproducibility)
 
-**Other languages can't easily do this.** Rust's trait-based async made it possible.
-
----
-
-# The determinism tax 💀
-
-Everything that breaks determinism must be eliminated:
-
-- 🎲 `rand` crate → use `context.rnd()` (seeded by simulator)
-- 🕰️ `SystemTime::now()` → use `context.now()` (simulated clock)
-- 📋 `HashMap` → use `BTreeMap` (RandomState breaks reproducibility)
-- 🧵 Real threads → single-threaded cooperative execution
-
-```
-seed: u64 → entire execution determined
-Same seed = same bugs. Every time.
-```
-
-A failing seed is a **time machine** — replay it locally, deterministically ⏪
+A failing seed is a **time machine** — same seed = same bugs, every time ⏪
 
 ---
 
@@ -167,24 +122,6 @@ impl WorkloadContext {
     fn trace(&self, ...);        // log to FDB trace files
 }
 ```
-
----
-
-# What runs alongside our code? 💥
-
-<img src="/fdb-sim-config-full.png" class="w-full" />
-
----
-
-<img src="/fdb-sim-config-cycle.png" class="w-full" />
-
----
-
-<img src="/fdb-sim-config-clogging.png" class="w-full" />
-
----
-
-<img src="/fdb-sim-config-attrition.png" class="w-full" />
 
 ---
 
@@ -252,7 +189,7 @@ layout: two-cols
 We didn't just borrow — we contributed upstream:
 
 - 🏗️ **FoundationDB core** — contributed the **pure C workload API** (FDB 7.4), replacing the fragile C++ ABI bridge
-- 🦀 **foundationdb-rs** — the `foundationdb-simulation` crate is **open source**, approaching **11 million downloads** for the bindings
+- 🦀 **foundationdb-rs** — the `foundationdb-simulation` crate is **open source**, approaching **15 million downloads** for the bindings
 - 📖 Blog posts: *[Diving into FDB's Simulation](https://pierrezemb.fr/posts/diving-into-foundationdb-simulation/)*, *[Writing Workloads That Find Bugs](https://pierrezemb.fr/posts/writing-rust-fdb-workloads-that-find-bugs/)*
 
 To our knowledge, **we're the first** to make this integration work — even Apple, Snowflake, and Datadog haven't integrated layer code into the simulator this way.
