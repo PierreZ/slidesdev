@@ -8,7 +8,7 @@ Monorepo for Slidev presentations with a shared custom theme (`slidev-theme-pz`)
 
 ## Development Environment
 
-Nix flake provides Node.js 22, corepack (pnpm), and slidev-cli. Enter with `nix develop` or automatically via direnv.
+Nix flake provides Node.js 22, corepack (pnpm), slidev-cli, and Playwright Chromium (for PDF export). Enter with `nix develop` or automatically via direnv.
 
 ## Commands
 
@@ -16,10 +16,16 @@ Nix flake provides Node.js 22, corepack (pnpm), and slidev-cli. Enter with `nix 
 # Run a presentation (from a talk directory, e.g. talks/demo/)
 pnpm dev              # Dev server at localhost:3030
 pnpm build            # Build static SPA
-pnpm export           # Export to PDF (needs playwright-chromium)
+pnpm export           # Export to PDF (Playwright provided by Nix flake)
 
 # Theme development — edit theme/ files, changes are live via pnpm link
 ```
+
+## CI/CD
+
+GitHub Actions workflow (`.github/workflows/export-pdf.yml`) exports all talks to PDF on every push to `main` (when `talks/` or `theme/` change). Uses `nix develop` for environment parity. PDFs are uploaded as artifacts with 30-day retention.
+
+To add a new talk to CI, add its directory name to the matrix in the workflow file.
 
 ## Architecture
 

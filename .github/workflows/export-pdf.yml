@@ -1,0 +1,37 @@
+name: Export Slides to PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'talks/**'
+      - 'theme/**'
+
+jobs:
+  export-pdf:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        talk: [demo, prevention-vs-discovery]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Install and export
+        run: |
+          nix develop --command bash -c "
+            cd talks/${{ matrix.talk }} &&
+            pnpm install &&
+            pnpm export
+          "
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.talk }}-slides-pdf
+          path: talks/${{ matrix.talk }}/slides-export.pdf
+          retention-days: 30
