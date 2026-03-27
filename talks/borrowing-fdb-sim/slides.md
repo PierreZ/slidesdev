@@ -13,33 +13,20 @@ Pierre Zemb — Staff Engineer @ Clever Cloud 🇫🇷 · Maintainer of [foundat
 
 ---
 
-# From HBase trauma to Materia 🏗️
+# From HBase trauma to FoundationDB 🏗️
 
 - 😱 Operated a **270-machine HBase cluster**. Never again.
-- Found FDB: **simulation-tested**, rock-solid — never woke us up at 3 AM
-- Built **Materia**: serverless multi-model database on FDB
+- 🔍 Found FoundationDB: **simulation-tested**, rock-solid
+- 🚀 Decided to build **Materia** on top — a serverless multi-model database
   - Indexes, query planner, quotas, multi-tenant isolation
-- 👥 Team of **6 engineers, only 1 with distributed systems background**
-  - How do you let everyone contribute to a distributed database **safely**?
 
 ---
 
-# FDB never woke us up 🛡️
+# I was scared 😰
 
-FoundationDB tests itself brilliantly via **deterministic simulation**:
-
-- 🌐 Network partitions
-- 💥 Machine crashes & reboots
-- 💾 Disk failures & corruption
-- 🔀 Cluster reconfigurations
-
-> "FoundationDB would not ship a release until it had run the equivalent of **a trillion combined CPU-hours** of simulation." — Will Wilson
-
----
-
-# But our layer code... 🤔
-
-FDB tests **FDB**. Not our code.
+- 👤 Started alone, team grew to **6 engineers** — almost none with distributed systems background
+- 🛡️ FDB tests **FDB** brilliantly — network partitions, crashes, disk failures, reconfigurations
+- 😰 But our **layer code** has **zero simulation coverage**
 
 <div class="flex justify-center mt-6">
   <div class="flex flex-col items-center gap-4">
@@ -49,58 +36,14 @@ FDB tests **FDB**. Not our code.
   </div>
 </div>
 
-**What if we could run our Rust code inside FDB's actual simulator?**
-
 ---
 
-# The architecture 🏗️
+# What if we could hack the simulator? 🔧
 
-<div class="flex justify-center mt-4">
-  <div class="flex flex-col items-center gap-3">
-    <div class="px-6 py-3 border-2 border-current rounded-lg font-bold text-lg">fdbserver -r simulation</div>
-    <div class="text-xl">↓ loads at runtime</div>
-    <div class="px-6 py-3 border-2 rounded-lg font-bold text-lg" style="border-color: var(--theme-accent); color: var(--theme-accent);">libmyworkload.so (Rust cdylib)</div>
-    <div class="text-xl">↓ calls</div>
-    <div class="flex gap-4">
-      <div class="px-4 py-2 border-2 border-current rounded text-sm">workloadCFactory()</div>
-      <div class="text-xl">→</div>
-      <div class="px-4 py-2 border-2 rounded text-sm" style="border-color: var(--theme-accent); color: var(--theme-accent);">RustWorkload</div>
-    </div>
-    <div class="text-xl">↓ lifecycle</div>
-    <div class="flex gap-6">
-      <div class="px-4 py-2 border-2 border-current rounded text-sm font-bold">setup()</div>
-      <div class="px-4 py-2 border-2 border-current rounded text-sm font-bold">start()</div>
-      <div class="px-4 py-2 border-2 border-current rounded text-sm font-bold">check()</div>
-    </div>
-  </div>
-</div>
-
-Same deterministic chaos. Same network partitions. Same machine crashes. **But now testing our layer code.**
-
----
-
-# Hacking in: async swap + determinism 🔄
-
-Rust's **swappable async runtime** is the unlock:
-
-```rust
-// Replace tokio with FDB's event loop as our executor
-foundationdb::future::CUSTOM_EXECUTOR_HOOK
-    .set(poll_pending_tasks)
-    .unwrap();
-```
-
-The determinism tax — everything non-deterministic must go:
-
-- 🎲 `rand` crate → `context.rnd()` (seeded by simulator)
-- 🕰️ `SystemTime::now()` → `context.now()` (simulated clock)
-- 📋 `HashMap` → `BTreeMap` (RandomState breaks reproducibility)
-
-A failing seed is a **time machine** — same seed = same bugs, every time ⏪
-
----
-
-# The workload contract 📝
+- 📖 Stumbled across FDB's [external workload API](https://apple.github.io/foundationdb/client-testing.html)
+- 🧙 Convinced our C++ wizard, built a **PoC in a weekend** — it worked!
+- 📦 `fdbserver` loads a `.so` at runtime → calls `setup()` / `start()` / `check()` under full chaos
+- 🎉 Open-sourced it in the [`foundationdb-simulation`](https://github.com/foundationdb-rs/foundationdb-rs) crate
 
 ```rust
 pub trait RustWorkload {
@@ -113,6 +56,16 @@ pub trait RustWorkload {
 }
 ```
 
+---
+
+# The determinism tax 🎲
+
+Everything non-deterministic must go:
+
+- 🎲 `rand` crate → `context.rnd()` (seeded by simulator)
+- 🕰️ `SystemTime::now()` → `context.now()` (simulated clock)
+- 📋 `HashMap` → `BTreeMap` (RandomState breaks reproducibility)
+
 ```rust
 pub struct WorkloadContext { /* ... */ }
 impl WorkloadContext {
@@ -123,9 +76,36 @@ impl WorkloadContext {
 }
 ```
 
+A failing seed is a **time machine** — same seed = same bugs, every time ⏪
+
 ---
 
-# The LLM feedback loop 🤖🔁
+# The ugly truth 🪳
+
+**90%** of initial bugs caught by simulation: **bad error encapsulation blocking retries**
+
+- 🔁 FDB transactions need proper retry loops — our wrappers swallowed errors
+- 🔍 Simulation catches what **code review misses**
+- 🤷 Most bugs are boring. That's the point.
+
+> Simulation doesn't find *clever* bugs first. It finds the *dumb* ones you shipped anyway.
+
+---
+
+# The real win: a mindset shift 🧠
+
+- 🐳 Initial setup: **20GB Docker images** matching FDB's C++ build env — nobody ran it locally
+- 💥 C++ ABI broke between FDB 7.1→7.3 (GCC→Clang switch)
+- 🎁 We contributed a **pure C API** upstream (FDB 7.4) — no more Docker
+- 🚀 Once devs could **build and run locally**, everything changed
+
+They stopped writing simplistic integration tests. They started writing **exploration strategies** — randomizing inputs, relying on the simulator to find edge cases.
+
+> 🔍 Example: reindexation bugs across index types — code worked for 3 common types, rare ones **completely broken**. No review caught them.
+
+---
+
+# The LLM feedback loop 🤖
 
 DST as the ultimate **LLM validation loop**:
 
@@ -158,83 +138,17 @@ Claude Code autonomously implemented **leader election** (13 invariants), **work
 | 💰 **Quotas** | Storage accounting under chaos |
 | ⚙️ **Workflow Engine** | State machine transitions |
 
-Team of 6 shipping with **production-level confidence**.
-
 > "We would never have succeeded without simulation." 🦸
-
----
-layout: two-cols
----
-
-::title::
-
-# Simulation runs continuously 🔄
-
-::default::
-
-- 💻 Engineers run **a few seeds locally** during development
-- 🔁 CI runs **more iterations** on every PR
-- ☁️ Cloud runs simulation **continuously**
-- ⏱️ **30 minutes** of simulation = **24 hours** of chaos testing
-- 🎲 Faulty seed found? **Replay it locally**, deterministically
-
-::right::
-
-<img src="/materia-sim-ci.png" class="rounded shadow" />
-
----
-
-# Contributing back 🎁
-
-We didn't just borrow — we contributed upstream:
-
-- 🏗️ **FoundationDB core** — contributed the **pure C workload API** (FDB 7.4), replacing the fragile C++ ABI bridge
-- 🦀 **foundationdb-rs** — the `foundationdb-simulation` crate is **open source**, approaching **15 million downloads** for the bindings
-- 📖 Blog posts: *[Diving into FDB's Simulation](https://pierrezemb.fr/posts/diving-into-foundationdb-simulation/)*, *[Writing Workloads That Find Bugs](https://pierrezemb.fr/posts/writing-rust-fdb-workloads-that-find-bugs/)*
-
-To our knowledge, **we're the first** to make this integration work — even Apple, Snowflake, and Datadog haven't integrated layer code into the simulator this way.
-
----
-
-# Production bugs caught in CI, not at 3 AM 😴
-
-<div class="flex justify-center mt-6">
-  <div class="flex gap-12">
-    <div class="flex flex-col items-center gap-4">
-      <div class="text-4xl">😱</div>
-      <div class="px-6 py-3 border-2 border-current rounded-lg text-center opacity-40">
-        <div class="font-bold">Before</div>
-        <div class="text-sm mt-1">Hope for the best</div>
-        <div class="text-sm">3 AM pages</div>
-        <div class="text-sm">Manual testing</div>
-      </div>
-    </div>
-    <div class="text-4xl self-center">→</div>
-    <div class="flex flex-col items-center gap-4">
-      <div class="text-4xl">😴</div>
-      <div class="px-6 py-3 border-2 rounded-lg text-center" style="border-color: var(--theme-accent); color: var(--theme-accent);">
-        <div class="font-bold">After</div>
-        <div class="text-sm mt-1">Simulation on every PR</div>
-        <div class="text-sm">Deterministic replay</div>
-        <div class="text-sm">Ship with confidence</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-The `foundationdb-simulation` crate is **open source**. If you're building on FDB, you can borrow the simulator too.
-
-- [github.com/foundationdb-rs/foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs)
-- [pierrezemb.fr](https://pierrezemb.fr)
 
 ---
 layout: end
 ---
 
-# Thank you! 🙏
+# Try it on your FDB layers 🎁
 
-**Borrowing FoundationDB's Simulator for Layer Development**
+The `foundationdb-simulation` crate is **open source** — approaching **15 million downloads** for the bindings.
 
-Pierre Zemb — [@PierreZ](https://x.com/PierreZ) · [pierrezemb.fr](https://pierrezemb.fr)
+- [github.com/foundationdb-rs/foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs)
+- [pierrezemb.fr](https://pierrezemb.fr)
 
-Questions? 💬
+Pierre Zemb — [@PierreZ](https://x.com/PierreZ) · Questions? 💬
