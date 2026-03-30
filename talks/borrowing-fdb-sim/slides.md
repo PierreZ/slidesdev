@@ -6,42 +6,115 @@ themeConfig:
   accent: '#BB77FF'
 ---
 
-# Borrowing FoundationDB's Simulator 🧪
-## for Layer Development
+# Borrowing FoundationDB's Simulator 
+## for Layer Development 🧪
 
 Pierre Zemb — Staff Engineer @ Clever Cloud 🇫🇷 · Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs)
 
 ---
+layout: two-cols
+---
 
+::title::
 # From HBase trauma to FoundationDB 🏗️
 
-- 😱 Operated a **270-machine HBase cluster**. Never again.
-- 🔍 Found FoundationDB: **simulation-tested**, rock-solid
-- 🚀 Decided to build **Materia** on top — a serverless multi-model database
-  - Indexes, query planner, quotas, multi-tenant isolation
+::default::
+
+### 😱 The pain
+
+- **270-machine HBase cluster**
+- Every network flap was a mess
+- Recovery = running `hbck`
+- Deleting shards/HFiles to restore consistency
+
+::right::
+
+<div class="opacity-0">
+
+### 🔍 The discovery
+
+- **FoundationDB**: simulation-tested, rock-solid
+- **Deterministic simulation**
+  - Network partitions, crashes, reboots
+- **Millions of runs per night**
+  - Every bug reproducible by seed
+
+</div>
+
+---
+layout: two-cols
+---
+
+::title::
+# From HBase trauma to FoundationDB 🏗️
+
+::default::
+
+### 😱 The pain
+
+- **270-machine HBase cluster**
+- Every network flap was a mess
+- Recovery = running `hbck`
+- Deleting shards/HFiles to restore consistency
+
+
+::right::
+
+### 🔍 The discovery
+
+- **FoundationDB**: simulation-tested, rock-solid
+- **Deterministic simulation**
+  - Network partitions, crashes, reboots
+- **Millions of runs per night**
+  - Every bug reproducible by seed
 
 ---
 
+<img src="/materia-sim-single.png" class="w-full rounded shadow" />
+
+---
+
+<img src="/materia-sim-triple.png" class="w-full rounded shadow" />
+
+---
+layout: two-cols
+---
+
+::title::
 # I was scared 😰
 
-- 👤 Started alone, team grew to **6 engineers** — almost none with distributed systems background
-- 🛡️ FDB tests **FDB** brilliantly — network partitions, crashes, disk failures, reconfigurations
-- 😰 But our **layer code** has **zero simulation coverage**
+::default::
 
-<div class="flex justify-center mt-6">
+- 🚀 Building **Serverless databases** on top of FDB
+  - Virtualized databases for:
+    - KV, KMS, ETCD, workflow engine...
+- 👤 Team went from **1** to **6 engineers**
+  - Almost none with dist-sys background
+- 😰 How do we build **confidence** to ship all of this?
+
+::right::
+
+<div class="flex justify-center h-full items-center">
   <div class="flex flex-col items-center gap-4">
-    <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl opacity-40">🛡️ FDB Core — battle-tested under simulation</div>
+    <div class="px-6 py-3 border-2 border-current rounded-lg font-bold opacity-40">🛡️ FDB Core — battle-tested</div>
     <div class="text-2xl">↕</div>
-    <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">😰 Our Layer — indexes, queries, quotas, KV, KMS, ETCD...</div>
+    <div class="px-6 py-3 border-2 rounded-lg font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">😰 Our Layer — untested</div>
   </div>
 </div>
+
+---
+layout: center 
+---
+
+# Can we hack our way into FDB's simulation framework? 🔧
 
 ---
 
 # What if we could hack the simulator? 🔧
 
 - 📖 Stumbled across FDB's [external workload API](https://apple.github.io/foundationdb/client-testing.html)
-- 🧙 Convinced our C++ wizard, built a **PoC in a weekend** — it worked!
+- 🧙 Convinced our C++ wizard, built a **PoC in a weekend**
+  - It worked!
 - 📦 `fdbserver` loads a `.so` at runtime → calls `setup()` / `start()` / `check()` under full chaos
 - 🎉 Open-sourced it in the [`foundationdb-simulation`](https://github.com/foundationdb-rs/foundationdb-rs) crate
 
@@ -58,50 +131,44 @@ pub trait RustWorkload {
 
 ---
 
-# The determinism tax 🎲
+# Boring bugs? 🪳
 
-Everything non-deterministic must go:
-
-- 🎲 `rand` crate → `context.rnd()` (seeded by simulator)
-- 🕰️ `SystemTime::now()` → `context.now()` (simulated clock)
-- 📋 `HashMap` → `BTreeMap` (RandomState breaks reproducibility)
-
-```rust
-pub struct WorkloadContext { /* ... */ }
-impl WorkloadContext {
-    fn rnd(&self) -> u32;        // deterministic random
-    fn now(&self) -> f64;        // simulated time
-    fn client_id(&self) -> i32;  // which simulated client
-    fn trace(&self, ...);        // log to FDB trace files
-}
-```
-
-A failing seed is a **time machine** — same seed = same bugs, every time ⏪
+* **90%** of initial bugs caught by simulation: **bad error encapsulation blocking retries**
+  - 🔁 FDB transactions need proper retry loops
+    - Our wrappers swallowed errors
 
 ---
 
-# The ugly truth 🪳
+# Boring bugs? 🪳
 
-**90%** of initial bugs caught by simulation: **bad error encapsulation blocking retries**
-
-- 🔁 FDB transactions need proper retry loops — our wrappers swallowed errors
-- 🔍 Simulation catches what **code review misses**
-- 🤷 Most bugs are boring. That's the point.
-
-> Simulation doesn't find *clever* bugs first. It finds the *dumb* ones you shipped anyway.
+* **90%** of initial bugs caught by simulation: **bad error encapsulation blocking retries**
+  - 🔁 FDB transactions need proper retry loops
+    - Our wrappers swallowed errors
+* But the **10% left** were **real bugs!**:
+  - 🔀 Non-idempotent writes replayed on `MaybeCommitted`
+  - 💥 Data corruption during reindexation across index types
+  - 🗜️ ETCD compaction deleting live data
+  - 📊 Query planner picking wrong indexes
+  - 👯 Two workers grabbing the same task
+  - 👑 Dual leader election under clock skew
+  - ...
 
 ---
 
 # The real win: a mindset shift 🧠
 
-- 🐳 Initial setup: **20GB Docker images** matching FDB's C++ build env — nobody ran it locally
-- 💥 C++ ABI broke between FDB 7.1→7.3 (GCC→Clang switch)
-- 🎁 We contributed a **pure C API** upstream (FDB 7.4) — no more Docker
-- 🚀 Once devs could **build and run locally**, everything changed
+> "We stopped asking 'how do I **test** this?' — we started asking 'how do I **generate tests forever**?'"
 
-They stopped writing simplistic integration tests. They started writing **exploration strategies** — randomizing inputs, relying on the simulator to find edge cases.
-
-> 🔍 Example: reindexation bugs across index types — code worked for 3 common types, rare ones **completely broken**. No review caught them.
+- 🔀 From **prevention** to **discovery**
+  - "What else is broken that we don't know about?"
+- 🎲 Randomize everything
+  - Inputs, operation sequences, failure timing
+- 🧩 Encode invariants as code
+  - The simulator checks them for you
+- 🏗️ **Simulation as a first-class citizen**
+  - New features are designed to be simulatable from day one
+- 🔄 Every new feature **compounds**
+  - Add an enum variant, write invariants, and all existing chaos applies automatically
 
 ---
 
@@ -123,22 +190,57 @@ DST as the ultimate **LLM validation loop**:
   </div>
 </div>
 
-Claude Code autonomously implemented **leader election** (13 invariants), **workflow engine**, **index types** — all validated by simulation.
+Claude Code autonomously implemented **leader election** (13 invariants), **workflow engine**, **index types**
+  - All validated by simulation.
 
 ---
+layout: two-cols
+---
 
+::title::
 # Every layer is simulation-driven now 🚀
 
-| Layer | What's tested |
-|-------|--------------|
-| 🗃️ **KV (Redis)** | Data integrity, index consistency |
-| 🔐 **KMS** | Key management under failures |
-| 🗳️ **Leader Election** | 13 invariants, clock skew, split-brain |
-| 📊 **Query Planner** | Reference-model correctness |
-| 💰 **Quotas** | Storage accounting under chaos |
-| ⚙️ **Workflow Engine** | State machine transitions |
+::default::
 
-> "We would never have succeeded without simulation." 🦸
+### 🧪 Materia Framework
+
+- 📊 Query planner correctness
+- 🗳️ Leader election
+- 💰 Quota enforcement
+- ⚙️ Workflow engine
+- 🔄 Indexing consistency
+
+::right::
+
+### 📦 Products
+
+- 🗃️ **KV**
+- 🔐 **KMS**
+- 🔌 **ETCD**
+- 🦎 **Materia Dyn**
+- 🏢 **Internal services**
+- ...
+
+---
+layout: two-cols
+---
+
+::title::
+# Simulation runs continuously 🔄
+
+::default::
+
+- 💻 Engineers run a **few seeds locally** during development
+- 🔁 CI runs **more iterations** on every push
+- ☁️ Cloud runs simulation **continuously**
+- ⏱️ **30 minutes** of simulation
+  - = **24 hours** of chaos testing
+- 🎲 Faulty seed found?
+  - **Replay it locally**, deterministically
+
+::right::
+
+<img src="/materia-sim-ci.png" class="rounded shadow" />
 
 ---
 layout: end
@@ -146,9 +248,12 @@ layout: end
 
 # Try it on your FDB layers 🎁
 
-The `foundationdb-simulation` crate is **open source** — approaching **15 million downloads** for the bindings.
+The `foundationdb-simulation` crate is **open source**
 
-- [github.com/foundationdb-rs/foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs)
-- [pierrezemb.fr](https://pierrezemb.fr)
+Approaching **16 million downloads** for the bindings.
+
+[github.com/foundationdb-rs/foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs)
+
+[pierrezemb.fr](https://pierrezemb.fr)
 
 Pierre Zemb — [@PierreZ](https://x.com/PierreZ) · Questions? 💬
