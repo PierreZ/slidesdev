@@ -27,38 +27,47 @@ Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-
 
 # The gap 😰
 
-<div class="flex justify-center mt-12">
-  <div class="flex flex-col items-center gap-4">
-    <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">😰 Our Layer — untested</div>
-    <div class="text-2xl">↕</div>
-    <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl opacity-40">🛡️ FDB Core — battle-tested</div>
+<div class="flex justify-center mt-6">
+  <div class="flex flex-col items-stretch w-[32rem]">
+    <div class="flex gap-2 mb-2">
+      <div class="flex-1 px-3 py-2 border-2 rounded-lg text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">KV</div>
+      <div class="flex-1 px-3 py-2 border-2 rounded-lg text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">ETCD</div>
+      <div class="flex-1 px-3 py-2 border-2 rounded-lg text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">KMS</div>
+      <div class="flex-1 px-3 py-2 border-2 rounded-lg text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">Workflow</div>
+      <div class="flex-1 px-3 py-2 border-2 rounded-lg text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">...</div>
+    </div>
+    <div class="px-4 py-3 border-2 rounded-lg mb-2" style="border-color: var(--theme-accent); color: var(--theme-accent);">
+      <div class="font-bold text-center">Materia Framework</div>
+      <div class="text-xs text-center mt-1 opacity-80">multi-tenancy · registration · schema · indexing · query planner · quota</div>
+    </div>
+    <div class="px-4 py-3 border-2 border-current rounded-lg text-center font-bold opacity-40">🛡️ FoundationDB — battle-tested</div>
   </div>
 </div>
 
-How do we build **confidence** to ship?
+All of this is **classically tested**. How do we build **confidence** to ship?
 
 ---
 
 # How FDB achieves this 🔬
 
-<div class="flex justify-center mt-8 gap-12">
-  <div class="flex flex-col items-center gap-2">
-    <div class="text-sm font-bold opacity-60">Production</div>
-    <div class="flex flex-col items-stretch w-48">
-      <div class="px-4 py-3 border-2 border-current rounded-t-lg text-center font-bold">FDB Code</div>
-      <div class="px-4 py-3 border-2 border-t-0 border-current rounded-b-lg text-center opacity-60">Net2 (real network)</div>
-    </div>
-  </div>
-  <div class="flex flex-col items-center gap-2">
-    <div class="text-sm font-bold opacity-60">Simulation</div>
-    <div class="flex flex-col items-stretch w-48">
-      <div class="px-4 py-3 border-2 border-current rounded-t-lg text-center font-bold">FDB Code</div>
-      <div class="px-4 py-3 border-2 border-t-0 rounded-b-lg text-center font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">Sim2 (fake everything)</div>
+<div class="flex justify-center mt-8">
+  <div class="flex flex-col items-stretch w-[28rem]">
+    <div class="px-6 py-4 border-2 border-current rounded-t-lg text-center font-bold text-lg">FDB Server Code</div>
+    <div class="px-6 py-2 border-2 border-t-0 border-current text-center text-sm opacity-60">g_network interface</div>
+    <div class="flex">
+      <div class="flex-1 px-4 py-3 border-2 border-t-0 border-current rounded-bl-lg text-center opacity-40">
+        <div class="font-bold">Net2</div>
+        <div class="text-sm">production</div>
+      </div>
+      <div class="flex-1 px-4 py-3 border-2 border-t-0 border-l-0 rounded-br-lg text-center" style="border-color: var(--theme-accent); color: var(--theme-accent);">
+        <div class="font-bold">Sim2</div>
+        <div class="text-sm">network, disk, time, crashes</div>
+      </div>
     </div>
   </div>
 </div>
 
-**Same code** in both. Swap the interface. Add a seed → **deterministic execution**.
+One interface swap. **Same code. Everything else is faked.**
 
 Same seed = same bugs. **Every time.**
 
@@ -81,22 +90,28 @@ layout: center
 # Getting Rust inside the simulator 🦀
 
 <div class="flex justify-center mt-4">
-  <div class="flex flex-col items-stretch w-[32rem]">
-    <div class="px-4 py-2 border-2 border-current rounded-t-lg text-center font-bold text-sm">FDB Simulator (<code>fdbserver -r simulation</code>)</div>
-    <div class="px-4 py-3 border-2 border-t-0 text-center" style="border-color: var(--theme-accent); color: var(--theme-accent);">
-      <div class="font-bold">🦀 Our Rust Workload (.so)</div>
-      <div class="text-sm">setup() · start() · check()</div>
+  <div class="border-2 border-current rounded-lg w-[32rem] p-4">
+    <div class="text-center font-bold text-sm mb-3">FDB Simulator (<code>fdbserver -r simulation</code>)</div>
+    <div class="px-4 py-3 border-2 rounded-lg mb-2" style="border-color: var(--theme-accent); color: var(--theme-accent);">
+      <div class="font-bold text-center">🦀 .so Workload</div>
+      <div class="text-xs text-center mt-1 opacity-80">Materia Framework + data access layer</div>
+      <div class="text-xs text-center">setup() · start() · check()</div>
     </div>
-    <div class="text-center py-1 text-sm opacity-60">↓ FDB Client API</div>
-    <div class="px-4 py-3 border-2 border-current text-center opacity-40">
-      <div class="font-bold">🛡️ FDB Cluster (real code)</div>
-      <div class="text-sm">with fakes: Sim2 network, simulated disk & time</div>
+    <div class="text-center py-1 text-sm opacity-60">↓ g_network / FDB Client API</div>
+    <div class="flex mt-2">
+      <div class="flex-1 px-4 py-2 border-2 border-current rounded-l-lg text-center opacity-40">
+        <div class="font-bold text-sm">Net2</div>
+        <div class="text-xs">disabled</div>
+      </div>
+      <div class="flex-1 px-4 py-2 border-2 border-l-0 rounded-r-lg text-center" style="border-color: var(--theme-accent); color: var(--theme-accent);">
+        <div class="font-bold text-sm">Sim2 💥</div>
+        <div class="text-xs">network, disk, time, crashes</div>
+      </div>
     </div>
-    <div class="px-4 py-2 border-2 border-t-0 border-current rounded-b-lg text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">💥 chaos happens here</div>
   </div>
 </div>
 
-Our Rust code compiles to a `.so` — talks to FDB normally, but FDB runs with **fakes underneath**.
+Compiles to a `.so` — talks to FDB normally, but FDB runs with **Sim2 underneath**.
 
 ---
 
@@ -140,10 +155,13 @@ Open-sourced in the [`foundationdb-simulation`](https://github.com/foundationdb-
 
 # The real win: a mindset shift 🧠
 
-> "We stopped asking 'how do I **test** this?' and started asking 'how do I **break** this?'"
+<div class="text-xl mt-4 mb-6 pl-4 border-l-4" style="border-color: var(--theme-accent);">
+"We stopped asking 'how do I <b style="color: var(--theme-accent);">test</b> this?' and started asking 'how do I <b style="color: var(--theme-accent);">break</b> this?'"
+</div>
 
 - 🏗️ New features are **designed to be simulatable** from day one
 - 🔄 Every new feature **compounds** — add an enum variant, and all existing chaos applies
+- 🤖 Works as a **feedback loop for LLMs** too — failing seed → deterministic replay → fix
 
 ---
 
@@ -152,7 +170,6 @@ Open-sourced in the [`foundationdb-simulation`](https://github.com/foundationdb-
 - 💻 **Dev**: a few seeds locally during development
 - 🔁 **CI**: more iterations on every push
 - ☁️ **Cloud**: simulation runs **continuously**
-- ⏱️ **30 minutes** of simulation = **24 hours** of chaos testing
 - 🎲 Faulty seed? **Replay it locally**, deterministically
 
 ---
