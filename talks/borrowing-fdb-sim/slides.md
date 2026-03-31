@@ -3,13 +3,15 @@ theme: slidev-theme-pz
 title: "Borrowing FoundationDB's Simulator for Layer Development"
 layout: cover
 themeConfig:
-  accent: '#BB77FF'
+  accent: '#007AFF'
 ---
 
 # Borrowing FoundationDB's Simulator 
 ## for Layer Development 🧪
 
 Pierre Zemb — Staff Engineer @ Clever Cloud 🇫🇷
+
+Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs)
 
 ---
 layout: two-cols
@@ -33,7 +35,7 @@ layout: two-cols
 
 ### 🔍 The discovery
 
-- **FoundationDB**: simulation-tested, rock-solid
+- **FoundationDB**: rock-solid
 - **Deterministic simulation**
   - Network partitions, crashes, reboots
 - **Millions of runs per night**
@@ -103,7 +105,7 @@ layout: two-cols
 </div>
 
 ---
-layout: center 
+layout: end 
 ---
 
 # Can we hack our way into FDB's simulation framework? 🤔
@@ -113,10 +115,8 @@ layout: center
 # What if we could hack the simulator? 🔧
 
 - 📖 Stumbled across FDB's [external C++ workload API](https://apple.github.io/foundationdb/client-testing.html)
+  - 📦 `fdbserver` loads a `.so` at runtime
 - 🧙 Convinced our C++ wizard, built a **PoC in a weekend**
-  - It worked!
-- 📦 `fdbserver` loads a `.so` at runtime
-  - calls `setup()` / `start()` / `check()` under full chaos
 - 🎉 Open-sourced it in the [`foundationdb-simulation`](https://github.com/foundationdb-rs/foundationdb-rs) crate
 
 ```rust
@@ -136,7 +136,7 @@ pub trait RustWorkload {
 
 - 🧪 First workloads were **simple** — just verifying reads and writes
 - 🔁 Across every layer, simulation found the **same thing**
-  - Bad error encapsulation blocking retries
+  - Our wrappers swallowed errors instead of propagating them
 - 😅 Useful, but not very exciting
 
 ---
@@ -147,9 +147,7 @@ pub trait RustWorkload {
 - 💥 Simulation started finding **real bugs**:
   - 💥 Data corruption during reindexation across index types
   - 🗜️ ETCD compaction deleting live data
-  - 📊 Query planner picking
-    - wrong indexes
-    - wrong data
+  - 📊 Query planner picking wrong data/indexes/optimization
   - 👑 Dual leader election under clock skew
   - ...
 
@@ -157,38 +155,30 @@ pub trait RustWorkload {
 
 # The real win: a mindset shift 🧠
 
-> "We stopped asking 'how do I **test** this?' — we started asking 'how do I **generate tests forever**?'"
+> "We stopped asking 'how do I **test** this?' and started asking 'how do I **break** this?'"
 
 - 🔀 From **prevention** to **discovery** — "what else is broken that we don't know about?"
 - 🏗️ New features are **designed to be simulatable** from day one
 - 🔄 Every new feature **compounds** — add an enum variant, and all existing chaos applies
+- 🤖 DST as the ultimate **LLM validation loop**
 
----
-
-# The LLM feedback loop 🤖
-
-DST as the ultimate **LLM validation loop**:
-
-<div class="flex justify-center mt-4">
-  <div class="flex flex-col items-center gap-1 text-lg">
-    <div class="px-4 py-2 border-2 border-current rounded">🤖 LLM writes workload / layer code</div>
-    <div>↓</div>
-    <div class="px-4 py-2 border-2 border-current rounded">🧪 Simulation finds bug (failing seed)</div>
-    <div>↓</div>
-    <div class="px-4 py-2 border-2 border-current rounded">🔍 LLM reads deterministic replay</div>
-    <div>↓</div>
-    <div class="px-4 py-2 border-2 border-current rounded">🔧 LLM fixes code</div>
-    <div>↓</div>
-    <div>🔁</div>
-  </div>
+<div class="flex justify-center items-center mt-4 gap-2 text-sm">
+  <div class="px-3 py-2 border-2 border-current rounded">🤖 LLM writes code</div>
+  <div>→</div>
+  <div class="px-3 py-2 border-2 border-current rounded">🧪 Sim finds bug</div>
+  <div>→</div>
+  <div class="px-3 py-2 border-2 border-current rounded">🔍 Reads replay</div>
+  <div>→</div>
+  <div class="px-3 py-2 border-2 border-current rounded">🔧 Fixes code</div>
+  <div>→ 🔁</div>
 </div>
 
 ---
 
 # Simulation runs everywhere, all the time 🚀
 
-- 📊 Query planner, 🗳️ leader election, ⚙️ workflow engine, 🔄 indexing...
-- 🗃️ **KV**, 🔐 **KMS**, 🔌 **ETCD**, 🦎 **Materia Dyn**, 🏢 internal services
+- 🧪 **Framework**: query planner, leader election, workflow engine, indexing...
+- 📦 **Products**: **KV**, **KMS**, **ETCD**, **Materia Dyn**, ...
 - 💻 Engineers run **a few seeds locally**
 - 🔁 CI runs **more iterations** on every push
 - ☁️ Cloud runs simulation **continuously**
@@ -203,6 +193,7 @@ DST as the ultimate **LLM validation loop**:
 - 🛠️ Our fix: contributed a [**pure C API** upstream](https://github.com/apple/foundationdb/pull/11288)
   - Stable ABI, no compiler coupling — just like `fdb_c.h`
 - ⏱️ Added [`delay()` API](https://github.com/apple/foundationdb/pull/12357) to simulate time-dependent behavior
+- 🔁 Full circle: from **happy users** to **upstream contributors**
 
 ---
 layout: end
@@ -212,4 +203,6 @@ layout: end
 
 [crates.io/crates/foundationdb](https://crates.io/crates/foundationdb)
 
-Pierre Zemb — [pierrezemb.fr](https://pierrezemb.fr) · Questions? 💬
+[pierrezemb.fr](https://pierrezemb.fr)
+
+Questions? 💬
