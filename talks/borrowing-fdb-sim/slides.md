@@ -6,7 +6,7 @@ themeConfig:
   accent: '#007AFF'
 ---
 
-# Borrowing FoundationDB's Simulator 
+# Borrowing FoundationDB's Simulator
 ## for Layer Development 🧪
 
 Pierre Zemb — Staff Engineer @ Clever Cloud 🇫🇷
@@ -14,61 +14,53 @@ Pierre Zemb — Staff Engineer @ Clever Cloud 🇫🇷
 Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs)
 
 ---
-layout: two-cols
+
+# From HBase pain to FDB layers 🏗️
+
+- 😱 After years of **HBase trauma** (270-machine cluster, manual recovery, deleting shards...)
+- 🔍 I discovered **FoundationDB** — rock-solid, simulation-tested
+- 🚀 Now building **serverless databases** on top of FDB at Clever Cloud
+  - KV, KMS, ETCD, workflow engine...
+- 👤 Team grew from **1** to **6 engineers** — almost none with dist-sys background
+
 ---
 
-::title::
-# From HBase trauma to FoundationDB 🏗️
+# The gap 😰
 
-::default::
-
-### 😱 The pain
-
-- **270-machine HBase cluster**
-- Every network flap was a mess
-  - Recovery = running `hbck`
-  - Deleting shards/HFiles to restore consistency
-
-::right::
-
-<div class="opacity-0">
-
-### 🔍 The discovery
-
-- **FoundationDB**: rock-solid
-- **Deterministic simulation**
-  - Network partitions, crashes, reboots
-- **Millions of runs per night**
-  - Every bug reproducible by seed
-
+<div class="flex justify-center mt-12">
+  <div class="flex flex-col items-center gap-4">
+    <div class="px-8 py-4 border-2 rounded-lg font-bold text-xl" style="border-color: var(--theme-accent); color: var(--theme-accent);">😰 Our Layer — untested</div>
+    <div class="text-2xl">↕</div>
+    <div class="px-8 py-4 border-2 border-current rounded-lg font-bold text-xl opacity-40">🛡️ FDB Core — battle-tested</div>
+  </div>
 </div>
 
+How do we build **confidence** to ship?
+
 ---
-layout: two-cols
----
 
-::title::
-# From HBase trauma to FoundationDB 🏗️
+# How FDB achieves this 🔬
 
-::default::
+<div class="flex justify-center mt-8 gap-12">
+  <div class="flex flex-col items-center gap-2">
+    <div class="text-sm font-bold opacity-60">Production</div>
+    <div class="flex flex-col items-stretch w-48">
+      <div class="px-4 py-3 border-2 border-current rounded-t-lg text-center font-bold">FDB Code</div>
+      <div class="px-4 py-3 border-2 border-t-0 border-current rounded-b-lg text-center opacity-60">Net2 (real network)</div>
+    </div>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <div class="text-sm font-bold opacity-60">Simulation</div>
+    <div class="flex flex-col items-stretch w-48">
+      <div class="px-4 py-3 border-2 border-current rounded-t-lg text-center font-bold">FDB Code</div>
+      <div class="px-4 py-3 border-2 border-t-0 rounded-b-lg text-center font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">Sim2 (fake everything)</div>
+    </div>
+  </div>
+</div>
 
-### 😱 The pain
+**Same code** in both. Swap the interface. Add a seed → **deterministic execution**.
 
-- **270-machine HBase cluster**
-- Every network flap was a mess
-  - Recovery = running `hbck`
-  - Deleting shards/HFiles to restore consistency
-
-
-::right::
-
-### 🔍 The discovery
-
-- **FoundationDB**: simulation-tested, rock-solid
-- **Deterministic simulation**
-  - Network partitions, crashes, reboots
-- **Millions of runs per night**
-  - Every bug reproducible by seed
+Same seed = same bugs. **Every time.**
 
 ---
 
@@ -79,45 +71,36 @@ layout: two-cols
 <img src="/materia-sim-triple.png" class="w-full rounded shadow" />
 
 ---
-layout: two-cols
+layout: center
 ---
 
-::title::
-# I was scared 😰
+# I want that for my Rust layers! 🤩
 
-::default::
+---
 
-- 🚀 Building **Serverless databases** on top of FDB
-  - Virtualized databases for:
-    - KV, KMS, ETCD, workflow engine...
-- 👤 Team went from **1** to **6 engineers**
-  - Almost none with dist-sys background
-- 😰 How do we build **confidence** to ship all of this?
+# Getting Rust inside the simulator 🦀
 
-::right::
-
-<div class="flex justify-center h-full items-center">
-  <div class="flex flex-col items-center gap-4">
-    <div class="px-6 py-3 border-2 rounded-lg font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">😰 Our Layer — untested</div>
-    <div class="text-2xl">↕</div>
-    <div class="px-6 py-3 border-2 border-current rounded-lg font-bold opacity-40">🛡️ FDB Core — battle-tested</div>
+<div class="flex justify-center mt-4">
+  <div class="flex flex-col items-stretch w-[32rem]">
+    <div class="px-4 py-2 border-2 border-current rounded-t-lg text-center font-bold text-sm">FDB Simulator (<code>fdbserver -r simulation</code>)</div>
+    <div class="px-4 py-3 border-2 border-t-0 text-center" style="border-color: var(--theme-accent); color: var(--theme-accent);">
+      <div class="font-bold">🦀 Our Rust Workload (.so)</div>
+      <div class="text-sm">setup() · start() · check()</div>
+    </div>
+    <div class="text-center py-1 text-sm opacity-60">↓ FDB Client API</div>
+    <div class="px-4 py-3 border-2 border-current text-center opacity-40">
+      <div class="font-bold">🛡️ FDB Cluster (real code)</div>
+      <div class="text-sm">with fakes: Sim2 network, simulated disk & time</div>
+    </div>
+    <div class="px-4 py-2 border-2 border-t-0 border-current rounded-b-lg text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">💥 chaos happens here</div>
   </div>
 </div>
 
----
-layout: end 
----
-
-# Can we hack our way into FDB's simulation framework? 🤔
+Our Rust code compiles to a `.so` — talks to FDB normally, but FDB runs with **fakes underneath**.
 
 ---
 
-# What if we could hack the simulator? 🔧
-
-- 📖 Stumbled across FDB's [external C++ workload API](https://apple.github.io/foundationdb/client-testing.html)
-  - 📦 `fdbserver` loads a `.so` at runtime
-- 🧙 Convinced our C++ wizard, built a **PoC in a weekend**
-- 🎉 Open-sourced it in the [`foundationdb-simulation`](https://github.com/foundationdb-rs/foundationdb-rs) crate
+# The interface 🔧
 
 ```rust
 pub trait RustWorkload {
@@ -129,6 +112,8 @@ pub trait RustWorkload {
     async fn check(&mut self, db: SimDatabase);
 }
 ```
+
+Open-sourced in the [`foundationdb-simulation`](https://github.com/foundationdb-rs/foundationdb-rs) crate.
 
 ---
 
@@ -147,7 +132,7 @@ pub trait RustWorkload {
 - 💥 Simulation started finding **real bugs**:
   - 💥 Data corruption during reindexation across index types
   - 🗜️ ETCD compaction deleting live data
-  - 📊 Query planner picking wrong data/indexes/optimization
+  - 📊 Query planner picking wrong indexes
   - 👑 Dual leader election under clock skew
   - ...
 
@@ -157,42 +142,26 @@ pub trait RustWorkload {
 
 > "We stopped asking 'how do I **test** this?' and started asking 'how do I **break** this?'"
 
-- 🔀 From **prevention** to **discovery** — "what else is broken that we don't know about?"
 - 🏗️ New features are **designed to be simulatable** from day one
 - 🔄 Every new feature **compounds** — add an enum variant, and all existing chaos applies
-- 🤖 DST as the ultimate **LLM validation loop**
-
-<div class="flex justify-center items-center mt-4 gap-2 text-sm">
-  <div class="px-3 py-2 border-2 border-current rounded">🤖 LLM writes code</div>
-  <div>→</div>
-  <div class="px-3 py-2 border-2 border-current rounded">🧪 Sim finds bug</div>
-  <div>→</div>
-  <div class="px-3 py-2 border-2 border-current rounded">🔍 Reads replay</div>
-  <div>→</div>
-  <div class="px-3 py-2 border-2 border-current rounded">🔧 Fixes code</div>
-  <div>→ 🔁</div>
-</div>
 
 ---
 
-# Simulation runs everywhere, all the time 🚀
+# How we run it 🔄
 
-- 🧪 **Framework**: query planner, leader election, workflow engine, indexing...
-- 📦 **Products**: **KV**, **KMS**, **ETCD**, **Materia Dyn**, ...
-- 💻 Engineers run **a few seeds locally**
-- 🔁 CI runs **more iterations** on every push
-- ☁️ Cloud runs simulation **continuously**
+- 💻 **Dev**: a few seeds locally during development
+- 🔁 **CI**: more iterations on every push
+- ☁️ **Cloud**: simulation runs **continuously**
+- ⏱️ **30 minutes** of simulation = **24 hours** of chaos testing
+- 🎲 Faulty seed? **Replay it locally**, deterministically
 
 ---
 
-# Contributing back to FoundationDB itself 🔄
+# Contributing back to FoundationDB 🦀
 
-- 😱 C++ external workload API = **ABI nightmare**
-  - FDB 7.3 switched GCC → Clang
-  - `std::string` layout mismatch → **segfaults**
-- 🛠️ Our fix: contributed a [**pure C API** upstream](https://github.com/apple/foundationdb/pull/11288)
-  - Stable ABI, no compiler coupling — just like `fdb_c.h`
-- ⏱️ Added [`delay()` API](https://github.com/apple/foundationdb/pull/12357) to simulate time-dependent behavior
+- 🦀 One of **two teams in the world** running Rust inside FDB's simulator
+- 🛠️ Contributed a [**pure C API**](https://github.com/apple/foundationdb/pull/11288) upstream — no more C++ ABI nightmares
+- ⏱️ Added [`delay()` API](https://github.com/apple/foundationdb/pull/12357) for time-dependent simulation
 - 🔁 Full circle: from **happy users** to **upstream contributors**
 
 ---
