@@ -95,7 +95,6 @@ layout: center
     <div class="px-4 py-3 border-2 rounded-lg mb-2" style="border-color: var(--theme-accent); color: var(--theme-accent);">
       <div class="font-bold text-center">🦀 .so Workload</div>
       <div class="text-xs text-center mt-1 opacity-80">Materia Framework + data access layer</div>
-      <div class="text-xs text-center">setup() · start() · check()</div>
     </div>
     <div class="text-center py-1 text-sm opacity-60">↓ g_network / FDB Client API</div>
     <div class="flex mt-2">
@@ -192,3 +191,68 @@ layout: end
 [pierrezemb.fr](https://pierrezemb.fr)
 
 Questions? 💬
+
+---
+
+# Bonus: How to structure the code 📦
+
+```
+my-project/
+├── my-fdb-service/      # Core FDB operations — NO tokio
+│                        # → this compiles into the .so
+├── my-grpc-server/      # Production layer (tokio + tonic)
+└── my-fdb-workloads/    # Simulation workloads
+```
+
+The key: isolate your FDB logic from your async runtime. The `.so` can't use tokio — it runs on FDB's Flow event loop.
+
+---
+
+# Bonus: The price of determinism 🎲
+
+Simulation requires **deterministic execution**. Same seed = same bugs — but only if you eliminate all sources of non-determinism:
+
+| ❌ Forbidden | ✅ Use instead |
+|---|---|
+| `HashMap`, `HashSet` | `BTreeMap`, `BTreeSet` |
+| `rand::random()` | `context.rnd()` |
+| `SystemTime::now()` | `context.now()` |
+| `tokio::spawn()` | Simulation executor |
+| Manual retry loops | `db.run()` |
+
+---
+
+# Bonus: The LLM feedback loop 🤖
+
+<div class="flex justify-center items-center mt-8 gap-3">
+  <div class="px-3 py-2 border-2 border-current rounded text-sm">🤖 LLM writes code</div>
+  <div>→</div>
+  <div class="px-3 py-2 border-2 border-current rounded text-sm">🧪 Sim finds bug</div>
+  <div>→</div>
+  <div class="px-3 py-2 border-2 border-current rounded text-sm">🔍 Reads replay</div>
+  <div>→</div>
+  <div class="px-3 py-2 border-2 border-current rounded text-sm">🔧 Fixes code</div>
+  <div>→ 🔁</div>
+</div>
+
+Claude Code autonomously implemented **leader election** (13 invariants), **workflow engine**, **index types** — all validated by simulation.
+
+---
+
+# Bonus: The boring bug — `commit_unknown_result` 🔁
+
+- FDB can return `commit_unknown_result` — your transaction **may or may not** have committed
+- If your retry loop doesn't handle this → non-idempotent writes silently replayed
+- We hit this **across every layer** — our wrappers swallowed the error
+- Fix: enable `AutomaticIdempotency` in FDB 7.3 ([blog post](https://pierrezemb.fr/posts/automatic-txn-fdb-730/))
+
+---
+
+# Bonus: The C++ ABI nightmare 💀
+
+- FDB 7.3 switched from **GCC → Clang**
+- `std::string` layout mismatch between fdbserver and our `.so` → **segfaults**
+- Every FDB release could silently break external workloads
+- [Forum post](https://forums.foundationdb.org/t/externalworkload-segmentation-fault-in-7-3/4375) documenting the pain
+- Our fix: contributed a [**pure C API**](https://github.com/apple/foundationdb/pull/11288) upstream
+  - Stable ABI, no compiler coupling — just like `fdb_c.h`
