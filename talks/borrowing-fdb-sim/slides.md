@@ -17,7 +17,7 @@ Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-
 
 # From HBase pain to FDB layers 🏗️
 
-- 😱 After years of **HBase trauma** (270-machine cluster, manual recovery, deleting shards...)
+- 😱 After years of **HBase trauma** (270-machine cluster, network-sensitive, `hbck` removing data...)
 - 🔍 I discovered **FoundationDB** — rock-solid, simulation-tested
 - 🚀 Now building **serverless databases** on top of FDB at Clever Cloud
   - KV, KMS, ETCD, workflow engine...
@@ -44,7 +44,7 @@ Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-
   </div>
 </div>
 
-All of this is **classically tested**. How do we build **confidence** to ship?
+All of this is **classically tested**. We test what we imagine — but bugs hide in the combinations we don't.
 
 ---
 
@@ -69,7 +69,7 @@ All of this is **classically tested**. How do we build **confidence** to ship?
 
 One interface swap. **Same code. Everything else is faked.**
 
-Same seed = same bugs. **Every time.**
+Then brute-force it: **millions of random scenarios**, same seed = same bugs. **Every time.**
 
 ---
 
@@ -90,21 +90,25 @@ layout: center
 # Getting Rust inside the simulator 🦀
 
 <div class="flex justify-center mt-4">
-  <div class="border-2 border-current rounded-lg w-[32rem] p-4">
+  <div class="border-2 border-current rounded-lg w-[28rem] p-4">
     <div class="text-center font-bold text-sm mb-3">FDB Simulator (<code>fdbserver -r simulation</code>)</div>
-    <div class="px-4 py-3 border-2 rounded-lg mb-2" style="border-color: var(--theme-accent); color: var(--theme-accent);">
-      <div class="font-bold text-center">🦀 .so Workload</div>
-      <div class="text-xs text-center mt-1 opacity-80">Materia Framework + data access layer</div>
-    </div>
-    <div class="text-center py-1 text-sm opacity-60">↓ g_network / FDB Client API</div>
-    <div class="flex mt-2">
-      <div class="flex-1 px-4 py-2 border-2 border-current rounded-l-lg text-center opacity-40">
-        <div class="font-bold text-sm">Net2</div>
-        <div class="text-xs">disabled</div>
+    <div class="flex flex-col items-stretch">
+      <!-- Above the waterline: your code -->
+      <div class="px-6 py-3 border-2 rounded-t-lg text-center" style="border-color: var(--theme-accent); color: var(--theme-accent);">
+        <div class="font-bold">🦀 .so Workload</div>
+        <div class="text-xs mt-1 opacity-80">Materia Framework + data access layer</div>
       </div>
-      <div class="flex-1 px-4 py-2 border-2 border-l-0 rounded-r-lg text-center" style="border-color: var(--theme-accent); color: var(--theme-accent);">
-        <div class="font-bold text-sm">Sim2 💥</div>
-        <div class="text-xs">network, disk, time, crashes</div>
+      <!-- The waterline -->
+      <div class="px-6 py-2 border-2 border-t-0 border-current text-center font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">FDB Client API</div>
+      <!-- Below the waterline: FDB cluster under simulation -->
+      <div class="px-4 py-3 border-2 border-t-0 border-current rounded-b-lg text-center opacity-40">
+        <div class="font-bold">FDB Cluster — under full simulation 💥</div>
+        <div class="text-xs mt-1 flex justify-center gap-3 flex-wrap">
+          <span>🔌 partitions</span>
+          <span>💾 disk failures</span>
+          <span>⏰ clock skew</span>
+          <span>💀 process kills</span>
+        </div>
       </div>
     </div>
   </div>
@@ -175,7 +179,7 @@ Open-sourced in the [`foundationdb-simulation`](https://github.com/foundationdb-
 
 # Contributing back to FoundationDB 🦀
 
-- 🦀 One of **two teams in the world** running Rust inside FDB's simulator
+- 🦀 **First language bindings** to ship simulation support — open-sourced in foundationdb-rs
 - 🛠️ Contributed a [**pure C API**](https://github.com/apple/foundationdb/pull/11288) upstream — no more C++ ABI nightmares
 - ⏱️ Added [`delay()` API](https://github.com/apple/foundationdb/pull/12357) for time-dependent simulation
 - 🔁 Full circle: from **happy users** to **upstream contributors**
