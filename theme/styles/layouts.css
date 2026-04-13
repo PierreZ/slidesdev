@@ -1,9 +1,11 @@
 :root {
   --theme-accent: #F57C00;
+  --theme-secondary: #F57C00;
 }
 
 body {
   --theme-accent: var(--slidev-theme-accent, #F57C00);
+  --theme-secondary: var(--slidev-theme-secondary, var(--theme-accent));
 }
 
 .slidev-layout {
@@ -29,9 +31,16 @@ body {
   font-size: 1.6em;
 }
 
+.slidev-layout ul ul,
+.slidev-layout ol ul,
+.slidev-layout ul ol,
+.slidev-layout ol ol {
+  padding-left: 1.5em;
+}
+
 .slidev-layout strong,
 .slidev-layout b {
-  color: var(--theme-accent);
+  color: var(--theme-secondary);
   font-weight: 700;
 }
 
