@@ -24,10 +24,9 @@ Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-
   - Repair tool (`hbck`) moved partitioned data out of the keyspace to make it "consistent" 🙃
 - 🔍 I discovered **FoundationDB**, a distributed key-value store
   - For developers, a toolbox to write distributed systems
-  - For operators, a highly scalable/production ready system
+  - For operators, a highly scalable / production-ready system
 
 ---
-
 
 # FDB's simulation framework 🔬
 
@@ -101,7 +100,7 @@ Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-
 layout: center
 ---
 
-# Can we inject our code inside FoundationDB?
+# Can we inject our code inside FoundationDB? 🤔
 
 ---
 
@@ -199,7 +198,7 @@ Your code talks to FDB normally — but FDB runs with **fakes underneath**
 
 # Contributing back to FoundationDB 🦀
 
-- 🦀 **First language bindings**(outside of C++) to ship simulation support
+- 🦀 **First language bindings** (outside of C++) to ship simulation support
   - open-sourced in foundationdb-rs
 - 🔁 Full circle: from **happy users** to **upstream contributors**
   - 🛠️ Contributed a [**pure C API**](https://github.com/apple/foundationdb/pull/11288) upstream — no more C++ ABI nightmares
@@ -212,6 +211,8 @@ layout: end
 # Try it on your FDB layers 🎁
 
 [crates.io/crates/foundationdb](https://crates.io/crates/foundationdb)
+
+[crates.io/crates/foundationdb-simulation](https://crates.io/crates/foundationdb-simulation)
 
 [pierrezemb.fr](https://pierrezemb.fr)
 
