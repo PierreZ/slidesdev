@@ -47,7 +47,7 @@ Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-
   </div>
 </div>
 
-- 🎭 Every failable interaction behind **one interface**: network, disk, time, randomness
+- 🎭 Every fallible interaction behind **one interface**: network, disk, time, randomness
 - 💥 Swap the implementation for **fakes** → inject failures at will
 - 🎲 Deterministic → same seed = **same bugs, every time**
 
@@ -180,7 +180,7 @@ Your code talks to FDB normally — but FDB runs with **fakes underneath**
   - 💥 Data corruption during reindexing
   - 👑 Dual leader election under clock skew
   - 🗜️ ETCD compaction deleting live data
-  - ⏰ Bad TTL handling in Redis-shim
+  - ⏰ Bad TTL handling in the Redis shim
   - ...
 
 ---
@@ -191,7 +191,7 @@ Your code talks to FDB normally — but FDB runs with **fakes underneath**
   - Found a bug in **their own code**, or
   - Contributed a **low-level piece of engineering** quickly
 - 💡 They understood the **power of simulation**
-  - simulation finds what developers **don't know**
+  - Simulation finds what developers **don't know**
 - 🏗️ All our work is now **simulation-first**
 
 ---
@@ -202,7 +202,7 @@ Your code talks to FDB normally — but FDB runs with **fakes underneath**
   - open-sourced in foundationdb-rs
 - 🔁 Full circle: from **happy users** to **upstream contributors**
   - 🛠️ Contributed a [**pure C API**](https://github.com/apple/foundationdb/pull/11288) upstream — no more C++ ABI nightmares
-  - ⏱️ Added [`delay()` API](https://github.com/apple/foundationdb/pull/12357) for time-dependent simulation
+  - ⏱️ Added the [`delay()` API](https://github.com/apple/foundationdb/pull/12357) for time-dependent simulation
 
 ---
 layout: end
