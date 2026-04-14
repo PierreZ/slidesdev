@@ -1,6 +1,6 @@
 <template>
   <footer class="footer-bar">
-    <span>#BugBash2026</span>
+    <span>#BugBash</span>
     <span>{{ $nav.currentPage }}</span>
   </footer>
 </template>
@@ -11,7 +11,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 20px;
+  height: 30px;
   background: var(--theme-accent);
   color: white;
   display: flex;
