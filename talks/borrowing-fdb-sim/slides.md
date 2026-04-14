@@ -23,8 +23,8 @@ Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-
   - Network split during region split → **inconsistent cluster**
   - Repair tool (`hbck`) moved partitioned data out of the keyspace to make it "consistent" 🙃
 - 🔍 I discovered **FoundationDB**, a distributed key-value store
-  - For developers, a toolbox to write distributed systems
-  - For operators, a highly scalable / production-ready system
+  - For **developers**, a toolbox to write distributed systems
+  - For **operators**, a highly scalable / production-ready system
 
 ---
 
@@ -66,7 +66,7 @@ Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-
 <div class="flex justify-center mt-8">
   <div class="flex flex-col items-stretch w-[28rem]">
     <div class="px-4 py-3 border-2 rounded-lg mb-2" style="border-color: var(--theme-accent); color: var(--theme-accent);">
-      <div class="font-bold text-center">Materia Framework</div>
+      <div class="font-bold text-center">Framework</div>
       <div class="text-xs text-center mt-1 opacity-80">multi-tenancy · registration · schema · indexing · query planner · quota</div>
     </div>
     <div class="px-4 py-3 border-2 border-current rounded-lg text-center font-bold opacity-40">🛡️ FoundationDB — battle-tested</div>
@@ -87,7 +87,7 @@ Maintainer of [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-
       <div class="flex-1 px-3 py-2 border-2 rounded-lg text-center text-sm font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">...</div>
     </div>
     <div class="px-4 py-3 border-2 rounded-lg mb-2" style="border-color: var(--theme-accent); color: var(--theme-accent);">
-      <div class="font-bold text-center">Materia Framework</div>
+      <div class="font-bold text-center">Framework</div>
       <div class="text-xs text-center mt-1 opacity-80">multi-tenancy · registration · schema · indexing · query planner · quota</div>
     </div>
     <div class="px-4 py-3 border-2 border-current rounded-lg text-center font-bold opacity-40">🛡️ FoundationDB — battle-tested</div>
@@ -144,7 +144,7 @@ Your code talks to FDB normally — but FDB runs with **fakes underneath**
         <div class="font-bold text-center text-sm mb-2">ExternalWorkload API</div>
         <div class="px-4 py-2 border-2 rounded-lg text-center" style="border-color: var(--theme-accent); color: var(--theme-accent);">
           <div class="font-bold">🦀 Rust code</div>
-          <div class="text-xs mt-1 opacity-80">Materia Framework + data access layer</div>
+          <div class="text-xs mt-1 opacity-80">Framework + data access layer</div>
         </div>
       </div>
       <!-- FDB cluster under simulation -->
@@ -165,7 +165,7 @@ Your code talks to FDB normally — but FDB runs with **fakes underneath**
 
 # At first: boring bugs 🪳
 
-- 🧪 Simple workloads on the **Materia framework**
+- 🧪 Simple workloads on the **framework**
   - KV integrity checks, statistics up-to-date...
 - 🤷 Essentially just testing **FDB's transactional promises**
   - The team was not convinced of the benefits, until...
@@ -174,10 +174,10 @@ Your code talks to FDB normally — but FDB runs with **fakes underneath**
 
 # Then workloads got richer 🔥
 
-- 🧪 As workloads got **richer**, simulation found bugs everywhere:
+- 🧪 As workloads got **richer**, simulation found bugs **everywhere**:
   - 📊 Query execution returning wrong data
   - 🗺️ Query planning picking the wrong index
-  - 💥 Data corruption during reindexation
+  - 💥 Data corruption during reindexing
   - 👑 Dual leader election under clock skew
   - 🗜️ ETCD compaction deleting live data
   - ⏰ Bad TTL handling in Redis-shim
@@ -191,7 +191,7 @@ Your code talks to FDB normally — but FDB runs with **fakes underneath**
   - Found a bug in **their own code**, or
   - Contributed a **low-level piece of engineering** quickly
 - 💡 They understood the **power of simulation**
-  - simulation finds **unknown unknowns**
+  - simulation finds what developers **don't know**
 - 🏗️ All our work is now **simulation-first**
 
 ---
