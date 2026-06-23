@@ -13,7 +13,7 @@ themeConfig:
 
 Pierre Zemb, Distributed-systems Engineer @ Clever Cloud 🇫🇷
 
-On-call survivor, a.k.a. the **"black cat"** 🐈‍⬛
+On-call survivor 🔥
 
 Sunny Tech
 
@@ -24,11 +24,11 @@ Sunny Tech
 <div class="grid grid-cols-[1fr_auto] gap-8 items-start">
 <div>
 
-- 🛠️ Staff engineer, I build and operate **distributed systems**
-- 🐈‍⬛ On-call **"black cat"**: I learn what my code really does by **operating** it
-- 🦀 Maintainer of OSS Rust libraries ([foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs))
-- 🤝 I help the local **FinistDevs** / JUG
-- 🎾 Squash player (the sport with walls, not the git command)
+- 🛠️ Staff engineer, working around **distributed systems**
+- 🐞 Building, contributing, debugging, **paging**…
+- 🦀 Maintaining several OSS libraries in Rust ([foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs))
+- 🤝 Involved in local communities (**FinistDevs** / JUG)
+- 🎾 Squash player
 
 </div>
 <div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-40 h-40">
@@ -38,17 +38,25 @@ Sunny Tech
 
 ---
 
+<div class="grid place-items-center h-full">
+  <div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-sm w-[36rem] h-80">
+    🖼️ "this is fine" gif (/this-is-fine.gif)
+  </div>
+</div>
+
+---
+
 # One of my most "wait what" bugs 🤯
 
 <div class="grid grid-cols-[1fr_auto] gap-8 items-start">
 <div>
 
-- 🌐 A network partition hits an **~70-node HDFS cluster**
-- 🐢 The cluster cannot agree on reality, it gets **stuck on its back**
-- 🔁 In doubt, **reboot**. Except it will not come back up
-- ☕ It greets us with a **`NullPointerException` at startup**
-- 🩹 Known bug, patched upstream: we **backported** it, recompiled, and redeployed on 70 machines 😱
-- 🎓 This is how I learned what HDFS *really* does: by **operating** it
+- 🌐 A tough network partition hit a **70+ node Apache Hadoop cluster**
+- 🐢 The cluster could not restart
+- ☕ A **`NullPointerException` at startup**, caused by its faulty state
+- 🩹 Patched in a newer HDFS: we **backported** the patch and redeployed the jar 😱
+- ⏰ You hit the bug at the **worst moment**, during recovery
+- 🔥 Rolling out an untested patch on a distributed system under fire is an **unpleasant** experience
 
 </div>
 <div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-48 h-48">
@@ -64,9 +72,10 @@ Sunny Tech
   <div class="px-12 py-10 border-2 border-current rounded-lg text-center font-semibold text-lg">🖥️ Your system</div>
 </div>
 
-- 🚗 **Prod is not Dev**. Dev is the written exam, prod is driving through Paris at rush hour
-- 🌍 The code never modeled what **the world** actually does: partitions, recovery, pressure
-- 🌙 I learned this in the fire of on-call, at **3am, alone**
+- 🚗 **Prod is not Dev**, like the knowledge test vs the driving test
+- 🌍 The code never modeled real-world complexity: partitions, recovery, pressure
+- 💥 Users do weird things, systems run under pressure, things **break** if we're not ready
+- 🌙 And you debug it paged at **3am**, everything down
 
 ---
 
@@ -84,33 +93,7 @@ An **LLM** writes a lot of the code now. More code, faster, with the **same blin
 
 We did not write it. We do not understand it. Sometimes we do not even try it.
 
----
-
-# Suddenly, everyone cares about correctness 📈
-
-<div class="max-w-2xl mx-auto mt-4 text-sm">
-  <div class="mb-1 opacity-70">Before agents</div>
-  <div class="flex h-9 rounded overflow-hidden font-semibold text-white">
-    <div class="flex items-center justify-center" style="width:50%; background:#9ca3af;">write code</div>
-    <div class="flex items-center justify-center" style="width:50%; background:var(--theme-accent);">make it correct</div>
-  </div>
-  <div class="mt-5 mb-1 opacity-70">With agents (writing code is almost free)</div>
-  <div class="flex h-9 rounded overflow-hidden font-semibold text-white">
-    <div class="flex items-center justify-center" style="width:4%; background:#9ca3af;"></div>
-    <div class="flex items-center justify-center" style="width:96%; background:var(--theme-accent);">make it correct</div>
-  </div>
-</div>
-
-- ⚙️ **Amdahl's law**: when writing code becomes nearly free, the **bottleneck** is testing, triaging, debugging. "It used to be 50% of your time, now it's 99%."
-- 📈 Search interest in property-based testing and formal verification went **vertical** in 2025. Everybody started caring at once
-
----
-
-# The correctness decade has begun 🔬
-
-- 🧰 These techniques are **not new**: simulation, property-based testing, model checking, types, deterministic replay
-- 🤖 Agents did not invent the problem. They made the cure **mandatory**
-- 🗣️ Soon, **every programmer will need what this community already knows**
+⚙️ Writing code is nearly free now, so the bottleneck becomes **making it correct**. Suddenly, everybody cares.
 
 ---
 
@@ -174,8 +157,6 @@ An e-commerce API, grown feature by feature. How many paths must we cover?
 
 # One checkout, so many paths 🛒
 
-<div class="ecom">
-
 | Dimension | Options | Count |
 |---|---|---|
 | 👤 User type | Guest, Logged-in, Premium | 3 |
@@ -185,20 +166,11 @@ An e-commerce API, grown feature by feature. How many paths must we cover?
 | 📦 Inventory | In stock, Low, Out | 3 |
 | 💱 Currency | USD, EUR, GBP | 3 |
 
-</div>
-
 <div class="text-center mt-6 text-lg font-mono">3 x 4 x 3 x 2 x 3 x 3 = <span class="font-bold" style="color: var(--theme-accent);">648</span> happy-path test cases 😱</div>
-
-<style>
-.ecom table { font-size: 0.72rem; width: auto; margin: 0 auto; }
-.ecom td, .ecom th { padding: 2px 16px; }
-</style>
 
 ---
 
 # Add a few features... 😱
-
-<div class="ecom">
 
 | Dimension | New option | Count |
 |---|---|---|
@@ -209,16 +181,9 @@ An e-commerce API, grown feature by feature. How many paths must we cover?
 | 📦 Inventory | + Preorder | 4 |
 | 💱 Currency | + JPY | 4 |
 
-</div>
-
 <div class="text-center mt-6 text-lg font-mono">4 x 5 x 4 x 3 x 4 x 4 = <span class="font-bold" style="color: var(--theme-accent);">3,840</span> test cases 💀</div>
 
 One option each, and manual testing **cannot keep up** with feature velocity.
-
-<style>
-.ecom table { font-size: 0.72rem; width: auto; margin: 0 auto; }
-.ecom td, .ecom th { padding: 2px 16px; }
-</style>
 
 ---
 
@@ -227,7 +192,6 @@ One option each, and manual testing **cannot keep up** with feature velocity.
 - 🧠 Example-based tests only cover the cases you **already imagined**
 - 🪤 The nasty bugs hide in the **combination you never tried** (that one currency with no FX rate)
 - 🛡️ Tests are a **regression net, not a proof** that bugs are absent
-- 🤖 And agents are **confident** about what they test, so the gaps only **grow**
 
 ---
 
@@ -242,15 +206,13 @@ One option each, and manual testing **cannot keep up** with feature velocity.
   </div>
 </div>
 
-Now let's torture the **other** side. 😈
+Now the other side: **the world**. 😈
 
 ---
 
 # The world is worse than your tests 📚
 
 You do not have to believe me. Believe the literature:
-
-<div class="papers">
 
 | You believe... | The research says otherwise |
 |---|---|
@@ -263,13 +225,6 @@ You do not have to believe me. Believe the literature:
 | 🧵 "We have no concurrency bugs" | [TaxDC, ASPLOS '16](https://ucare.cs.uchicago.edu/pdf/asplos16-TaxDC.pdf) |
 | 🔄 "We just retry on failure" | [Metastable Failures in the Wild, OSDI '22](https://www.usenix.org/system/files/osdi22-huang-lexiang.pdf) (retries sustain >50% of incidents) |
 | 📖 "We follow the documentation" | [Jepsen: MariaDB Galera](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2) (stale reads in healthy clusters) |
-
-</div>
-
-<style>
-.papers table { font-size: 0.66rem; width: auto; margin: 0 auto; }
-.papers td, .papers th { padding: 1px 14px; }
-</style>
 
 ---
 
@@ -366,7 +321,7 @@ assertFalse(new User(GUEST).canUse(SAVED_CARD));
 assertEquals(user.isAuthenticated(), user.canUse(SAVED_CARD));
 ```
 
-A property reads like a **spec**, not a test case. It is a **seatbelt** as you drive fast with agentic development.
+A property reads like a **spec**, not a test case. It holds for **any** generated input, so it doubles as your safety net.
 
 </div>
 <div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-44 h-44">
@@ -513,7 +468,7 @@ Loud failures are easy. The dangerous ones are **silent**. Your code thinks ever
 
 - 🏢 Clever Cloud is a **hoster**: own machines, BGP, Linux distro, load balancer, VM orchestrator
 - 🗄️ ...and now a **multi-tenant, multi-model distributed database**, thanks to DST
-- 🔐 Writing a database is like crypto: a thousand ways to mess up
+- 🔐 Writing a database is like crypto: a thousand ways to get it wrong
 - 🦾 Team went from **1 to 5 + 2 apprentices**, shipping distributed-DB code
 
 </div>
@@ -587,7 +542,7 @@ machinesToKill = 10
 machinesToLeave = 3
 ```
 
-Deterministically cut the network. Reversing the close order finds **more** bugs 🤷.
+Deterministically cut the network. Reversing the close order surfaces **more** bugs.
 
 ---
 
@@ -628,7 +583,7 @@ if (swap) {
 }
 ```
 
-The Kubernetes-volume nightmare, on purpose.
+We reproduce the Kubernetes-volume nightmare on purpose.
 
 ---
 
@@ -654,8 +609,8 @@ A different seed gives six datacenters, TSS off, a different topology. The **sam
 <div>
 
 - 🔁 Run it in a **loop**: in CI, and on a cloud fleet
-- ☁️ **30 min of sim is about 24h** of absolute chaos
-- 🐞 A faulty seed? **Replay it locally**, deterministically
+- ☁️ **30 min of sim is about 24h** of chaos testing
+- 🐞 A faulty seed **replays locally**, deterministically
 - 🦸 It feels like super-powers, because we **trust our software**
 
 </div>
@@ -677,38 +632,13 @@ The loop closes the same way for an agent as for a human:
 4. 🔧 the agent reads the seed and fixes it
 5. 🔁 rerun the **whole** suite, so the fix adds no new bug
 
-> You do not trust Claude. You trust the simulator. It finds what you never thought to test.
-
-</div>
-<div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-52 h-44">
-  🖼️ feedback-loop / boris-cherny tweet (/feedback-loop.png)
-</div>
-</div>
-
----
-
-# Claude, finding bugs under simulation 🔬
-
-<div class="grid grid-cols-[1fr_auto] gap-8 items-center">
-<div>
-
-- 🔎 On **moonpool**, Claude found a bug I did not know existed, replayed the seed, and fixed it, alone
-- 🦀 It built the **foundationdb-rs** binding tester
-- 🗳️ It implemented **leader election** with machine-checkable invariants under partitions, crashes, and clock skew
+On **moonpool**, Claude found a bug I did not know existed and fixed it from the seed, alone. The same loop serves a **junior**, **me**, and an **agent** alike.
 
 </div>
 <div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-52 h-44">
   🖼️ Claude fixing moonpool screenshot (/claude-moonpool.png)
 </div>
 </div>
-
----
-
-# The same loop, humans and agents alike 🧑‍🏫🤖
-
-- 🧑‍🏫 The same feedback loop works for a **junior**, for **me**, and for an **agent**
-- 🔍 Each one gets to **discover what they don't know**, safely, before production
-- 🤝 You do not have to hand everyone the pager to give them **production intuition**
 
 ---
 
@@ -748,7 +678,6 @@ You can start at level 1 **on Monday**.
 - 🌐 The partition, the recovery, the `NullPointerException` at startup
 - 🎲 That exact combination is just a **seed** now
 - ⚡ Found in **seconds**, fixed **before prod**, **no 3am page**
-- 🤖 And today, an **agent** could have found that seed too
 
 That is the whole point.
 

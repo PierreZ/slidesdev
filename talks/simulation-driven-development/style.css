@@ -1,0 +1,13 @@
+/* Unified table styling for the whole deck.
+   Replaces the per-slide .ecom (0.72rem) / .papers (0.66rem) overrides and the
+   oversized default tables with one consistent, middle-ground size. */
+.slidev-layout table {
+  font-size: 0.8rem;
+  width: auto;
+  margin: 0.4rem auto;
+}
+
+.slidev-layout th,
+.slidev-layout td {
+  padding: 3px 18px;
+}
