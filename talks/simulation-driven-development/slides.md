@@ -25,7 +25,7 @@ Sunny Tech
 <div>
 
 - 🛠️ Staff engineer, I build and operate **distributed systems**
-- 🐈‍⬛ On-call **"black cat"**: the weird incidents always find me
+- 🐈‍⬛ On-call **"black cat"**: I learn what my code really does by **operating** it
 - 🦀 Maintainer of OSS Rust libraries ([foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs))
 - 🤝 I help the local **FinistDevs** / JUG
 - 🎾 Squash player (the sport with walls, not the git command)
@@ -47,7 +47,8 @@ Sunny Tech
 - 🐢 The cluster cannot agree on reality, it gets **stuck on its back**
 - 🔁 In doubt, **reboot**. Except it will not come back up
 - ☕ It greets us with a **`NullPointerException` at startup**
-- 🩹 Known bug, patched upstream: we **backported** it, recompiled, and did a rolling redeploy on 70 machines 😱
+- 🩹 Known bug, patched upstream: we **backported** it, recompiled, and redeployed on 70 machines 😱
+- 🎓 This is how I learned what HDFS *really* does: by **operating** it
 
 </div>
 <div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-48 h-48">
@@ -69,12 +70,75 @@ Sunny Tech
 
 ---
 
-# How do you teach 3am? 🧑‍🏫
+# It's 2026, and AI broke "good enough" 🤖
 
-- 🧑‍🏫 I now have **juniors and apprentices** on my team
-- 🩹 On-call gave me production intuition. Those are **scars**, learned the hard way
-- 🤔 I cannot just hand them the pager and say "good luck"
-- ❓ The real question under everything: **will their code break production?**
+An **LLM** writes a lot of the code now. More code, faster, with the **same blind spots**.
+
+> We said "good enough" because we wrote it, we understood it, we tried it. AI broke all three.
+
+<div class="flex justify-center gap-4 mt-6">
+  <div class="px-6 py-4 border-2 rounded-lg text-center line-through" style="border-color: var(--theme-accent); color: var(--theme-accent);">✍️ we wrote it</div>
+  <div class="px-6 py-4 border-2 rounded-lg text-center line-through" style="border-color: var(--theme-accent); color: var(--theme-accent);">🧠 we understood it</div>
+  <div class="px-6 py-4 border-2 rounded-lg text-center line-through" style="border-color: var(--theme-accent); color: var(--theme-accent);">🧪 we tried it</div>
+</div>
+
+We did not write it. We do not understand it. Sometimes we do not even try it.
+
+---
+
+# Suddenly, everyone cares about correctness 📈
+
+<div class="max-w-2xl mx-auto mt-4 text-sm">
+  <div class="mb-1 opacity-70">Before agents</div>
+  <div class="flex h-9 rounded overflow-hidden font-semibold text-white">
+    <div class="flex items-center justify-center" style="width:50%; background:#9ca3af;">write code</div>
+    <div class="flex items-center justify-center" style="width:50%; background:var(--theme-accent);">make it correct</div>
+  </div>
+  <div class="mt-5 mb-1 opacity-70">With agents (writing code is almost free)</div>
+  <div class="flex h-9 rounded overflow-hidden font-semibold text-white">
+    <div class="flex items-center justify-center" style="width:4%; background:#9ca3af;"></div>
+    <div class="flex items-center justify-center" style="width:96%; background:var(--theme-accent);">make it correct</div>
+  </div>
+</div>
+
+- ⚙️ **Amdahl's law**: when writing code becomes nearly free, the **bottleneck** is testing, triaging, debugging. "It used to be 50% of your time, now it's 99%."
+- 📈 Search interest in property-based testing and formal verification went **vertical** in 2025. Everybody started caring at once
+
+---
+
+# The correctness decade has begun 🔬
+
+- 🧰 These techniques are **not new**: simulation, property-based testing, model checking, types, deterministic replay
+- 🤖 Agents did not invent the problem. They made the cure **mandatory**
+- 🗣️ Soon, **every programmer will need what this community already knows**
+
+---
+
+# How do you trust code you didn't write? 🤝
+
+<div class="flex items-center justify-center gap-3 mt-8 text-lg font-semibold">
+  <span>🎯 correctness</span><span class="opacity-40">→</span>
+  <span>🤝 confidence</span><span class="opacity-40">→</span>
+  <span>🧠 understanding</span><span class="opacity-40">→</span>
+  <span style="color: var(--theme-accent);">👀 behaviors</span>
+</div>
+
+> We start wanting correctness. We realize we need confidence. Confidence requires understanding. Understanding lives in behaviors.
+
+And confidence is **not a checkmark**: no tool hands you "correct", you build it.
+
+---
+
+# Understanding lives in behaviors 👀
+
+A behavior is just a **sequence of states**: what your system actually does. There are two ways to witness them:
+
+<div class="flex justify-center gap-6 mt-6">
+  <div class="px-6 py-4 border-2 border-current rounded-lg text-center w-64">🌙 <b>Operate it</b><div class="text-sm opacity-70 mt-1">on-call, paged at 3am (how I learned HDFS)</div></div>
+  <div class="px-6 py-4 border-2 rounded-lg text-center w-64" style="border-color: var(--theme-accent); color: var(--theme-accent);">🌪️ <b>Simulate it</b><div class="text-sm opacity-80 mt-1">controlled, no pager</div></div>
+</div>
+
+Both lead to **understanding**. Simulation gets you there **before production**, at the speed agents demand.
 
 ---
 
@@ -160,9 +224,10 @@ One option each, and manual testing **cannot keep up** with feature velocity.
 
 # You can't test what you don't know 🙈
 
-- 🧠 You only write tests for the cases you **already imagined**
+- 🧠 Example-based tests only cover the cases you **already imagined**
 - 🪤 The nasty bugs hide in the **combination you never tried** (that one currency with no FX rate)
 - 🛡️ Tests are a **regression net, not a proof** that bugs are absent
+- 🤖 And agents are **confident** about what they test, so the gaps only **grow**
 
 ---
 
@@ -181,138 +246,30 @@ Now let's torture the **other** side. 😈
 
 ---
 
-# Failure is the normal case 🏭
+# The world is worse than your tests 📚
 
-<div class="grid grid-cols-[1fr_auto] gap-8 items-center">
-<div>
+You do not have to believe me. Believe the literature:
 
-> A **2000-machine** service means **more than 10 machine crashes every day**.
+<div class="papers">
 
-*John Wilkes, QCon London 2015*
-
-- 💀 Disks, RAM, kernel and cluster upgrades, OOM kills
-- 📊 At scale, failure is not an event, it is the **day-to-day job**
-
-</div>
-<div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-56 h-40">
-  🖼️ datacenter aisle photo (/datacenter.png)
-</div>
-</div>
-
----
-
-# "The network is reliable" 🌐
-
-- 🤥 The **first fallacy** of distributed computing
-- 🧪 Every microservice app **is** a distributed system: it talks over the network
-- 🎓 So academia went and **studied what really happens**
-
----
-
-# Network partitions are catastrophic 💀
-
-*[An Analysis of Network-Partitioning Failures in Cloud Systems](https://www.usenix.org/conference/osdi18/presentation/alquraan), Alquraan et al., OSDI 2018*
-
-<div class="grid grid-cols-[1fr_auto] gap-8 items-center mt-4">
-<div>
-
-> **80%** of studied failures had a **catastrophic** impact.
-> **27%** caused **permanent data loss**.
-
-Real bug reports from HBase, ZooKeeper, Kafka, and more.
+| You believe... | The research says otherwise |
+|---|---|
+| 🌐 "The network is reliable" | [Network-Partitioning Failures, OSDI '18](https://www.usenix.org/system/files/osdi18-alquraan.pdf) (80% catastrophic, 90% silent) |
+| 💾 "My data is safe on disk" | [Data Corruption in the Storage Stack, FAST '08](https://www.usenix.org/legacy/events/fast08/tech/full_papers/bairavasundaram/bairavasundaram.pdf) |
+| 💾 "fsync means it is saved" | [Can Applications Recover from fsync Failures?, ATC '20](https://www.usenix.org/system/files/atc20-rebello.pdf) |
+| 🤝 "Consensus recovers from crashes" | [Protocol-Aware Recovery, FAST '18](https://www.usenix.org/system/files/conference/fast18/fast18-alagappan.pdf) |
+| 🛡️ "3 replicas means I am safe" | [Redundancy Does Not Imply Fault Tolerance, FAST '17](https://www.usenix.org/system/files/conference/fast17/fast17-ganesan.pdf) |
+| ⚠️ "We handle all our errors" | [Simple Testing Can Prevent Most Critical Failures, OSDI '14](https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-yuan.pdf) |
+| 🧵 "We have no concurrency bugs" | [TaxDC, ASPLOS '16](https://ucare.cs.uchicago.edu/pdf/asplos16-TaxDC.pdf) |
+| 🔄 "We just retry on failure" | [Metastable Failures in the Wild, OSDI '22](https://www.usenix.org/system/files/osdi22-huang-lexiang.pdf) (retries sustain >50% of incidents) |
+| 📖 "We follow the documentation" | [Jepsen: MariaDB Galera](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2) (stale reads in healthy clusters) |
 
 </div>
-<div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-56 h-40">
-  🖼️ OSDI '18 paper tables 1 and 2 (/osdi-tables.png)
-</div>
-</div>
 
----
-
-# ...and you won't even see it 🙈
-
-<div class="grid grid-cols-[1fr_auto] gap-8 items-center">
-<div>
-
-> **90%** were **silent** (no logs, no errors).
-> **21%** left the system **permanently broken**, even after the network healed.
-> **83%** needed **3 or more events** to trigger.
-
-🔁 Permanently broken until you reboot it. Sound familiar? (Hi, Hadoop. 👋)
-
-</div>
-<div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-52 h-40">
-  🖼️ "I just rolled a new network config" meme (/network-config-meme.png)
-</div>
-</div>
-
----
-
-# Your microservices are a distributed system 🕸️
-
-<div class="grid grid-cols-[1fr_auto] gap-8 items-center">
-<div>
-
-- 🧩 Front-end, back-end, and database: **state in all three**, coordinating over a network
-- 🔪 "We replaced our monolith with microservices so every outage is a **murder mystery**"
-- 📺 cite Bryan Cantrill, *Debugging Under Fire*
-
-</div>
-<div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-56 h-44">
-  🖼️ "murder mystery microservices" tweet (/murder-mystery.png)
-</div>
-</div>
-
----
-layout: two-cols
----
-
-::title::
-
-# SRE vs SWE 🌉
-
-::default::
-
-**🛟 The on-call engineer (SRE)**
-
-- 📦 Treats your service as a **black box**
-- 🌪️ Absorbs whatever prod throws: bad users, dead machines, partitions
-- 🌙 Has to fix it at **3am**, alone
-
-::right::
-
-**🧑‍💻 The developer (SWE)**
-
-- 🚀 Pushed to **ship the feature**
-- ⏳ Rarely given time to write tests
-- 🧪 Tests only **what they thought to test**
-
----
-
-# And now an LLM writes the code 🤖
-
-More code, faster, with the **same blind spots**:
-
-> We said "good enough" because we wrote it, we understood it, we tried it. AI broke all three.
-
-*Steve Klabnik, "Steel, Rust, and truth", BugBash 2026*
-
-- 🏢 Amazon's Gen-AI changes, **"high blast radius"** incidents (FT, 2026)
-- 📉 *SWE-CI (Chen et al., 2026): most models hold a zero-regression rate **below 0.25***
-
----
-
-# Juniors and LLMs: the same question ❓
-
-A junior's code and an LLM's code both fail Klabnik's three grounds **in the production sense**:
-
-- ✍️ we wrote it, but we did not feel it break
-- 🧠 we understood it, but not what prod does to it
-- 🧪 we tried it, but only on the happy path
-
-Neither has the scars. Both ask one thing: **will it break production?**
-
-We need a way to find out, **before production does**.
+<style>
+.papers table { font-size: 0.66rem; width: auto; margin: 0 auto; }
+.papers td, .papers th { padding: 1px 14px; }
+</style>
 
 ---
 
@@ -328,14 +285,6 @@ We need a way to find out, **before production does**.
 </div>
 
 Surface the hidden edge cases. **Uncover the unknown unknowns.** If it survives this, it survives prod.
-
----
-
-# What do we want from a test? ✅
-
-- ⚡ **Fast and debuggable**
-- 🌐 **Entire system** at once
-- 🪨 **Robust** (no `sleep(5)` flakiness)
 
 ---
 
@@ -417,7 +366,7 @@ assertFalse(new User(GUEST).canUse(SAVED_CARD));
 assertEquals(user.isAuthenticated(), user.canUse(SAVED_CARD));
 ```
 
-A property reads like a **spec**, not a test case.
+A property reads like a **spec**, not a test case. It is a **seatbelt** as you drive fast with agentic development.
 
 </div>
 <div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-44 h-44">
@@ -434,7 +383,7 @@ A property reads like a **spec**, not a test case.
 - 🦀 **proptest** (Rust)
 - λ **QuickCheck** (Haskell)
 
-Same idea, applied to **integration**, not just units.
+Same idea, applied to **integration**, not just units. It used to be for experts. **Now it's for everyone.**
 
 ---
 
@@ -547,7 +496,7 @@ Loud failures are easy. The dangerous ones are **silent**. Your code thinks ever
 
 - 🤖 **Antithesis** does autonomous testing: it hunts bugs for you
 - 🍄 From pure random input, it **beats Super Mario Bros (1985)**
-- 🧱 ...and finds a bug where **Mario clips through a wall** (Will Wilson)
+- 🧱 ...and finds a bug where **Mario clips through a wall**
 
 </div>
 <div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-56 h-44">
@@ -661,7 +610,7 @@ machinesToKill = 10
 machinesToLeave = 3
 ```
 
-Kill up to 10 machines, keep at least 3. The system must still **make progress**.
+Kill up to 10 machines, keep at least 3. The system must still **make progress**. All workloads run **concurrently**, driven by one seed.
 
 ---
 
@@ -680,23 +629,6 @@ if (swap) {
 ```
 
 The Kubernetes-volume nightmare, on purpose.
-
----
-
-# ...all at once, concurrently 🌀
-
-```toml
-[[test.workload]]
-testName = 'Cycle'
-
-[[test.workload]]
-testName = 'RandomClogging'
-
-[[test.workload]]
-testName = 'Attrition'
-```
-
-All of it happens **concurrently**, driven by one seed.
 
 ---
 
@@ -742,7 +674,8 @@ The loop closes the same way for an agent as for a human:
 1. 🤖 the agent writes code
 2. 🌪️ the simulator beats it up
 3. 🎲 a faulty seed reproduces the bug
-4. 🔧 the loop fixes it
+4. 🔧 the agent reads the seed and fixes it
+5. 🔁 rerun the **whole** suite, so the fix adds no new bug
 
 > You do not trust Claude. You trust the simulator. It finds what you never thought to test.
 
@@ -771,20 +704,18 @@ The loop closes the same way for an agent as for a human:
 
 ---
 
-# Same loop, juniors and AI alike 🧑‍🏫🤖
+# The same loop, humans and agents alike 🧑‍🏫🤖
 
-- 🧑‍🏫 The feedback loop works for **juniors and agents** alike: both **discover what they don't know**
-- ❓ DST answers **"will it break production?"** before production does
-- 🔬 Klabnik closed his keynote with this:
-
-> You've been taking this seriously for sixty years. [...] Every programmer is about to need what you already know.
+- 🧑‍🏫 The same feedback loop works for a **junior**, for **me**, and for an **agent**
+- 🔍 Each one gets to **discover what they don't know**, safely, before production
+- 🤝 You do not have to hand everyone the pager to give them **production intuition**
 
 ---
 
 # Not a silver bullet 🙅
 
 - 📈 **Performance is invisible** in sim: you still need a perf farm
-- 🗺️ Your **model can be wrong**: sim only tests the world you described
+- 🕳️ **Meaning leaks**: a proof still has a gap to reality. Sim tests the **model you described**, not the full world
 - 🧱 **Hard to retrofit** onto a system not built for determinism
 - ⏳ **Bug-finding has latency**: a bug can hide in a seed for months
 
@@ -804,11 +735,20 @@ You can start at level 1 **on Monday**.
 
 ---
 
+# Our moment to shine 🌅
+
+- 🌊 The masses are flooding into correctness. Winning looks like the world **co-opting your thing**.
+- 🔁 We used to have a problem: **nobody** cared about correctness. Now **everybody** does. A better problem.
+- 🤝 They are hungry for what this community already knows. **It is our moment to teach.**
+
+---
+
 # Remember the NPE? 🔁
 
 - 🌐 The partition, the recovery, the `NullPointerException` at startup
 - 🎲 That exact combination is just a **seed** now
 - ⚡ Found in **seconds**, fixed **before prod**, **no 3am page**
+- 🤖 And today, an **agent** could have found that seed too
 
 That is the whole point.
 
@@ -816,12 +756,12 @@ That is the whole point.
 layout: end
 ---
 
-# Thank you, questions? 🎁
+# The correctness decade is here 🔬
 
-Come say hi at the **Clever Cloud** booth 👋
+The techniques are ready. The world is finally asking. Come build with us. 🎁
 
 [The companion blog post](https://pierrezemb.fr/posts/simulation-driven-development/) · [Why fakes beat mocks and testcontainers](https://pierrezemb.fr/posts/why-fakes-beat-mocks-and-testcontainers/)
 
 [BugBash 2026: the correctness decade](https://pierrezemb.fr/posts/bugbash-2026/) · [Learn about DST](https://pierrezemb.fr/posts/learn-about-dst/)
 
-[moonpool](https://github.com/PierreZ/moonpool) · [pierrezemb.fr](https://pierrezemb.fr) · @PierreZ
+[moonpool](https://github.com/PierreZ/moonpool) · [pierrezemb.fr](https://pierrezemb.fr) · @PierreZ · Questions? 💬
