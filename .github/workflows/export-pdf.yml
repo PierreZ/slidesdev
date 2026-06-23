@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        talk: [prevention-vs-discovery, borrowing-fdb-sim]
+        talk: [prevention-vs-discovery, borrowing-fdb-sim, simulation-driven-development]
 
     steps:
       - uses: actions/checkout@v4
