@@ -11,11 +11,9 @@ themeConfig:
 
 # What if we embraced<br>simulation-driven development? 🎲
 
-Pierre Zemb, Distributed-systems Engineer @ Clever Cloud 🇫🇷
+Pierre Zemb, Staff Engineer @ Clever Cloud
 
-On-call survivor 🔥
-
-Sunny Tech
+Sunny Tech 2026 🦩
 
 ---
 
@@ -25,31 +23,26 @@ Sunny Tech
 <div>
 
 - 🛠️ Staff engineer, working around **distributed systems**
-- 🐞 Building, contributing, debugging, **paging**…
+  - 🐞 Building, contributing, debugging, **paging**…
 - 🦀 Maintaining several OSS libraries in Rust ([foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs))
 - 🤝 Involved in local communities (**FinistDevs** / JUG)
 - 🎾 Squash player
 
 </div>
-<div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-40 h-40">
-  🖼️ photo of Pierre (/pierre.png)
-</div>
+<img src="https://pierrezemb.fr/images/myself.jpg" class="w-40 h-40 rounded-lg object-cover" />
 </div>
 
 ---
 
-<div class="grid place-items-center h-full">
-  <div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-sm w-[36rem] h-80">
-    🖼️ "this is fine" gif (/this-is-fine.gif)
-  </div>
+# Also me
+
+<div class="absolute inset-0 grid place-items-center">
+  <img src="https://media1.tenor.com/m/MYZgsN2TDJAAAAAC/this-is.gif" class="rounded-lg max-h-72" />
 </div>
 
 ---
 
 # One of my most "wait what" bugs 🤯
-
-<div class="grid grid-cols-[1fr_auto] gap-8 items-start">
-<div>
 
 - 🌐 A tough network partition hit a **70+ node Apache Hadoop cluster**
 - 🐢 The cluster could not restart
@@ -58,70 +51,33 @@ Sunny Tech
 - ⏰ You hit the bug at the **worst moment**, during recovery
 - 🔥 Rolling out an untested patch on a distributed system under fire is an **unpleasant** experience
 
-</div>
-<div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-48 h-48">
-  🖼️ "days since last NullPointerException" sign (/days-since-npe.png)
-</div>
-</div>
-
 ---
 
 # So, what went wrong? 🔍
 
-<div class="flex justify-center my-8">
-  <div class="px-12 py-10 border-2 border-current rounded-lg text-center font-semibold text-lg">🖥️ Your system</div>
-</div>
-
-- 🚗 **Prod is not Dev**, like the knowledge test vs the driving test
-- 🌍 The code never modeled real-world complexity: partitions, recovery, pressure
-- 💥 Users do weird things, systems run under pressure, things **break** if we're not ready
-- 🌙 And you debug it paged at **3am**, everything down
+- 🚗 **Production environments ≠ Development environments**
+  - 📝 Like the knowledge test vs the driving test
+- 🌍 The code didn't account for real-world complexity, like our "not-common" NPE
+  - 👤 Users will do weird things
+  - 🔧 Systems will be under pressure
+  - 💥 And things will **break** if we're not ready
+- 🌙 Getting paged at **3am** with everything down, debugging and fixing live, is tough work
+  - How can we cultivate a **production-oriented culture** in juniors without handing them a pager?
 
 ---
 
 # It's 2026, and AI broke "good enough" 🤖
 
-An **LLM** writes a lot of the code now. More code, faster, with the **same blind spots**.
+Before LLMs, we trusted **correctness** because we:
 
-> We said "good enough" because we wrote it, we understood it, we tried it. AI broke all three.
+- ✍️ wrote it
+- 🧠 understood it
+- 🧪 tried it
+- 📟 got paged by it
 
-<div class="flex justify-center gap-4 mt-6">
-  <div class="px-6 py-4 border-2 rounded-lg text-center line-through" style="border-color: var(--theme-accent); color: var(--theme-accent);">✍️ we wrote it</div>
-  <div class="px-6 py-4 border-2 rounded-lg text-center line-through" style="border-color: var(--theme-accent); color: var(--theme-accent);">🧠 we understood it</div>
-  <div class="px-6 py-4 border-2 rounded-lg text-center line-through" style="border-color: var(--theme-accent); color: var(--theme-accent);">🧪 we tried it</div>
-</div>
+AI broke the first three. The only feedback left is the **worst** one: the pager.
 
-We did not write it. We do not understand it. Sometimes we do not even try it.
-
-⚙️ Writing code is nearly free now, so the bottleneck becomes **making it correct**. Suddenly, everybody cares.
-
----
-
-# How do you trust code you didn't write? 🤝
-
-<div class="flex items-center justify-center gap-3 mt-8 text-lg font-semibold">
-  <span>🎯 correctness</span><span class="opacity-40">→</span>
-  <span>🤝 confidence</span><span class="opacity-40">→</span>
-  <span>🧠 understanding</span><span class="opacity-40">→</span>
-  <span style="color: var(--theme-accent);">👀 behaviors</span>
-</div>
-
-> We start wanting correctness. We realize we need confidence. Confidence requires understanding. Understanding lives in behaviors.
-
-And confidence is **not a checkmark**: no tool hands you "correct", you build it.
-
----
-
-# Understanding lives in behaviors 👀
-
-A behavior is just a **sequence of states**: what your system actually does. There are two ways to witness them:
-
-<div class="flex justify-center gap-6 mt-6">
-  <div class="px-6 py-4 border-2 border-current rounded-lg text-center w-64">🌙 <b>Operate it</b><div class="text-sm opacity-70 mt-1">on-call, paged at 3am (how I learned HDFS)</div></div>
-  <div class="px-6 py-4 border-2 rounded-lg text-center w-64" style="border-color: var(--theme-accent); color: var(--theme-accent);">🌪️ <b>Simulate it</b><div class="text-sm opacity-80 mt-1">controlled, no pager</div></div>
-</div>
-
-Both lead to **understanding**. Simulation gets you there **before production**, at the speed agents demand.
+So we must **enforce correctness during development**, not at 3am.
 
 ---
 
@@ -151,8 +107,6 @@ Two sources of chaos. Let's start with the **users**.
   </div>
 </div>
 
-An e-commerce API, grown feature by feature. How many paths must we cover?
-
 ---
 
 # One checkout, so many paths 🛒
@@ -172,18 +126,16 @@ An e-commerce API, grown feature by feature. How many paths must we cover?
 
 # Add a few features... 😱
 
-| Dimension | New option | Count |
+| Dimension | Options | Count |
 |---|---|---|
-| 👤 User type | + Business | 4 |
-| 💳 Payment | + Bank Transfer | 5 |
-| 🚚 Delivery | + Same-Day | 4 |
-| 🏷️ Promotion | + Expired promo | 3 |
-| 📦 Inventory | + Preorder | 4 |
-| 💱 Currency | + JPY | 4 |
+| 👤 User type | Guest, Logged-in, Premium, **Business** | 4 |
+| 💳 Payment | Card, PayPal, Apple Pay, Gift Card, **Bank Transfer** | 5 |
+| 🚚 Delivery | Standard, Express, Pickup, **Same-Day** | 4 |
+| 🏷️ Promotion | Yes, No, **Expired promo** | 3 |
+| 📦 Inventory | In stock, Low, Out, **Preorder** | 4 |
+| 💱 Currency | USD, EUR, GBP, **JPY** | 4 |
 
 <div class="text-center mt-6 text-lg font-mono">4 x 5 x 4 x 3 x 4 x 4 = <span class="font-bold" style="color: var(--theme-accent);">3,840</span> test cases 💀</div>
-
-One option each, and manual testing **cannot keep up** with feature velocity.
 
 ---
 
@@ -230,62 +182,46 @@ You do not have to believe me. Believe the literature:
 
 # Let's test the worst 😈
 
-<div class="flex items-center justify-center gap-10 mt-10">
-  <div class="px-8 py-10 border-2 border-current rounded-lg text-center font-semibold">🖥️ Your system</div>
-  <div class="text-3xl" style="color: var(--theme-accent);">↔</div>
-  <div class="flex flex-col gap-6">
-    <div class="px-6 py-3 border-2 rounded-full text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">👤 Your users, but worse</div>
-    <div class="px-6 py-3 border-2 rounded-full text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🌍 The world, but worse</div>
+<div class="grid grid-cols-[1fr_auto] gap-10 items-center">
+<div>
+
+- ✅ To ensure software **behaves correctly**
+- 🔍 To surface **hidden edge cases**
+- 🕳️ To uncover the **unknown unknowns**
+
+</div>
+<div class="flex flex-col items-center gap-4">
+  <div class="px-8 py-6 border-2 border-current rounded-lg text-center font-semibold">🖥️ Your system</div>
+  <div class="text-3xl" style="color: var(--theme-accent);">↕</div>
+  <div class="px-6 py-3 border-2 rounded-full text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">👤 Your users, but worse</div>
+  <div class="px-6 py-3 border-2 rounded-full text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🌍 The world, but worse</div>
+</div>
+</div>
+
+---
+
+# Two ways to be the worst 😈
+
+<div class="grid grid-cols-2 gap-12 mt-10 text-center">
+  <div class="flex flex-col items-center gap-3">
+    <div class="px-6 py-3 border-2 rounded-full font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">👤 The worst users</div>
+    <div class="text-3xl opacity-40">↓</div>
+    <div class="px-6 py-3 border-2 border-current rounded-lg font-semibold">🎰 Random workloads</div>
+  </div>
+  <div class="flex flex-col items-center gap-3">
+    <div class="px-6 py-3 border-2 rounded-full font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🌍 The worst world</div>
+    <div class="text-3xl opacity-40">↓</div>
+    <div class="px-6 py-3 border-2 border-current rounded-lg font-semibold">🎭 Fakes</div>
   </div>
 </div>
 
-Surface the hidden edge cases. **Uncover the unknown unknowns.** If it survives this, it survives prod.
-
----
-
-# What do we want from a test? ✅
-
-| What we want | How |
-|---|---|
-| ⚡ Fast and debuggable | Single thread |
-| 🌐 Entire system | Single binary |
-| 🪨 Robust | Randomized |
-
----
-
-# What do we want from a test? ✅
-
-| What we want | How | The DST piece |
-|---|---|---|
-| ⚡ Fast and debuggable | Single thread | **Deterministic event loop** |
-| 🌐 Entire system | Single binary | **Network simulation** |
-| 🪨 Robust | Randomized | **Entropy injection** |
-
-Put together, that is **Deterministic Simulation Testing**.
-
----
-
-# Simulating all the things 🎲
-
-<div class="flex items-center justify-center gap-10 mt-12">
-  <div class="px-10 py-12 border-2 border-current rounded-lg text-center font-semibold">🖥️ Your system</div>
-  <div class="text-3xl" style="color: var(--theme-accent);">↔</div>
-  <div class="flex flex-col gap-6">
-    <div class="px-6 py-3 border-2 rounded-full text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🤖 Simulated users</div>
-    <div class="px-6 py-3 border-2 rounded-full text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🌪️ Simulated world</div>
-  </div>
-</div>
-
-Two jobs: **simulate the users**, **simulate the world**.
+Two halves. Build both, then bundle them.
 
 ---
 
 # Don't write tests, write a generator 🎰
 
-<div class="grid grid-cols-[1fr_auto] gap-6 items-center">
-<div>
-
-```java {7-9}
+```java
 enum UserType { GUEST, LOGGED_IN, PREMIUM, BUSINESS }
 enum PaymentMethod { CARD, PAYPAL, APPLE_PAY,
                      GIFT_CARD, BANK_TRANSFER }
@@ -293,16 +229,9 @@ enum PaymentMethod { CARD, PAYPAL, APPLE_PAY,
 Random rand = new Random(seed);
 
 UserType user = pickRandom(rand, UserType.values());
-PaymentMethod payment =
-    pickRandom(rand, PaymentMethod.values());
+PaymentMethod payment = pickRandom(rand, PaymentMethod.values());
 // add a feature? add an enum value, not 648 tests
 ```
-
-</div>
-<div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-44 h-44">
-  🖼️ "write several tests vs write a generator" meme (/generator-meme.png)
-</div>
-</div>
 
 Iterate enough seeds and you **cover the cardinality**, for free.
 
@@ -310,10 +239,7 @@ Iterate enough seeds and you **cover the cardinality**, for free.
 
 # Don't write assertions, write properties ✅
 
-<div class="grid grid-cols-[1fr_auto] gap-6 items-center">
-<div>
-
-```java {5}
+```java
 // from a hardcoded test case:
 assertFalse(new User(GUEST).canUse(SAVED_CARD));
 
@@ -321,28 +247,12 @@ assertFalse(new User(GUEST).canUse(SAVED_CARD));
 assertEquals(user.isAuthenticated(), user.canUse(SAVED_CARD));
 ```
 
-A property reads like a **spec**, not a test case. It holds for **any** generated input, so it doubles as your safety net.
-
-</div>
-<div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-44 h-44">
-  🖼️ reaction meme (/property-meme.png)
-</div>
-</div>
+* A property reads like a **spec**, not a test case. It holds for **any** generated input
+  * (Yes it's like Property-based testing, but applied to integration tests)
 
 ---
 
-# It's "just" property-based testing 🧪
-
-- 🐍 **Hypothesis** (Python)
-- ☕ **jqwik** (Java)
-- 🦀 **proptest** (Rust)
-- λ **QuickCheck** (Haskell)
-
-Same idea, applied to **integration**, not just units. It used to be for experts. **Now it's for everyone.**
-
----
-
-# Simulating the world 🌪️
+# The worst world → fakes 🌪️
 
 <div class="flex items-center justify-center gap-10 mb-6">
   <div class="px-8 py-8 border-2 border-current rounded-lg text-center font-semibold opacity-40">🖥️ Your system</div>
@@ -353,46 +263,31 @@ Same idea, applied to **integration**, not just units. It used to be for experts
   </div>
 </div>
 
-- 💥 Break Time, Network, Infra, Dependencies, and simulate Load, so you must **control everything**
-- 🧰 Three options: DST from day 1, discrete-event-sim libs ([madsim](https://github.com/madsim-rs/madsim), [turmoil](https://github.com/tokio-rs/turmoil), SimPy), or **fakes**
+- 💥 The world breaks time, network, disk, infra, dependencies: to test the worst, you must **control all of it**
+- 🎭 The lightest way in: a **fake**, an in-memory stand-in you can make as cruel as you want
 
 ---
 
-# Your testcontainers can't page you 🐳
+# What is a fake? 🎭
 
-CI spins up Kafka, Postgres, Redis in Docker. 4 minutes to start. All green. None can produce the partial failure that pages you at **3am**.
+A fake is an **autonomous mock**: a real, in-memory implementation that holds its own state and fails on its own, no scripted call-by-call.
 
-| | Mocks | Testcontainers | Fakes |
-|---|---|---|---|
-| **State** | scripted | real | in-memory |
-| **Partial failures** | manual | impossible | built-in |
-| **Speed** | µs | minutes | µs |
-| **Deterministic** | yes | no | yes |
+Your code leans on **fallible things you don't own**. That frontier is where you add your fakes.
 
-Testcontainers give you **up or down**. Real failures are **partial**.
-
----
-
-# Write a fake instead 🎭
-
-A **fake** is a lightweight, in-memory implementation that **holds state**.
-
-Fakes are about **ownership**: what do you own, and where is the fallible boundary it leans on?
-
-<div class="flex flex-col items-stretch w-[34rem] mx-auto mt-6 text-sm">
-  <div class="px-4 py-2 border-2 border-current rounded-t-lg text-center">Your business logic</div>
-  <div class="px-4 py-2 border-2 border-t-0 text-center font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">Your access trait (fake here)</div>
-  <div class="px-4 py-2 border-2 border-t-0 border-current text-center opacity-50">Driver you don't own (JDBC, SDK, HTTP)</div>
-  <div class="px-4 py-2 border-2 border-t-0 border-current rounded-b-lg text-center opacity-50">Network and disk</div>
+<div class="flex flex-col items-stretch w-[42rem] mx-auto mt-6 text-sm">
+  <div class="px-4 py-3 border-2 border-current rounded-lg text-center">🧠 Your code, it must <b>behave correctly</b></div>
+  <div class="px-4 py-3 mt-2 border-2 rounded-lg text-center font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎭 The frontier, your fakes live here</div>
+  <div class="mt-2 grid grid-cols-2 gap-2">
+    <div class="px-4 py-3 border-2 border-dashed border-current rounded-lg text-center opacity-50">🌐 the network<br/>you don't control the syscall</div>
+    <div class="px-4 py-3 border-2 border-dashed border-current rounded-lg text-center opacity-50">📨 the messaging system<br/>you don't own the driver</div>
+  </div>
 </div>
 
-**Don't fake PostgreSQL. Fake your access to it.**
-
 ---
 
-# Same interface, two implementations 🔀
+# Swap it at the frontier 🔀
 
-```java {6-9}
+```java
 interface UserRepository {
     void save(User user);
     Optional<User> findById(long id);
@@ -407,13 +302,13 @@ class FakeUserRepository implements UserRepository {
 }
 ```
 
-Your system **can't tell the difference**. Keep the fake honest with a contract test run against both (a verified fake).
+Same interface, two implementations: your system **can't tell the difference**. Keep the fake honest with one contract test run against both.
 
 ---
 
 # Make the fake fight back 😈
 
-```java {3-5}
+```java
 public Optional<User> findById(long id) {
     float r = rng.nextFloat();
     if (r < 0.10) throw new ConnectionLost();        // loud
@@ -424,23 +319,39 @@ public Optional<User> findById(long id) {
 }
 ```
 
-Loud failures are easy. The dangerous ones are **silent**. Your code thinks everything is fine.
-
 ---
 
 # Be worse than production 😈
 
-- 🩺 Jepsen found a **healthy** Galera cluster serving **stale reads**, with zero faults injected
+- 🩺 [Jepsen](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2) found a **healthy** Galera cluster serving **stale reads**, with zero faults injected
 - 😈 So your fake should be **worse**: 50% stale reads, not 0.1%
 - 🛡️ Survive the fake, and you **survive production**
+
+---
+
+# Bundle it: that's DST 🎲
+
+<div class="flex items-center justify-center gap-10 mt-8">
+  <div class="px-10 py-10 border-2 border-current rounded-lg text-center font-semibold">🖥️ Your system</div>
+  <div class="text-3xl" style="color: var(--theme-accent);">↔</div>
+  <div class="flex flex-col gap-4">
+    <div class="px-6 py-3 border-2 rounded-full text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎰 Worst users: random workloads</div>
+    <div class="px-6 py-3 border-2 rounded-full text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎭 Worst world: fakes that fight back</div>
+  </div>
+</div>
+
+Drive both from one **seed** on a deterministic loop, and every failure **replays exactly**.
+
+That bundle is **Deterministic Simulation Testing**. The whole point is to **discover what you don't know**.
 
 ---
 
 # Who actually does this? 🧬
 
 - 🧬 A growing club, mostly **distributed databases**:
-  - Clever Cloud, Antithesis, TigerBeetle, Turso, RisingWave, Dropbox, sled, Kafka KRaft, AWS
-- 🏗️ Heavy users of sim and fakes: **AWS** (15+ years), **Google** Fauxmaster, **Microsoft** CrystalNet (50+ bugs), **Oxide** (500k+ lines of Rust)
+  - Clever Cloud, Antithesis, TigerBeetle
+  - Turso, RisingWave, Dropbox
+  - sled, Kafka KRaft, AWS
 
 ---
 
@@ -454,10 +365,10 @@ Loud failures are easy. The dangerous ones are **silent**. Your code thinks ever
 - 🧱 ...and finds a bug where **Mario clips through a wall**
 
 </div>
-<div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-56 h-44">
-  🖼️ Super Mario / Antithesis screenshot (/mario.png)
+<img src="/mario.png" class="w-96 rounded shadow" />
 </div>
-</div>
+
+*[Testing a Single-Node, Single Threaded, Distributed System Written in 1985](https://www.youtube.com/watch?v=m3HwXlQPCEU&t=8s) — Will Wilson*
 
 ---
 
@@ -466,140 +377,41 @@ Loud failures are easy. The dangerous ones are **silent**. Your code thinks ever
 <div class="grid grid-cols-[1fr_auto] gap-8 items-center">
 <div>
 
-- 🏢 Clever Cloud is a **hoster**: own machines, BGP, Linux distro, load balancer, VM orchestrator
-- 🗄️ ...and now a **multi-tenant, multi-model distributed database**, thanks to DST
-- 🔐 Writing a database is like crypto: a thousand ways to get it wrong
-- 🦾 Team went from **1 to 5 + 2 apprentices**, shipping distributed-DB code
+- 🏢 At **Clever Cloud** we build **Materia**, a multi-tenant, multi-model distributed database
+  - KV, ETCD, KMS, workflows, leader election...
+- 🎥 Built on FoundationDB, they have a simulation framework that we hacked:
+  - [Borrowing FDB's simulator, BugBash 2026](https://www.youtube.com/watch?v=tTxY8IbT88A&t=330s)
+  - [Distributed DBs with FDB & Rust, Sunny Tech 2024](https://www.youtube.com/watch?v=Q_8CRjf3M24&t=2234s)
+  - [FoundationDB intro, Sunny Tech 2023](https://www.youtube.com/watch?v=cChMz4m8w5A&t=2s)
 
 </div>
-<div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-52 h-40">
-  🖼️ Materia logo (/materia.png)
-</div>
+<img src="/materia.webp" class="w-96 rounded shadow" />
 </div>
 
 ---
 
-# A simulation test, end to end 🧪
-
-```toml {1,2}
-[[test]]
-testTitle = 'Clogged'
-
-[[test.workload]]
-testName = 'Cycle'
-transactionsPerSecond = 1000.0
-
-[[test.workload]]
-testName = 'RandomClogging'
-
-[[test.workload]]
-testName = 'Attrition'
-machinesToKill = 10
-machinesToLeave = 3
-```
-
----
-
-# A linked list under chaos 🔗
-
-```toml {4-6}
-[[test]]
-testTitle = 'Clogged'
-
-[[test.workload]]
-testName = 'Cycle'
-transactionsPerSecond = 1000.0
-
-[[test.workload]]
-testName = 'RandomClogging'
-
-[[test.workload]]
-testName = 'Attrition'
-machinesToKill = 10
-machinesToLeave = 3
-```
-
-Objects point in a ring, reshuffle the pointers every transaction. Integrity holds when the last still points to the first.
-
----
-
-# Random clogging 🔌
-
-```toml {8,9}
-[[test]]
-testTitle = 'Clogged'
-
-[[test.workload]]
-testName = 'Cycle'
-transactionsPerSecond = 1000.0
-
-[[test.workload]]
-testName = 'RandomClogging'
-
-[[test.workload]]
-testName = 'Attrition'
-machinesToKill = 10
-machinesToLeave = 3
-```
-
-Deterministically cut the network. Reversing the close order surfaces **more** bugs.
-
----
-
-# Attrition 💀
-
-```toml {11-13}
-[[test]]
-testTitle = 'Clogged'
-
-[[test.workload]]
-testName = 'Cycle'
-transactionsPerSecond = 1000.0
-
-[[test.workload]]
-testName = 'RandomClogging'
-
-[[test.workload]]
-testName = 'Attrition'
-machinesToKill = 10
-machinesToLeave = 3
-```
-
-Kill up to 10 machines, keep at least 3. The system must still **make progress**. All workloads run **concurrently**, driven by one seed.
-
----
-
-# Swap the disks 🤯
-
-```cpp
-bool swap = killType == Reboot
-    && BUGGIFY_WITH_PROB(0.75)
-    && sameRack(a, b);
-
-if (swap) {
-    // two dead machines in the same rack:
-    // each reboots with the OTHER's disks
-    std::swap(a.folders, b.folders);
-}
-```
-
-We reproduce the Kubernetes-volume nightmare on purpose.
-
----
-
-# One datacenter, one seed 🎲
 
 <img src="/materia-sim-single.png" class="w-full rounded shadow" />
 
-One seed drives the whole cluster and even flips feature flags (TSS). **6s real, about 393s simulated**: we fast-forward the idle time.
 
 ---
 
-# Change the seed, change the world 🌍
 
 <img src="/materia-sim-triple.png" class="w-full rounded shadow" />
 
-A different seed gives six datacenters, TSS off, a different topology. The **same test**.
+
+---
+
+# It found bugs everywhere 🔥
+
+Not regressions we caught. **Discoveries**, bugs we never thought to look for:
+
+- 📊 query execution returning **wrong data**
+- 🗺️ query planner picking the **wrong index**
+- 💥 **corruption** during reindexing
+- 👑 **dual leader election** under clock skew
+- 🗜️ ETCD compaction **deleting live data**
+
 
 ---
 
@@ -608,10 +420,13 @@ A different seed gives six datacenters, TSS off, a different topology. The **sam
 <div class="grid grid-cols-[1fr_auto] gap-6 items-center">
 <div>
 
-- 🔁 Run it in a **loop**: in CI, and on a cloud fleet
-- ☁️ **30 min of sim is about 24h** of chaos testing
-- 🐞 A faulty seed **replays locally**, deterministically
-- 🦸 It feels like super-powers, because we **trust our software**
+- 🧠 Each dev found a bug in **their own code**, and got it
+- 💡 Simulation surfaces what you **don't know to look for**
+- 🏗️ Now every layer we build is **simulation-first**: we default to discovery
+  - 🔁 Run it in a **loop**: in CI, and on a cloud fleet
+  - ☁️ **30 min of sim is about 24h** of chaos testing
+  - 🐞 A faulty seed **replays locally**, deterministically
+  - 🦸 It feels like super-powers, because we **trust our software**
 
 </div>
 <img src="/materia-sim-ci.png" class="w-72 rounded shadow" />
@@ -619,25 +434,11 @@ A different seed gives six datacenters, TSS off, a different topology. The **sam
 
 ---
 
-# You don't trust Claude, you trust the simulator 🤖🔁
+# You don't trust Claude, you trust the simulator 🔁
 
-<div class="grid grid-cols-[1fr_auto] gap-8 items-center">
-<div>
-
-The loop closes the same way for an agent as for a human:
-
-1. 🤖 the agent writes code
-2. 🌪️ the simulator beats it up
-3. 🎲 a faulty seed reproduces the bug
-4. 🔧 the agent reads the seed and fixes it
-5. 🔁 rerun the **whole** suite, so the fix adds no new bug
-
-On **moonpool**, Claude found a bug I did not know existed and fixed it from the seed, alone. The same loop serves a **junior**, **me**, and an **agent** alike.
-
-</div>
-<div class="grid place-items-center border-2 border-dashed rounded-lg opacity-50 text-xs w-52 h-44">
-  🖼️ Claude fixing moonpool screenshot (/claude-moonpool.png)
-</div>
+<div class="grid grid-cols-2 gap-8 place-items-center">
+  <img src="/boris-cherny-tweet.png" class="rounded shadow w-full" />
+  <img src="/claude-moonpool.png" class="rounded shadow w-full" />
 </div>
 
 ---
@@ -651,46 +452,44 @@ On **moonpool**, Claude found a bug I did not know existed and fixed it from the
 
 ---
 
-# Where to start 📈
-
-| Level | Tactic | What you gain |
-|---|---|---|
-| 1 | 🎲 Random workload generation | Test the combinations you forgot |
-| 2 | 🧪 Property-based testing | Flush out the spec |
-| 3 | 🎭 Fakes | Fast, deterministic tests |
-| 4 | 😈 Fault-injectable fakes | Discover edge cases |
-| 5 | ⚙️ Seed-driven DST | Reproducible bugs, autonomous discovery |
-
-You can start at level 1 **on Monday**.
-
----
-
-# Our moment to shine 🌅
-
-- 🌊 The masses are flooding into correctness. Winning looks like the world **co-opting your thing**.
-- 🔁 We used to have a problem: **nobody** cared about correctness. Now **everybody** does. A better problem.
-- 🤝 They are hungry for what this community already knows. **It is our moment to teach.**
-
----
-
 # Remember the NPE? 🔁
 
 - 🌐 The partition, the recovery, the `NullPointerException` at startup
 - 🎲 That exact combination is just a **seed** now
 - ⚡ Found in **seconds**, fixed **before prod**, **no 3am page**
 
-That is the whole point.
+That is the whole point: testing has to evolve from **prevention to discovery**, and simulation is one of the answers!
+
+---
+
+# The age of correctness has started 🔬
+
+Expressing correctness was a **niche craft** for decades: types, contracts, property-based testing, fuzzing, formal methods, simulation.
+
+AI broke "good enough", so **all of them are about to grow**. Property-based testing already is:
+
+<div class="grid place-items-center mt-2">
+  <img src="https://pierrezemb.fr/images/bugbash-2026/property-based-testing.png" class="rounded-lg max-h-64" />
+</div>
+
+---
+
+# Invest in correctness, now 🌅
+
+- 🔭 Simulation is **one tool** in that rising tide, pick whichever fits you
+- 🛡️ We have a **duty**: ship correct software, not crap
+- ⏰ Don't wait for the 3am page, **invest in correctness today**
+
+> The goal is never to be perfect. It's to get better.
+
+*Steve Klabnik, "Steel, Rust, and truth"*
 
 ---
 layout: end
 ---
 
-# The correctness decade is here 🔬
+# Thank you! 🙏
 
-The techniques are ready. The world is finally asking. Come build with us. 🎁
+any questions?
 
-[The companion blog post](https://pierrezemb.fr/posts/simulation-driven-development/) · [Why fakes beat mocks and testcontainers](https://pierrezemb.fr/posts/why-fakes-beat-mocks-and-testcontainers/)
-
-[BugBash 2026: the correctness decade](https://pierrezemb.fr/posts/bugbash-2026/) · [Learn about DST](https://pierrezemb.fr/posts/learn-about-dst/)
-
-[moonpool](https://github.com/PierreZ/moonpool) · [pierrezemb.fr](https://pierrezemb.fr) · @PierreZ · Questions? 💬
+Everything is on [pierrezemb.fr](https://pierrezemb.fr/) 📝
