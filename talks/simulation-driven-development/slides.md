@@ -61,8 +61,6 @@ Sunny Tech 2026 🦩
   - 👤 Users will do weird things
   - 🔧 Systems will be under pressure
   - 💥 And things will **break** if we're not ready
-- 🌙 Getting paged at **3am** with everything down, debugging and fixing live, is tough work
-  - How can we cultivate a **production-oriented culture** in juniors without handing them a pager?
 
 ---
 
@@ -70,14 +68,12 @@ Sunny Tech 2026 🦩
 
 Before LLMs, we trusted **correctness** because we:
 
-- ✍️ wrote it
 - 🧠 understood it
+- ✍️ wrote it
 - 🧪 tried it
 - 📟 got paged by it
 
 AI broke the first three. The only feedback left is the **worst** one: the pager.
-
-So we must **enforce correctness during development**, not at 3am.
 
 ---
 
@@ -142,7 +138,7 @@ Two sources of chaos. Let's start with the **users**.
 # You can't test what you don't know 🙈
 
 - 🧠 Example-based tests only cover the cases you **already imagined**
-- 🪤 The nasty bugs hide in the **combination you never tried** (that one currency with no FX rate)
+- 🪤 The nasty bugs hide in the **combination you never tried**
 - 🛡️ Tests are a **regression net, not a proof** that bugs are absent
 
 ---
@@ -158,7 +154,7 @@ Two sources of chaos. Let's start with the **users**.
   </div>
 </div>
 
-Now the other side: **the world**. 😈
+Now the other side: **the world** 😈
 
 ---
 
@@ -168,15 +164,15 @@ You do not have to believe me. Believe the literature:
 
 | You believe... | The research says otherwise |
 |---|---|
-| 🌐 "The network is reliable" | [Network-Partitioning Failures, OSDI '18](https://www.usenix.org/system/files/osdi18-alquraan.pdf) (80% catastrophic, 90% silent) |
+| 🌐 "The network is reliable" | [Network-Partitioning Failures, OSDI '18](https://www.usenix.org/system/files/osdi18-alquraan.pdf) |
 | 💾 "My data is safe on disk" | [Data Corruption in the Storage Stack, FAST '08](https://www.usenix.org/legacy/events/fast08/tech/full_papers/bairavasundaram/bairavasundaram.pdf) |
 | 💾 "fsync means it is saved" | [Can Applications Recover from fsync Failures?, ATC '20](https://www.usenix.org/system/files/atc20-rebello.pdf) |
 | 🤝 "Consensus recovers from crashes" | [Protocol-Aware Recovery, FAST '18](https://www.usenix.org/system/files/conference/fast18/fast18-alagappan.pdf) |
 | 🛡️ "3 replicas means I am safe" | [Redundancy Does Not Imply Fault Tolerance, FAST '17](https://www.usenix.org/system/files/conference/fast17/fast17-ganesan.pdf) |
 | ⚠️ "We handle all our errors" | [Simple Testing Can Prevent Most Critical Failures, OSDI '14](https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-yuan.pdf) |
 | 🧵 "We have no concurrency bugs" | [TaxDC, ASPLOS '16](https://ucare.cs.uchicago.edu/pdf/asplos16-TaxDC.pdf) |
-| 🔄 "We just retry on failure" | [Metastable Failures in the Wild, OSDI '22](https://www.usenix.org/system/files/osdi22-huang-lexiang.pdf) (retries sustain >50% of incidents) |
-| 📖 "We follow the documentation" | [Jepsen: MariaDB Galera](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2) (stale reads in healthy clusters) |
+| 🔄 "We just retry on failure" | [Metastable Failures in the Wild, OSDI '22](https://www.usenix.org/system/files/osdi22-huang-lexiang.pdf) |
+| 📖 "We documentation must be right" | [Jepsen: MariaDB Galera](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2) |
 
 ---
 
@@ -214,8 +210,6 @@ You do not have to believe me. Believe the literature:
     <div class="px-6 py-3 border-2 border-current rounded-lg font-semibold">🎭 Fakes</div>
   </div>
 </div>
-
-Two halves. Build both, then bundle them.
 
 ---
 
@@ -268,64 +262,92 @@ assertEquals(user.isAuthenticated(), user.canUse(SAVED_CARD));
 
 ---
 
-# What is a fake? 🎭
+# An app on a bus we don't own 📨
 
-A fake is an **autonomous mock**: a real, in-memory implementation that holds its own state and fails on its own, no scripted call-by-call.
-
-Your code leans on **fallible things you don't own**. That frontier is where you add your fakes.
-
-<div class="flex flex-col items-stretch w-[42rem] mx-auto mt-6 text-sm">
-  <div class="px-4 py-3 border-2 border-current rounded-lg text-center">🧠 Your code, it must <b>behave correctly</b></div>
-  <div class="px-4 py-3 mt-2 border-2 rounded-lg text-center font-bold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎭 The frontier, your fakes live here</div>
-  <div class="mt-2 grid grid-cols-2 gap-2">
-    <div class="px-4 py-3 border-2 border-dashed border-current rounded-lg text-center opacity-50">🌐 the network<br/>you don't control the syscall</div>
-    <div class="px-4 py-3 border-2 border-dashed border-current rounded-lg text-center opacity-50">📨 the messaging system<br/>you don't own the driver</div>
+<div class="flex items-center justify-center mt-12">
+  <div class="px-6 py-8 border-2 rounded-lg text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🖥️ Order service<br/><span class="text-sm font-normal">our code, must behave</span></div>
+  <div class="flex flex-col items-center px-4">
+    <div class="text-sm font-bold" style="color: var(--theme-accent);">🎭 MessageBus</div>
+    <div class="text-3xl" style="color: var(--theme-accent);">⇄</div>
+    <div class="text-xs opacity-70 text-center">publish · poll<br/>fake here ✂️</div>
+  </div>
+  <div class="flex items-center gap-3 px-5 py-5 border-2 border-dashed border-current rounded-lg opacity-50">
+    <div class="text-center text-sm">🔌 Kafka<br/>client</div>
+    <div class="text-lg">→</div>
+    <div class="text-center text-sm">📨 Kafka<br/>broker</div>
+    <div class="text-lg">→</div>
+    <div class="flex flex-col gap-1 text-sm text-left">
+      <div>💳 Payment</div>
+      <div>📦 Shipping</div>
+    </div>
   </div>
 </div>
 
+We own the service. We don't control the **driver** or the **broker** past it. The seam between them is where our **fake** lives, an autonomous in-memory stand-in for the bus.
+
 ---
 
-# Swap it at the frontier 🔀
+# A fake bus is just a list of messages 🎭
 
 ```java
-interface UserRepository {
-    void save(User user);
-    Optional<User> findById(long id);
+interface MessageBus {
+    Future<Void> publish(String topic, Message msg);
+    List<Message> poll(String topic);
 }
 
-// production: talks to Postgres
-class PostgresUserRepository implements UserRepository { /* JDBC */ }
+// production: talks to Kafka
+class KafkaBus implements MessageBus { /* driver */ }
 
-// simulation: lives in memory
-class FakeUserRepository implements UserRepository {
-    Map<Long, User> store = new HashMap<>();
+// simulation: a fake bus is just a list of messages
+// hold by a singleton
+class FakeBus implements MessageBus {
+    Map<String, List<Message>> queues = new HashMap<>();
 }
 ```
 
-Same interface, two implementations: your system **can't tell the difference**. Keep the fake honest with one contract test run against both.
+Same interface, two implementations: your code **can't tell the difference**. Keep the fake honest with one **contract test** run against both.
 
 ---
 
 # Make the fake fight back 😈
 
-```java
-public Optional<User> findById(long id) {
-    float r = rng.nextFloat();
-    if (r < 0.10) throw new ConnectionLost();        // loud
-    if (r < 0.20) return Optional.empty();           // silent: write vanished
-    if (r < 0.25) return sleepForever();             // silent: hangs forever
-    if (r < 0.45) return stale.get(id);              // silent: stale read
-    return Optional.ofNullable(store.get(id));
+```java {10-14}
+class FakeBus implements MessageBus {
+    Map<String, List<Message>> queues = new HashMap<>();
+    Random rng;
+
+    public List<Message> poll(String topic) {
+        return queues.getOrDefault(topic, List.of());
+    }
+
+    public Future<Void> publish(String topic, Message msg) {
+        sleep(rng.nextInt(500));                            // random lag
+        float r = rng.nextFloat();
+        if (r < 0.15) return failed(new ConnectionLost());  // never happened
+        queues.get(topic).add(msg);                         // committed...
+        if (r < 0.30) return failed(new ConnectionLost());  // ...ack lost!
+        return completed();
+    }
 }
 ```
 
+Slow, dropped, or silently committed, the caller can't tell which. Your property holds anyway: **each confirmed order ships exactly once.**
+
 ---
+
 
 # Be worse than production 😈
 
-- 🩺 [Jepsen](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2) found a **healthy** Galera cluster serving **stale reads**, with zero faults injected
+
+- 🩺 [Jepsen's MariaDB Galera Cluster 12.1.2 report](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2)
+
+> “Data is consistent across all nodes at all times”
+
+> Even in healthy clusters, MariaDB Galera Cluster exhibited Lost Update and Stale Reads
+
 - 😈 So your fake should be **worse**: 50% stale reads, not 0.1%
 - 🛡️ Survive the fake, and you **survive production**
+
 
 ---
 
@@ -404,13 +426,13 @@ That bundle is **Deterministic Simulation Testing**. The whole point is to **dis
 
 # It found bugs everywhere 🔥
 
-Not regressions we caught. **Discoveries**, bugs we never thought to look for:
 
 - 📊 query execution returning **wrong data**
 - 🗺️ query planner picking the **wrong index**
 - 💥 **corruption** during reindexing
 - 👑 **dual leader election** under clock skew
 - 🗜️ ETCD compaction **deleting live data**
+- ...
 
 
 ---
@@ -420,17 +442,24 @@ Not regressions we caught. **Discoveries**, bugs we never thought to look for:
 <div class="grid grid-cols-[1fr_auto] gap-6 items-center">
 <div>
 
-- 🧠 Each dev found a bug in **their own code**, and got it
 - 💡 Simulation surfaces what you **don't know to look for**
-- 🏗️ Now every layer we build is **simulation-first**: we default to discovery
+- 🏗️ Now every layer we build is **simulation-first**: we default to **discovery**
   - 🔁 Run it in a **loop**: in CI, and on a cloud fleet
   - ☁️ **30 min of sim is about 24h** of chaos testing
   - 🐞 A faulty seed **replays locally**, deterministically
-  - 🦸 It feels like super-powers, because we **trust our software**
+- 🦸 It feels like super-powers, because we **trust our software**
 
 </div>
 <img src="/materia-sim-ci.png" class="w-72 rounded shadow" />
 </div>
+
+---
+
+# Not a silver bullet 🙅
+
+- 📈 **Performance is invisible** in sim: you still need a perf farm
+- 🕳️ **Fakes compliance**: you need to ensure that the fakes behaves correctly
+- ⏳ **Bug-finding has latency**: a bug can hide in a seed for months
 
 ---
 
@@ -443,24 +472,6 @@ Not regressions we caught. **Discoveries**, bugs we never thought to look for:
 
 ---
 
-# Not a silver bullet 🙅
-
-- 📈 **Performance is invisible** in sim: you still need a perf farm
-- 🕳️ **Meaning leaks**: a proof still has a gap to reality. Sim tests the **model you described**, not the full world
-- 🧱 **Hard to retrofit** onto a system not built for determinism
-- ⏳ **Bug-finding has latency**: a bug can hide in a seed for months
-
----
-
-# Remember the NPE? 🔁
-
-- 🌐 The partition, the recovery, the `NullPointerException` at startup
-- 🎲 That exact combination is just a **seed** now
-- ⚡ Found in **seconds**, fixed **before prod**, **no 3am page**
-
-That is the whole point: testing has to evolve from **prevention to discovery**, and simulation is one of the answers!
-
----
 
 # The age of correctness has started 🔬
 
@@ -480,10 +491,6 @@ AI broke "good enough", so **all of them are about to grow**. Property-based tes
 - 🛡️ We have a **duty**: ship correct software, not crap
 - ⏰ Don't wait for the 3am page, **invest in correctness today**
 
-> The goal is never to be perfect. It's to get better.
-
-*Steve Klabnik, "Steel, Rust, and truth"*
-
 ---
 layout: end
 ---
@@ -493,3 +500,19 @@ layout: end
 any questions?
 
 Everything is on [pierrezemb.fr](https://pierrezemb.fr/) 📝
+
+[My own DST in Rust 🦀](https://pierrezemb.fr)
+
+---
+
+# Bonus: the spectrum of adoption 📈
+
+**Start anywhere. Each level adds value.**
+
+| Level | What to do | What you get |
+|---|---|---|
+| **1** 🎰 | Random workload generation | Test unusual combinations |
+| **2** ✅ | Property-based testing | Flush out your system spec |
+| **3** 🎭 | Fakes | Fast, deterministic tests |
+| **4** 😈 | Fault-injectable fakes | Discover edge cases |
+| **5** 🎲 | Seed-driven DST | Reproducible bugs, autonomous discovery |
