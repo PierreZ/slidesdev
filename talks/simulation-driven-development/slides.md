@@ -454,7 +454,7 @@ That bundle is **Deterministic Simulation Testing**. The whole point is to **dis
 # Not a silver bullet 🙅
 
 - 📈 **Performance is invisible** in sim: you still need a perf farm
-- 🕳️ **Fakes compliance**: you need to ensure that the fakes behaves correctly
+- 🕳️ **Verified fakes**: you must [ensure your fake matches the real thing](https://pierrezemb.fr/posts/designing-fakes-that-prove-correctness/)
 - ⏳ **Bug-finding has latency**: a bug can hide in a seed for months
 
 ---
