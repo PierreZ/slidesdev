@@ -311,14 +311,10 @@ Same interface, two implementations: your code **can't tell the difference**. Ke
 
 # Make the fake fight back 😈
 
-```java {10-14}
+```java
 class FakeBus implements MessageBus {
     Map<String, List<Message>> queues = new HashMap<>();
     Random rng;
-
-    public List<Message> poll(String topic) {
-        return queues.getOrDefault(topic, List.of());
-    }
 
     public Future<Void> publish(String topic, Message msg) {
         sleep(rng.nextInt(500));                            // random lag
@@ -331,7 +327,7 @@ class FakeBus implements MessageBus {
 }
 ```
 
-Slow, dropped, or silently committed, the caller can't tell which. Your property holds anyway: **each confirmed order ships exactly once.**
+**Your system should still behave correctly!**
 
 ---
 
