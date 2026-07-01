@@ -34,7 +34,7 @@ Sunny Tech 2026 🦩
 
 ---
 
-# Also me
+# Also me 🔥
 
 <div class="absolute inset-0 grid place-items-center">
   <img src="https://media1.tenor.com/m/MYZgsN2TDJAAAAAC/this-is.gif" class="rounded-lg max-h-72" />
@@ -48,7 +48,7 @@ Sunny Tech 2026 🦩
 - 🐢 The cluster could not restart
 - ☕ A **`NullPointerException` at startup**, caused by its faulty state
 - 🩹 Patched in a newer HDFS: we **backported** the patch and redeployed the jar 😱
-- ⏰ You hit the bug at the **worst moment**, during recovery
+- ⏰ We hit it at the **worst moment**, during recovery
 - 🔥 Rolling out an untested patch on a distributed system under fire is an **unpleasant** experience
 
 ---
@@ -241,8 +241,8 @@ assertFalse(new User(GUEST).canUse(SAVED_CARD));
 assertEquals(user.isAuthenticated(), user.canUse(SAVED_CARD));
 ```
 
-* A property reads like a **spec**, not a test case. It holds for **any** generated input
-  * (Yes it's like Property-based testing, but applied to integration tests)
+- A property reads like a **spec**, not a test case. It holds for **any** generated input
+  - (Yes it's like Property-based testing, but applied to integration tests)
 
 ---
 
@@ -337,7 +337,11 @@ class FakeBus implements MessageBus {
 
 - 🩺 [Jepsen's MariaDB Galera Cluster 12.1.2 report](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2)
 
+The doc says:
+
 > “Data is consistent across all nodes at all times”
+
+The audit reveals:
 
 > Even in healthy clusters, MariaDB Galera Cluster exhibited Lost Update and Stale Reads
 
@@ -489,7 +493,7 @@ AI broke "good enough", so **all of them are about to grow**. Property-based tes
 
 ---
 
-# How to adapt DST 📈
+# How to adopt DST 📈
 
 **Start anywhere. Each level adds value.**
 
@@ -511,6 +515,6 @@ any questions?
 
 Everything is on [pierrezemb.fr](https://pierrezemb.fr/) 📝
 
-[My own DST in Rust 🦀](https://pierrezemb.fr)
+[My own DST in Rust 🦀](https://github.com/PierreZ/moonpool)
 
 ---
