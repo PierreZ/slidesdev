@@ -1,6 +1,7 @@
 <template>
   <footer class="footer-bar">
-    <span>#SunnyTech</span>
+    <span>#SunnyTech2026</span>
+    <a href="https://pierrezemb.fr" target="_blank">pierrezemb.fr</a>
     <span>{{ $nav.currentPage }}</span>
   </footer>
 </template>
@@ -21,5 +22,10 @@
   font-size: 0.85em;
   font-weight: 600;
   z-index: 100;
+}
+
+.footer-bar a {
+  color: inherit;
+  text-decoration: underline;
 }
 </style>

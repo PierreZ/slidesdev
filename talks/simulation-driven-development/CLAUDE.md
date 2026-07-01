@@ -2,7 +2,7 @@
 
 ## Context
 - **Source**: Pierre's Devoxx France 2025 talk "What if we embraced simulation-driven development?", reworked for the AI era.
-- **Event**: Sunny Tech. Accent is Sunny Tech's brand-solid red `#d63f49` (secondary `#901f26`, their pink-3). Footer `#SunnyTech`.
+- **Event**: Sunny Tech. Accent is Sunny Tech's brand-solid red `#d63f49` (secondary `#901f26`, their pink-3). Footer `#SunnyTech2026`.
 - **Format**: ~45 min, about 49 slides.
 
 ## Narrative spine: "the world has changed, the correctness decade has begun"

@@ -513,8 +513,16 @@ layout: end
 
 any questions?
 
-Everything is on [pierrezemb.fr](https://pierrezemb.fr/) 📝
-
-[My own DST in Rust 🦀](https://github.com/PierreZ/moonpool)
+<div class="flex items-center justify-center gap-12 mt-6">
+  <div class="flex flex-col items-center gap-2">
+    <img src="/review-qr.png" class="w-44 h-44 rounded-lg" />
+    <div class="text-sm">📝 Rate this talk</div>
+  </div>
+  <div class="flex flex-col gap-3 text-left text-lg">
+    <div>🎈 Come say hi at the <strong>Clever Cloud booth</strong></div>
+    <div>🔗 Everything is on <a href="https://pierrezemb.fr/">pierrezemb.fr</a></div>
+    <div>🦀 <a href="https://github.com/PierreZ/moonpool">My own DST in Rust</a></div>
+  </div>
+</div>
 
 ---
