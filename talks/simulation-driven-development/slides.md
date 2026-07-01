@@ -172,7 +172,7 @@ You do not have to believe me. Believe the literature:
 | ⚠️ "We handle all our errors" | [Simple Testing Can Prevent Most Critical Failures, OSDI '14](https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-yuan.pdf) |
 | 🧵 "We have no concurrency bugs" | [TaxDC, ASPLOS '16](https://ucare.cs.uchicago.edu/pdf/asplos16-TaxDC.pdf) |
 | 🔄 "We just retry on failure" | [Metastable Failures in the Wild, OSDI '22](https://www.usenix.org/system/files/osdi22-huang-lexiang.pdf) |
-| 📖 "We documentation must be right" | [Jepsen: MariaDB Galera](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2) |
+| 📖 "Our documentation must be right" | [Jepsen: MariaDB Galera](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2) |
 
 ---
 
@@ -299,7 +299,7 @@ interface MessageBus {
 class KafkaBus implements MessageBus { /* driver */ }
 
 // simulation: a fake bus is just a list of messages
-// hold by a singleton
+// held by a singleton
 class FakeBus implements MessageBus {
     Map<String, List<Message>> queues = new HashMap<>();
 }
@@ -397,7 +397,7 @@ That bundle is **Deterministic Simulation Testing**. The whole point is to **dis
 
 - 🏢 At **Clever Cloud** we build **Materia**, a multi-tenant, multi-model distributed database
   - KV, ETCD, KMS, workflows, leader election...
-- 🎥 Built on FoundationDB, they have a simulation framework that we hacked:
+- 🎥 Built on FoundationDB, which has a simulation framework that we hacked:
   - [Borrowing FDB's simulator, BugBash 2026](https://www.youtube.com/watch?v=tTxY8IbT88A&t=330s)
   - [Distributed DBs with FDB & Rust, Sunny Tech 2024](https://www.youtube.com/watch?v=Q_8CRjf3M24&t=2234s)
   - [FoundationDB intro, Sunny Tech 2023](https://www.youtube.com/watch?v=cChMz4m8w5A&t=2s)
@@ -488,6 +488,20 @@ AI broke "good enough", so **all of them are about to grow**. Property-based tes
 - ⏰ Don't wait for the 3am page, **invest in correctness today**
 
 ---
+
+# How to adapt DST 📈
+
+**Start anywhere. Each level adds value.**
+
+| Level | What to do | What you get |
+|---|---|---|
+| **1** 🎰 | Random workload generation | Test unusual combinations |
+| **2** ✅ | Property-based testing | Flush out your system spec |
+| **3** 🎭 | Fakes | Fast, deterministic tests |
+| **4** 😈 | Fault-injectable fakes | Discover edge cases |
+| **5** 🎲 | Seed-driven DST | Reproducible bugs, autonomous discovery |
+
+---
 layout: end
 ---
 
@@ -500,15 +514,3 @@ Everything is on [pierrezemb.fr](https://pierrezemb.fr/) 📝
 [My own DST in Rust 🦀](https://pierrezemb.fr)
 
 ---
-
-# Bonus: the spectrum of adoption 📈
-
-**Start anywhere. Each level adds value.**
-
-| Level | What to do | What you get |
-|---|---|---|
-| **1** 🎰 | Random workload generation | Test unusual combinations |
-| **2** ✅ | Property-based testing | Flush out your system spec |
-| **3** 🎭 | Fakes | Fast, deterministic tests |
-| **4** 😈 | Fault-injectable fakes | Discover edge cases |
-| **5** 🎲 | Seed-driven DST | Reproducible bugs, autonomous discovery |
