@@ -12,9 +12,5 @@
   },
   "devDependencies": {
     "playwright-chromium": "^1.58.2"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"],
-    "ignoredBuiltDependencies": ["playwright-chromium"]
   }
 }

@@ -26,7 +26,7 @@ jobs:
         run: |
           nix develop --command bash -c "
             cd talks/${{ matrix.talk }} &&
-            pnpm install &&
+            pnpm install --ignore-scripts &&
             pnpm export
           "
 
