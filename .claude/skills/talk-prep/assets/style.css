@@ -1,0 +1,11 @@
+/* Compact tables for evidence walls and combinatorics slides. */
+.slidev-layout table {
+  font-size: 0.8rem;
+  width: auto;
+  margin: 0.4rem auto;
+}
+
+.slidev-layout th,
+.slidev-layout td {
+  padding: 3px 18px;
+}
