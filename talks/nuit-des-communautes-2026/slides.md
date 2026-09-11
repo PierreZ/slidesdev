@@ -31,78 +31,35 @@ Nuit des Communautés 2026, Brest 🌙
 </div>
 
 ---
-
-# A repo that died twice 🪦
-
-| When | What happened |
-|---|---|
-| 🌱 **May 2024** | I start `moonpool`, a simulator for distributed systems in Rust. **7 commits.** Then nothing. |
-| 🍂 **March 2025** | Back in engineering after two years of management. I try again. **3 commits.** Dead again. |
-
-<div class="mt-8 text-center text-lg">
-On my evenings alone, this would have taken <strong>years</strong>.
-</div>
-
----
-
-# 18 August 2025: five commits in one day 🔁
-
-The fifth one carries a line I had never seen in my own git log:
-
-```text
-feat: add moonpool simulation framework foundation
-
-🤖 Generated with Claude Code
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-<div class="mt-6">
-
-That same week, I was still telling people: **[PLACEHOLDER: the skeptic sentence, who heard it, when]**
-
-</div>
-
----
-
-# One year later 📈
-
-| Project | Commits | Lines of Rust | Written with an agent |
-|---|---|---|---|
-| 🌊 [moonpool](https://github.com/PierreZ/moonpool) | **714** | **70,392** | 61% of commits co-authored |
-| 🏝️ [paros](https://github.com/PierreZ/paros) | **192** in three months | **61,279** | **100%**, Claude or Codex |
-
-<div class="mt-8 text-center text-xl">
-I typed <strong>almost none of it</strong>. And I have never had more fun. 🎉
-</div>
-
----
 layout: center
 ---
 
-# How did a skeptic get here? 🤔
+# Before ☕
+
+the job I learned
 
 ---
 
 # Coffee and nights into anything ☕
 
-> The programmer, like the poet, works only slightly removed from pure thought-stuff. He builds his castles in the air, from air.
+- 🎓 September 2010, engineering school, my first `Hello, world` in C
+- 🌙 The superpower: a night, a coffee, and in the morning **something exists** that did not
+- 🧩 I coded for the puzzle. The intellectual exercise **was** the reward
 
-*Fred Brooks, The Mythical Man-Month, 1975*
-
-- 🎓 Engineering school: the **superpower** of turning coffee and night time into anything
-- 🧠 I coded for the exercise, for the pleasure of the puzzle
-- 🌙 **[PLACEHOLDER: one thing built in one night at school, with the year]**
+<div class="mt-10 text-center text-xl">
+I coded <strong>to code</strong>.
+</div>
 
 ---
 
-# I read code for the shape, not the details 📖
+# I read code for the shape 📖
 
-- 📚 Early in my career I read a lot of code I would never touch: **[PLACEHOLDER: HBase, Kafka, FDB...]**
-- 🔍 I did not care about the details, I wanted to understand **how it was cut**
-- 🧩 You never remember the details of a codebase. You remember the **technique and the split**
+- 📚 Early on, I spent weeks inside codebases I would **never touch**
+- 🔍 I skipped the details. I wanted to see **how it was cut**
+- 🧠 Years later, the details are gone. The technique and the split **stayed**
 
-<div class="mt-8 text-center opacity-70">
-Keep that in mind. It comes back at the end.
+<div class="mt-10 text-center text-xl">
+You never remember the details. You remember the <strong>shape</strong>.
 </div>
 
 ---
@@ -119,11 +76,13 @@ Keep that in mind. It comes back at the end.
 
 # The pager changed what I valued 🎯
 
-> Nothing teaches you what your code actually does like getting paged by it at 3 a.m.
+- 🧩 Before: the pleasure of the puzzle
+- 📟 After: code that **behaves when everything goes wrong**
+- 🔬 Correctness stopped being a nice-to-have. It became **the value**
 
-- ☕ Before: I coded to code. The **intellectual exercise** was the reward
-- 📟 After: I wanted code that **behaves when everything goes wrong**. Correctness became the value
-- 🧗 Today my motto is simple: **I do it because it's hard**
+<div class="mt-10 text-center text-xl">
+I do it <strong>because it's hard</strong>.
+</div>
 
 ---
 
@@ -138,52 +97,102 @@ Keep that in mind. It comes back at the end.
 </div>
 
 <div class="mt-10 text-center text-lg">
-Someone writes code. Something tells them <strong>when they were wrong</strong>. That something taught me everything I know.
+Someone writes code. Something tells them <strong>when they were wrong</strong>.<br>That something taught me everything I know.
 </div>
 
 ---
 
-# "It's my code, I trust it" 🙅
+# On call, you run code you never wrote 🐧
 
-> We said "good enough" because we wrote it, we understood it, we tried it. AI broke all three.
+- 🖥️ The kernel, the distribution, the JVM, the database: **none of it is yours**
+- 🙋 Who here has read the Linux kernel?
+- 😴 Nobody. And yet you **sleep at night**
 
-*Steve Klabnik, [BugBash 2026](https://pierrezemb.fr/posts/bugbash-2026/)*
-
-<div class="mt-6">
-
-Every developer in this room has felt this. Let me tell you why it was **never true**.
-
-</div>
-
----
-
-# Who has read the kernel? 🐧
-
-- 📟 When you are on call, you run code that is **not yours**: the kernel, the distribution, the database, the JVM
-- 🙋 Raise your hand if you have read the Linux kernel. *(nobody)*
-- 😴 And yet you sleep at night. Because it is **tested and operated**, not because you wrote it
-
-<div class="mt-8 text-center text-lg">
-We never trusted code because we wrote it. <strong>AI did not break that. It made it visible.</strong>
+<div class="mt-10 text-center text-lg">
+Trust never came from the author.<br>It comes from <strong>what tests it</strong> and <strong>what operates it</strong>.
 </div>
 
 ---
 layout: center
 ---
 
-# Codex, Claude, or the new hire: same problem 🎯
+# Transition 🌫️
 
-It has to **work in production**, and behave **when things go wrong**.
+the day the machine wrote the code
 
 ---
 
-# Software's first act is over 🎬
+# The skeptic 🦜
 
-> The cost of turning written business logic into code has dropped to zero. Or, at best, near-zero.
+<div class="mt-8 text-center text-xl">
 
-> Software's first act is over. The second act won't go like anybody expects, but it'll be more interesting, more economically valuable, and more mentally stimulating than we can imagine.
+**[PLACEHOLDER: the sentence you were saying about LLMs, to whom, when]**
 
-*Marc Brooker, [You Are Here](https://brooker.co.za/blog/2026/02/07/you-are-here.html), February 2026*
+</div>
+
+<div class="mt-10 text-center opacity-70">
+A statistical parrot. Nice for scripts. Not for the systems I get paged for.
+</div>
+
+---
+
+# Ten minutes with Windsurf ⚡
+
+- 🧱 Days stuck on a contribution to an open source repo I did not know well
+- 💬 Ten minutes of dialogue: it found a **better technique** than mine
+- 🧩 The right methods to combine. The right code to **draw from**
+
+<div class="mt-10 text-center text-lg">
+It had done in ten minutes what took me ten years to learn:<br><strong>read the code for the shape</strong>.
+</div>
+
+---
+
+# Then I tried it on code that lives under a simulator 🎲
+
+- 🏢 At work, on Materia, our database. Same model, two very different outcomes
+- 🦜 Outside the simulator: a parrot with a good vocabulary
+- ✅ Inside the simulator: **very, very good**
+
+<div class="mt-10 text-center text-xl">
+It was not the model that was good. <strong>It was the loop.</strong>
+</div>
+
+---
+
+# I went to squash 🏸
+
+- 🚀 **[PLACEHOLDER: month]**: I launch a big job. **[PLACEHOLDER: what it was]**
+- 🏸 I close the laptop and go play. When I come back, it is **done**
+- 🌙 Since then, the chores nobody wants run at night: **JDK bumps, coding style, library swaps**
+
+<div class="mt-10 text-center text-lg">
+The all-nighter still exists. <strong>The machine does it now.</strong> And it does the chores.
+</div>
+
+---
+
+# I rewrote all of Materia in four days 🔄
+
+- 🗓️ Four days. The entire code of the database. **[PLACEHOLDER: when, from what to what]**
+- 🧙 Not because the agent is magic
+- 🎲 Because **years of tests and simulation** said, at every step, whether it was still right
+
+<div class="mt-10 text-center text-lg">
+Code is the cheap part. <strong>The loop is the capital.</strong><br>And the pager made me build it long before AI.
+</div>
+
+---
+
+# Code got cheap. Correctness didn't. ⚖️
+
+- ⌨️ Turning an idea into code now costs **almost nothing**
+- 🔬 Knowing whether it works costs **the same as before**
+- 📊 Make one half of the job infinitely fast, and the job only **doubles**. Everything left is the slow half
+
+<div class="mt-10 text-center text-xl">
+The slow half is the one <strong>I already loved</strong>.
+</div>
 
 ---
 
@@ -193,7 +202,7 @@ It has to **work in production**, and behave **when things go wrong**.
   <div>
     <div class="mb-1 font-semibold">Before</div>
     <div class="flex h-12 rounded-lg overflow-hidden text-sm">
-      <div class="flex items-center justify-center text-white" style="width:85%; background: var(--theme-accent);">⌨️ typing code, 85%</div>
+      <div class="flex items-center justify-center text-white" style="width:85%; background: var(--theme-accent);">⌨️ typing code</div>
       <div class="flex items-center justify-center border-2 border-current opacity-60" style="width:15%;">the rest</div>
     </div>
   </div>
@@ -208,9 +217,25 @@ It has to **work in production**, and behave **when things go wrong**.
   </div>
 </div>
 
-<div class="mt-8 text-center">
-The typing half vanished. What is left is the half <strong>I already preferred</strong>. <span class="opacity-60">[PLACEHOLDER: real split if you have one]</span>
+<div class="mt-10 text-center text-lg">
+I did not lose the job. <strong>I lost the part I had stopped loving.</strong>
 </div>
+
+---
+layout: center
+---
+
+# Now 🔬
+
+my new job
+
+---
+layout: center
+---
+
+# Codex, Claude, or the new hire: same problem 🎯
+
+It has to **work in production**, and behave **when things go wrong**.
 
 ---
 
@@ -243,14 +268,8 @@ The typing half vanished. What is left is the half <strong>I already preferred</
   <div class="px-8 py-6 border-2 border-dashed border-current rounded-lg text-center font-semibold opacity-40">❓ nothing</div>
 </div>
 
-<div class="mt-8">
-
-> It is a junior who has read every thesis.
-
-*Quentin Adam, CEO Clever Cloud, 2026*
-
-A junior who has read everything and has **never been woken up** is still a junior.
-
+<div class="mt-10 text-center text-lg">
+A junior who has read every thesis,<br>and has <strong>never been woken up</strong>, is still a junior.
 </div>
 
 ---
@@ -267,139 +286,145 @@ A junior who has read everything and has **never been woken up** is still a juni
 
 <div class="mt-8">
 
-- 🎯 You test what you **imagine**. Bugs hide in combinations you didn't. Claude imagines too, just with more reading
-- 🎲 A simulator does not imagine. It **rolls dice**: network splits, disk failures, clock skew, reboots, all seeded, all replayable
-- 🔁 **You don't trust Claude. You trust the simulator.**
+- 🎯 You test what you **imagine**. Bugs hide in the combinations you didn't. Claude imagines too, just with more reading
+- 🎲 A simulator does not imagine. It **rolls dice**: partitions, crashes, corruption, clock skew, all seeded, all replayable
 
+</div>
+
+<div class="mt-6 text-center text-xl">
+You don't trust Claude. <strong>You trust the simulator.</strong>
 </div>
 
 ---
 
-<img src="/materia-sim-triple.png" class="w-full rounded shadow" />
+# I don't know C++. I know exactly what failure I want 🤷
 
----
+- 🦀 I contribute to FoundationDB, in C++, and **I don't know C++**. I can read it. I know **which failure I want**
+- ✅ Two contributions merged upstream, written with an agent
+- 🔴 One PR stayed **red for [PLACEHOLDER: how long]**: my code was not **reboot-proof**
+- 😅 **[PLACEHOLDER: how you found out, what you changed]**
 
-# I went to squash 🏸
-
-- 🚀 **[PLACEHOLDER: month, year]**: I launch a big job. **[PLACEHOLDER: what it was]**
-- 🏸 I close the laptop and go play squash. **[PLACEHOLDER: how long]**
-- 😳 When I come back, it is **done**. Tests green, simulation green
-- ☕ At school I turned coffee and nights into software. That evening, **the machine did the night shift**
+<div class="mt-8 text-center text-lg">
+The simulator treated me <strong>exactly the way it treats Claude</strong>.
+</div>
 
 ---
 
 # Paxos: easy to read, a chasm to build 🏝️
 
-> There is no paper called "Multi-Paxos."
+- 📜 The algorithm that lets machines agree even when some of them crash. Lamport sketched it in **a few paragraphs**
+- 🗣️ There is no paper called Multi-Paxos. The rest is **hallway folklore**
+- 🕳️ What the paper leaves out: elections, log gaps, membership changes, snapshots, corrupted disks
+- 🏢 Google found it extremely difficult to build from the paper alone
 
-> It is not a gap. It is a chasm, and the bodies of failed implementations line the bottom.
-
-*[The Agony of Consensus Algorithms, ch. 6](https://cloudstreet-dev.github.io/The-Agony-of-Consensus-Algorithms/ch06-multi-paxos.html)*
-
-- 📜 Lamport sketched it in a few paragraphs. The rest is **hallway folklore**
-- 🕳️ What the paper leaves out: leader election, log gaps, membership changes, **snapshots**, disk corruption
-- 🏢 Google found it "extremely difficult" to implement from the paper. This was **reserved for Google, Meta, AWS**
-
----
-
-# paros: a core with no IO, a simulator that hunts 🔍
-
-- 🧠 **A core with no IO**, easy to re-read: no clock, no network, no randomness. Events in, decisions out
-- 🎲 The same code runs on real TCP in prod and **inside moonpool** in tests, bit-for-bit replayable
-- 🔍 Every hunt: **2,000 to 3,000 seeds**. Every state transition audited by about **75 checks**
-- 🤖 **192 commits, 61,279 lines, 272 tests.** Written 100% by Claude and Codex, on my evenings, since 15 June 2026
-
-<div class="mt-6 text-center opacity-70">
-Named after my favourite Greek island. Two islands, one parliament. 🏝️
+<div class="mt-8 text-center text-lg">
+This kind of software was <strong>reserved for Google, Meta, AWS</strong>.
 </div>
 
 ---
 
-# Seed 17898267817771645730 🎯
+# So I built one on my evenings 🌙
 
-*8 September 2026, a 2,000-seed hunt on paros*
+- 🧠 A **core with no IO**, easy to re-read in one sitting: no clock, no network, no randomness. Events in, decisions out
+- 🎲 A **simulator that hunts**: the same code, run through partitions, crashes and reboots, replayable from a single number
+- 🤖 Written entirely by agents, Claude and Codex, in **three months**
+- ⚠️ Not for production, and will never be
 
-- 🗳️ Three nodes, **no leader elected for 60 seconds**
-- 🌊 One node answered **18,451** client requests on one connection
-- 🚪 ...and cancelled **14,497** incoming peer connections without completing a single one
-- 🔧 Root cause: a `select!` loop dropping its `accept()` future on every pass. Fix: **one `Box::pin`**
-
-<div class="mt-6 text-center text-lg">
-Pre-existing bug. Nobody paged. Nobody woke up. <strong>I did not find it.</strong>
+<div class="mt-8 text-center text-lg">
+That is <strong>the point</strong>. It is a learning project. Two islands, one parliament. 🏝️
 </div>
 
 ---
 
-# The simulator doesn't care who you are 🤷
+# The bug I never looked for 🎯
 
-- 🦀 I contribute to FoundationDB, in C++, and **I don't know C++**. I can read it. I know exactly **what failure I want**
-- ✅ [Pure C workload API](https://github.com/apple/foundationdb/pull/11288), [delay()](https://github.com/apple/foundationdb/pull/12357), merged upstream
-- 🔴 One of my PRs stayed **red for [PLACEHOLDER: how long]**: my code was not **reboot-proof**
-- 😅 The simulator treated me exactly the way it treats Claude. **[PLACEHOLDER: how you found out, what you changed]**
+- 🗳️ Three nodes. **No leader, ever.** The cluster just sits there
+- 🙇 One node is so busy answering its clients that it never once **says hello to its peers**
+- 🔧 One line to fix, in a loop that dropped and recreated its listener on every pass
+- 🎲 Found by a night of seeds, on code that had been wrong **since day one**
 
-<div class="border-2 border-dashed border-current rounded-lg h-28 grid place-items-center opacity-60 mt-4">
-  drop <code>public/fdb-pr-red.png</code> here
+<div class="mt-8 text-center text-lg">
+Nobody paged. Nobody woke up. <strong>I did not find it.</strong>
 </div>
 
 ---
 
-# What I write now: invariants 📜
+# Not just my evenings 🏢
 
-- 🗳️ Leader election on FoundationDB, February 2026: I did not write the code, I pointed Claude at my post on workloads and said **"apply these patterns"**
-- 📐 It proposed **13 invariants**: one leader at a time, fencing tokens only go up, one value per ballot...
-- 🎲 The simulator ran them under clock skew of **±1 second**, resignations, partitions. Weeks of work, **hours of review**
-- 🔁 **The LLM proposes, the simulation disposes.** ([post](https://pierrezemb.fr/posts/simulating-leader-election-on-foundationdb/))
+- 🐛 The toy I built at night now catches bugs in software at work. **[PLACEHOLDER: which]**
+- 🦀 At Clever Cloud, we have rewritten **almost the entire core of the company** in Rust
+- 🧱 Legacy is no longer a wall. When a migration costs a night instead of a quarter, you move things **you would never have touched**
 
-<div class="mt-6 text-center">
-I used to write code. Now I write <strong>what must always be true</strong>, and the machine that checks it.
+<div class="mt-8 text-center text-lg">
+Less legacy is <strong>more room to move</strong>. So we move.
+</div>
+
+---
+
+# What I do all day now 📖
+
+- 🔍 Read an entire system in **minutes**, the way I used to read it in weeks
+- 📐 Write **what must always be true**: the invariants, the failures I want to survive
+- 🔁 Build the loop that tells the writer, human or not, **when they were wrong**
+- 👀 Review diffs. Replay seeds
+
+<div class="mt-8 text-center text-lg">
+I still read code for the shape. <strong>Now I read diffs and seeds.</strong>
 </div>
 
 ---
 
 # Not a silver bullet 🙅
 
-- 📋 **The copy-paste era is real.** moonpool is honestly two simulators glued together, FoundationDB's and TigerBeetle's. It works. It is not innovation yet
-- 🗑️ **You throw a lot away.** March 2026: I deleted a 6,000-line actor system and rewrote a test suite whose assertions were "structurally impossible"
-- 🧱 **Some layers resist.** Our kernel and switch OS people say the AI slows them down. No dataset, no feedback loop, no magic
-- ⚠️ **paros is not in production** and will not be. That is the point of a learning project
-
----
-
-# Software quality will dip. Plan for it 🛡️
-
-- 📉 More code, written faster, by more people and more agents. Some of it **will be worse**
-- 🔥 Which means the job shifts: **handle failures better**, not just write fewer bugs
-- 🎲 Nothing beats a simulator for proving your code **works despite failures**: partitions, crashes, corruption, clock skew, at every commit
+- 📋 **Copy-paste works, for a while.** My simulator is honestly two other simulators glued together. Porting is not inventing. Yet
+- 🗑️ **You throw a lot away.** Whole subsystems, whole test suites, when the first draft was wrong. Throwing away got cheap too
+- 🧱 **Some layers resist.** Kernel, network switches: no dataset, no fast loop. Not yet
 
 <div class="mt-8 text-center text-lg">
-The first act was about writing software. <strong>The second act is about software that survives.</strong>
+Every one of these is <strong>a loop nobody has built yet</strong>. That is the next ten years of work, and it is fun work.
 </div>
 
 ---
 
-# Invest in correctness, whatever you write 🪜
+# More software than ever. Make it survive 🛡️
 
-**Start anywhere. Each level adds value, in any language, for any job.**
+- 🌍 More code, written faster, by more hands and more agents than ever. Some of it will be worse. **Most of it would not have existed at all**
+- 🔥 So the job that grows is not writing fewer bugs. It is building software that **handles failures**
+- 🎲 Nothing beats a simulator for proving your code **survives** partitions, crashes and corruption, at every commit
+
+<div class="mt-8 text-center text-lg">
+The first era was about writing software. <strong>The second is about software that survives.</strong> That job is wide open.
+</div>
+
+---
+
+# The age of correctness has begun 🔬
+
+**What was reserved for Google, Meta and AWS now fits on a laptop, on an evening. The possibilities are wild.**
 
 | Level | What to do | What you get |
 |---|---|---|
-| **1** ✅ | Unit tests, real ones | The agent has a loop at all |
+| **1** ✅ | Real tests, whatever your language | The agent has a loop at all |
 | **2** 🎰 | Property-based testing | You test what you did not imagine |
 | **3** 🎭 | Fakes, not mocks | Fast, deterministic tests of your dependencies |
 | **4** 😈 | Fakes that fight back | Failures on every run |
-| **5** 🎲 | Seed-driven simulation | Reproducible bugs, found while you play squash |
+| **5** 🎲 | Seed-driven simulation | Bugs found while you play squash |
+
+<div class="mt-4 text-center">
+Whatever your language, whatever your job: <strong>invest in correctness, invest in tooling</strong>. It is the best time ever to be a software engineer.
+</div>
 
 ---
 
 # Features that work 🎉
 
-- 🪦 The repo that died twice is alive. **Two of them.** Together they found bugs in software at Clever Cloud **[PLACEHOLDER: which]**
-- ☕ I still turn coffee into software. I just do not do the night shift anymore
-- 📖 I still read code for the shape. Now I read **diffs and seeds**
-- 🧗 I do it because it's hard. And for the first time, the hard part is **all that is left**
+- ☕ I still turn coffee into software. The machine does the night shift
+- 📖 I still read code for the shape. Now it is diffs and seeds
+- 🧗 I still do it because it's hard. And for the first time, **the hard part is all that is left**
+- 🚀 Things I would never have dared to start are now **a weekend away**
 
-<div class="mt-8 text-center text-xl">
-More fun engineering than at any point in my career. 🚀
+<div class="mt-10 text-center text-xl">
+More fun engineering than at any point in my career. <strong>And it is only the beginning.</strong> 🚀
 </div>
 
 ---
