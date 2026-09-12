@@ -2,8 +2,8 @@
 theme: slidev-theme-pz
 title: "My new job as a software engineer"
 themeConfig:
-  accent: '#1E6FD9'
-  secondary: '#134A94'
+  accent: '#8A3FC9'
+  secondary: '#B85E1F'
 ---
 
 # My community, since 2011 🤝
@@ -19,13 +19,31 @@ themeConfig:
 
 ---
 layout: cover
+class: nuit-cover
 ---
 
 # My new job as<br>a software engineer 🚀
 
 Pierre Zemb, FinistDevs
 
-Nuit des Communautés 2026, Brest 🌙
+La Nuit des Communautés Bretonne #3, Brest, 17 September 2026 🌙
+
+<style>
+.nuit-cover {
+  background: #1B1D34 !important;
+  background-image: linear-gradient(160deg, rgba(220,150,82,0.35) 0%, rgba(27,29,52,0) 45%, rgba(223,157,247,0.35) 100%) !important;
+  color: #ffffff !important;
+}
+.nuit-cover h1 {
+  background: linear-gradient(90deg, #f2b27a, #e59df7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+}
+.nuit-cover p {
+  color: #d9d9e6 !important;
+}
+</style>
 
 ---
 
@@ -84,7 +102,7 @@ One machine was a puzzle. <strong>Seventy machines was a calling.</strong>
 
 ---
 
-# 2015: then I got a pager 📟
+# 2017: then I got a pager 📟
 
 <div class="flex items-center justify-center gap-8 mt-4">
   <div class="px-8 py-6 border-2 border-current rounded-lg text-center font-semibold">🧑‍💻 Me</div>
@@ -96,7 +114,7 @@ One machine was a puzzle. <strong>Seventy machines was a calling.</strong>
 
 <div class="mt-6">
 
-OVH Metrics: **800 servers**, 1.8M points per second. On-call was our test suite.
+OVH Metrics, full time since 2016: **800 servers**, 1.8M points per second. On-call was our test suite.
 
 - 📟 **[PZ: what on-call taught you, first lesson, your words]**
 - 🔭 **[PZ: second lesson]**
@@ -158,7 +176,7 @@ Same move, every job: <strong>compiler, pager, simulator</strong>. Each one fast
 
 # The simulator became the tool 🎲
 
-- 🏢 Clever Cloud, Materia: a database built on FoundationDB by **1 to 6 people**, almost none with database internals. Six people at a French cloud provider, **doing what Apple does**
+- 🏢 2021, Clever Cloud, Materia: a database built on FoundationDB by **1 to 6 people**, almost none with database internals. Six people at a French cloud provider, **doing what Apple does**
 - 🎭 We cheated: our code runs **inside FoundationDB's simulator**. No simulator to write, the world underneath is fake and hostile
 - 🔥 Every commit goes through partitions, crashes and clock skew. Bugs found **before anyone is paged**
 - 🧑‍🎓 A newcomer shipped a deep feature in **one week**. The simulator taught him the rules nobody had written down
@@ -232,7 +250,7 @@ AI broke the first three. The only feedback left is the <strong>worst</strong> o
 </div>
 
 <div class="mt-10 text-center text-xl">
-Same loop as 2015. Same loop as Materia. <strong>Only the first box changed.</strong>
+Same loop as 2017. Same loop as Materia. <strong>Only the first box changed.</strong>
 </div>
 
 ---
@@ -240,10 +258,10 @@ Same loop as 2015. Same loop as Materia. <strong>Only the first box changed.</st
 
 # I went to squash 🏸
 
-- 🚀 **[PLACEHOLDER: month]**: I launch a big job, close the laptop, go play. When I come back, it is **done**
-- 🌙 Since then the chores nobody wants run at night: **JDK bumps, coding style, library swaps**
+- 🚀 **[PLACEHOLDER: month]**: I launch a big job, close the laptop, go play. When I come back, it is **done**. Since then the chores run at night: JDK bumps, coding style, library swaps
 - 🔄 Then Materia, the entire database, rewritten in **four days**. **[PLACEHOLDER: when, from what to what]**
 - 🎲 Not magic: **years of tests and simulation** said, at every step, whether it was still right
+- 🗑️ Code became **disposable**. What survives a rewrite: the tests, the invariants, the seeds
 
 <div class="mt-8 text-center text-lg">
 Code is the cheap part. <strong>The loop is the capital.</strong> The pager made me build it long before AI.
@@ -270,38 +288,8 @@ Now I'm starting to build <strong>small factories</strong>.
 - 🐌 Without it, an agent is a faster typist and **I am the bottleneck**, reading every diff
 
 <div class="mt-8 text-center text-xl">
-You cannot automate a factory <strong>that has no inspector</strong>.
-</div>
-
----
-
-layout: two-cols
----
-
-::title::
-
-# Someone wrote the factory manual 📜
-
-::default::
-
-**The manual says** *([Frontier engineering](https://kiro.dev/topics/frontier-engineering/))*
-
-- 🔁 Give agents a **fast feedback loop**
-- 📏 Hold AI output to **human standards**
-- 🚧 Trust the **boundaries**, not the agent
-- 🗑️ Code is disposable, **boundary tests are not**
-
-::right::
-
-**The pager said**
-
-- 📟 2015: the pager was our test suite
-- 🔧 2018: the repair tool that moved data out
-- 🎲 2021: a simulator you trust, a writer you don't
-- 🎯 Invariants and seeds outlive every rewrite
-
-<div class="mt-6 text-center text-lg">
-Nothing new. <strong>Just named.</strong>
+You cannot automate a factory <strong>that has no inspector</strong>.<br>
+<span class="text-lg">Nothing new. The pager taught me that in 2017.</span>
 </div>
 
 ---

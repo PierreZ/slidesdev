@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "nuit-des-communautes-2026",
+      "runtimeExecutable": "nix",
+      "runtimeArgs": ["develop", "--command", "pnpm", "--dir", "talks/nuit-des-communautes-2026", "dev", "--port", "3030"],
+      "port": 3030
+    }
+  ]
+}
