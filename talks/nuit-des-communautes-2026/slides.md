@@ -82,35 +82,16 @@ La Nuit des Communautés Bretonne #3
 
 - 📖 Because they are hard, there is **a lot to learn** from them
 
-<div class="border-2 border-dashed border-current rounded-lg h-64 grid place-items-center opacity-60 mt-6">
-  drop <code>public/distsys-meme.png</code> here
+<div class="grid place-items-center mt-2">
+  <img src="/distsys-meme.png" class="rounded-lg shadow max-h-80" />
 </div>
 ---
 
 # 2017: then I got a pager 📟
 
-<div class="flex items-center justify-center gap-8 mt-4">
-  <div class="px-8 py-6 border-2 border-current rounded-lg text-center font-semibold">🧑‍💻 Me</div>
-  <div class="text-3xl opacity-40">→</div>
-  <div class="px-8 py-6 border-2 border-current rounded-lg text-center font-semibold">📦 Code</div>
-  <div class="text-3xl opacity-40">→</div>
-  <div class="px-8 py-6 border-2 rounded-lg text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">📟 Pager, 3 a.m.</div>
+<div class="absolute inset-0 grid place-items-center pt-16 pb-12">
+  <img src="https://media1.tenor.com/m/MYZgsN2TDJAAAAAC/this-is.gif" class="rounded-lg max-h-80" />
 </div>
-
-<div class="mt-6">
-
-OVH Metrics, full time since 2016: **800 servers**, 1.8M points per second. On-call was our test suite.
-
-</div>
-
-<div class="grid place-items-center mt-4">
-  <img src="https://media1.tenor.com/m/MYZgsN2TDJAAAAAC/this-is.gif" class="rounded-lg max-h-44" />
-</div>
-
-<div class="mt-6 text-center text-xl">
-My job became <strong>finding out I'm wrong before the users do</strong>.
-</div>
-
 ---
 
 
@@ -162,6 +143,7 @@ Distributed systems live down that hole. <strong>That is where I went.</strong>
 
 ---
 
+// TO remove
 # A database whose simulator came first 🎲
 
 <div class="flex items-center justify-center gap-8 mt-6">
@@ -185,6 +167,7 @@ Same move, every job: <strong>compiler, pager, simulator</strong>. Each one fast
 </div>
 ---
 
+// To remove
 # The simulator became the tool 🎲
 
 - 🏢 2021, Clever Cloud, Materia: a database built on FoundationDB by **1 to 6 people**, almost none with database internals. Six people at a French cloud provider, **doing what Apple does**
@@ -198,39 +181,24 @@ A simulator is not a test. <strong>It is the tool we write complicated software 
 
 ---
 
+// Replacing the slides with
+
+// One slide with jepsen report screenshot
+
+// One slide about foundationDB not tested by aphyr
+
+// Add one slide about FDB + dist-sys
+
+// Keep but add the other screenshot
 <img src="/materia-sim-triple.png" class="w-full rounded shadow" />
+
+// Add one slide about finding unknowns unknows here
 
 ---
 layout: center
 ---
 
 # Then the LLMs showed up 🤖
-
-**[PLACEHOLDER: your skeptic sentence about LLMs, to whom, when]**
-
----
-
-# Same company, same model, not the same code 😬
-
-- 🏢 Clever Cloud: **70 developers**, everyone got the same agents on the same day
-- 📉 The quality of the generated code varied **wildly** from one project to the next
-- ✅ Three kinds of projects came out **AI-approved**:
-  - 🦀 written in **Rust**
-  - 🧪 with **lots of tests**
-  - 🎲 under a **simulator**
-
-<div class="mt-6 text-center text-xl">
-Not the model. Not the prompt. <strong>The harness.</strong>
-</div>
-
----
-
-
-# So, what went wrong? 🤔
-
-> "We said good enough because we wrote it, we understood it, we tried it. AI broke all three."
-
-*Steve Klabnik, [BugBash 2026](https://pierrezemb.fr/posts/bugbash-2026/)*
 
 Before LLMs, we trusted code because we:
 
@@ -241,8 +209,20 @@ Before LLMs, we trusted code because we:
 
 <div class="mt-4 text-center text-lg">
 AI broke the first three. The only feedback left is the <strong>worst</strong> one: the pager.<br>
-The three kinds of projects that held up had already replaced "understood, wrote, tried". <strong>They had a harness.</strong>
 </div>
+
+// TODO add a slide linking https://www.youtube.com/watch?v=AiytemqB_F0
+
+---
+
+# Same company, same model, not the same code 😬
+
+- 🏢 Clever Cloud: **~100 employees, 70 developers**
+- 📉 The quality of the generated code varied **wildly** from one project to the next
+- ✅ Three kinds of projects came out easier for **AI**:
+  - 🦀 written in **Rust**
+  - 🧪 with **lots of tests**
+  - 🎲 under a **simulator**
 
 ---
 
@@ -269,19 +249,13 @@ The three kinds of projects that held up had already replaced "understood, wrote
 <div class="mt-8 text-center text-xl">
 You test what you imagine. <strong>The simulator finds what you don't.</strong>
 </div>
+
 ---
 
 
 # I went to squash 🏸
 
-- 🚀 **[PLACEHOLDER: month]**: I launch a big job, close the laptop, go play. When I come back, it is **done**. Since then the chores run at night: JDK bumps, coding style, library swaps
-- 🔄 Then Materia, the entire database, rewritten in **four days**. **[PLACEHOLDER: when, from what to what]**
-- 🎲 Not magic: **years of tests and simulation** said, at every step, whether it was still right
-- 🗑️ Code became **disposable**. What survives a rewrite: the tests, the invariants, the seeds
 
-<div class="mt-8 text-center text-lg">
-Code is the cheap part. <strong>The loop is the capital.</strong> The pager made me build it long before AI.
-</div>
 ---
 layout: center
 ---
