@@ -58,8 +58,9 @@ Nuit des Communautés 2026, Brest 🌙
 
 <div class="mt-8">
 
+- 🎓 Engineering school in Brest. I came for **electronics**, I found **C**
 - 🌙 A night, a coffee, and in the morning **something exists** that did not
-- 🧠 Six months to understand pointers. The compiler and valgrind were the first things that **told me I was wrong**
+- 🧠 Six months on pointers. The compiler and valgrind were the first things that **told me I was wrong**
 
 </div>
 
@@ -70,6 +71,8 @@ I coded <strong>to code</strong>. The puzzle was the reward.
 ---
 
 # Why distributed systems? 🌐
+
+Two internships, two apprenticeships, all in **software infrastructure**: Arkea, then OVHcloud. At Arkea: Hadoop, Pig, and machines that had to agree.
 
 - 🧗 They are **hard**, so they are interesting
 - 🌍 They are **everywhere**: your bank, your phone, the ticket you scanned tonight
@@ -83,19 +86,7 @@ One machine was a puzzle. <strong>Seventy machines was a calling.</strong>
 
 # 2015: then I got a pager 📟
 
-OVH Metrics: **800 servers**, 1.8M points per second. On-call was our test suite.
-
-- 🌐 A violent network partition hits a **70-node Apache Hadoop cluster**
-- 🐢 The cluster tries to heal, fills its disks, and **flips on its back like a turtle**
-- ☕ We reboot. **`NullPointerException` at startup**, on all 70 machines
-- 🩹 Known bug, fixed upstream. Backport, recompile, redeploy, **under fire** 😱
-- ⏰ It hit us at the **worst moment**: during recovery
-
----
-
-# So, what went wrong? 🤔
-
-<div class="flex items-center justify-center gap-8 mt-6">
+<div class="flex items-center justify-center gap-8 mt-4">
   <div class="px-8 py-6 border-2 border-current rounded-lg text-center font-semibold">🧑‍💻 Me</div>
   <div class="text-3xl opacity-40">→</div>
   <div class="px-8 py-6 border-2 border-current rounded-lg text-center font-semibold">📦 Code</div>
@@ -103,10 +94,13 @@ OVH Metrics: **800 servers**, 1.8M points per second. On-call was our test suite
   <div class="px-8 py-6 border-2 rounded-lg text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">📟 Pager, 3 a.m.</div>
 </div>
 
-<div class="mt-8">
+<div class="mt-6">
 
-- ☀️ The code was right **on a sunny day**
-- 🌧️ Nobody had asked it what happens **during recovery**
+OVH Metrics: **800 servers**, 1.8M points per second. On-call was our test suite.
+
+- 📟 **[PZ: what on-call taught you, first lesson, your words]**
+- 🔭 **[PZ: second lesson]**
+- 🧯 **[PZ: third lesson]**
 
 </div>
 
@@ -116,17 +110,24 @@ My job became <strong>finding out I'm wrong before the users do</strong>.
 
 ---
 
-# What the pager taught me 🎓
 
-- 🤷 Mostly that I **did not know a lot of things**. Every page was a combination I had never imagined
-- 🔭 But it taught me some: **observability**, because you cannot fix what you cannot see
-- 🧯 And **errors**, because the sunny-day path is the easy half of the code
+# The world is worse than your tests 📚
 
-<div class="mt-8 text-center text-lg">
-Tests check what I imagined. <strong>The pager found the rest.</strong>
-</div>
+You do not have to believe me. Believe the literature:
 
-<div class="mt-6 text-center text-xl" style="color: var(--theme-accent);">
+| You believe... | The research says otherwise |
+|---|---|
+| 🌐 "The network is reliable" | [Network-Partitioning Failures, OSDI '18](https://www.usenix.org/system/files/osdi18-alquraan.pdf) |
+| 💾 "My data is safe on disk" | [Data Corruption in the Storage Stack, FAST '08](https://www.usenix.org/legacy/events/fast08/tech/full_papers/bairavasundaram/bairavasundaram.pdf) |
+| 💾 "fsync means it is saved" | [Can Applications Recover from fsync Failures?, ATC '20](https://www.usenix.org/system/files/atc20-rebello.pdf) |
+| 🤝 "Consensus recovers from crashes" | [Protocol-Aware Recovery, FAST '18](https://www.usenix.org/system/files/conference/fast18/fast18-alagappan.pdf) |
+| 🛡️ "3 replicas means I am safe" | [Redundancy Does Not Imply Fault Tolerance, FAST '17](https://www.usenix.org/system/files/conference/fast17/fast17-ganesan.pdf) |
+| ⚠️ "We handle all our errors" | [Simple Testing Can Prevent Most Critical Failures, OSDI '14](https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-yuan.pdf) |
+| 🧵 "We have no concurrency bugs" | [TaxDC, ASPLOS '16](https://ucare.cs.uchicago.edu/pdf/asplos16-TaxDC.pdf) |
+| 🔄 "We just retry on failure" | [Metastable Failures in the Wild, OSDI '22](https://www.usenix.org/system/files/osdi22-huang-lexiang.pdf) |
+| 📖 "Our documentation must be right" | [Jepsen: MariaDB Galera](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2) |
+
+<div class="mt-2 text-center text-lg" style="color: var(--theme-accent);">
 Can we automate finding what we don't know in the code? 🤔
 </div>
 
@@ -146,6 +147,7 @@ Can we automate finding what we don't know in the code? 🤔
 
 - 🔧 My own cluster next: **250+ machines** of HBase, and a repair tool that fixed inconsistency by **moving data out of the keyspace** 💀. The pager tells the truth, too late
 - 🍎 FoundationDB wrote its simulator **before the database**: partitions, crashes, swapped disks, from a single seed. **4,000 years** of bad Tuesdays a year
+- 🔬 A **handful of companies in the world** work this way. The niche inside the niche
 
 </div>
 
@@ -154,21 +156,74 @@ Same move, every job: <strong>compiler, pager, simulator</strong>. Each one fast
 </div>
 ---
 
-# My team was not convinced 🏢
+# The simulator became the tool 🎲
 
-- 🗄️ Clever Cloud, Materia: a database built on FoundationDB, **simulation-first**
-- 🥱 At first, boring bugs. Then each engineer found a bug **in their own code**
-- 🧑‍🎓 A newcomer shipped a deep feature in **one week**, edge cases included. The simulator taught him the rules nobody had written down
+- 🏢 Clever Cloud, Materia: a database built on FoundationDB by **1 to 6 people**, almost none with database internals. Six people at a French cloud provider, **doing what Apple does**
+- 🎭 We cheated: our code runs **inside FoundationDB's simulator**. No simulator to write, the world underneath is fake and hostile
+- 🔥 Every commit goes through partitions, crashes and clock skew. Bugs found **before anyone is paged**
+- 🧑‍🎓 A newcomer shipped a deep feature in **one week**. The simulator taught him the rules nobody had written down
+
+<div class="mt-8 text-center text-xl">
+A simulator is not a test. <strong>It is the tool we write complicated software with.</strong>
+</div>
+
+---
+
+<img src="/materia-sim-triple.png" class="w-full rounded shadow" />
+
+---
+layout: center
+---
+
+# Then the LLMs showed up 🤖
+
+**[PLACEHOLDER: your skeptic sentence about LLMs, to whom, when]**
+
+---
+
+# AI broke "good enough" 🤖
+
+> "We said good enough because we wrote it, we understood it, we tried it. AI broke all three."
+
+*Steve Klabnik, [BugBash 2026](https://pierrezemb.fr/posts/bugbash-2026/)*
+
+Before LLMs, we trusted code because we:
+
+- 🧠 understood it
+- ✍️ wrote it
+- 🧪 tried it
+- 📟 got paged by it
+
+<div class="mt-4 text-center text-lg">
+AI broke the first three. The only feedback left is the <strong>worst</strong> one: the pager.
+</div>
+
+---
+
+# Same model, two very different codebases 😬
+
+- 🦜 My colleagues, same model, no simulator: code that reads well and **falls apart** under pressure
+- 🎲 My code, same model, under the simulator: **very, very good**
+- ⚡ I found out fast, and it was not the prompt, and not the model
 
 <div class="mt-10 text-center text-xl">
-Not test-driven development. <strong>Simulation-driven development.</strong>
+<strong>It was the loop.</strong>
 </div>
 
 ---
 
 # You don't trust Claude, you trust the simulator 🎯
 
-<div class="flex items-center justify-center gap-8 mt-6">
+<div class="grid grid-cols-2 gap-8 place-items-center">
+  <img src="/boris-cherny-tweet.png" class="rounded shadow w-full" />
+  <img src="/claude-moonpool.png" class="rounded shadow w-full" />
+</div>
+
+---
+
+# The writer changed, the loop did not 🔁
+
+<div class="flex items-center justify-center gap-8 mt-10">
   <div class="px-8 py-6 border-2 border-dashed border-current rounded-lg text-center font-semibold">🤖 Claude</div>
   <div class="text-3xl opacity-40">→</div>
   <div class="px-8 py-6 border-2 border-current rounded-lg text-center font-semibold opacity-40">📦 Code</div>
@@ -176,18 +231,12 @@ Not test-driven development. <strong>Simulation-driven development.</strong>
   <div class="px-8 py-6 border-2 rounded-lg text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎲 Simulator</div>
 </div>
 
-<div class="mt-8">
-
-- 🦜 **[PLACEHOLDER: your skeptic sentence about LLMs, to whom, when]**
-- ⚡ Then ten minutes with Windsurf on a stuck contribution: it read the code **for the shape**, the way it took me ten years to learn
-- 🎲 Same model on Materia: outside the simulator, a parrot. Inside, **very, very good**
-
+<div class="mt-10 text-center text-xl">
+Same loop as 2015. Same loop as Materia. <strong>Only the first box changed.</strong>
 </div>
 
-<div class="mt-6 text-center text-xl">
-It was not the model. <strong>It was the loop.</strong> The writer changed, the loop did not.
-</div>
 ---
+
 
 # I went to squash 🏸
 
@@ -201,18 +250,6 @@ Code is the cheap part. <strong>The loop is the capital.</strong> The pager made
 </div>
 ---
 
-# Pick the language that talks back ⚡
-
-- ⌨️ When typing no longer costs anything, pick the language for the **end product**
-- 🦀 Rust pays twice: early, precise feedback, **for me and for the agent**
-- 🔁 Compiler, Clippy, tests: a loop that answers **in seconds**, not at 3 a.m.
-
-<div class="mt-10 text-center text-xl">
-The best language for an agent is the one that <strong>says no the fastest</strong>.
-</div>
-
----
-
 # I used to craft everything by hand 🏭
 
 <div class="border-2 border-dashed border-current rounded-lg h-64 grid place-items-center opacity-60 mt-2">
@@ -224,6 +261,20 @@ Now I'm starting to build <strong>small factories</strong>.
 </div>
 
 ---
+
+# A factory needs its own inspector 🏭
+
+- 🔧 In a workshop, I inspect **every gear** by hand
+- 🏭 In a factory, the line **rejects the bad gear by itself**. Nobody looks
+- 🔁 The loop is the inspector: compiler, tests, fakes, simulator. The cheapest one is the language that **says no the fastest**
+- 🐌 Without it, an agent is a faster typist and **I am the bottleneck**, reading every diff
+
+<div class="mt-8 text-center text-xl">
+You cannot automate a factory <strong>that has no inspector</strong>.
+</div>
+
+---
+
 layout: two-cols
 ---
 
@@ -268,7 +319,7 @@ If you can't debug it, <strong>you can't own it</strong>.
 
 ---
 
-# The bug I never looked for 🏝️
+# Reserved for Google. Built on my evenings 🏝️
 
 - 📜 Paxos: machines agreeing while some crash. Lamport wrote it in **a few paragraphs**, the rest is folklore, reserved for **Google, Meta, AWS**
 - 🤖 So I built one on my evenings: paros, **three months**, entirely by agents, never for production. That is the point
@@ -276,7 +327,7 @@ If you can't debug it, <strong>you can't own it</strong>.
 - 🎲 One line to fix. Found by a night of seeds, on code wrong **since day one**
 
 <div class="mt-8 text-center text-lg">
-Nobody paged. Nobody woke up. <strong>I did not find it.</strong>
+Nobody paged. I did not find it. <strong>What was out of reach is now one person and a few evenings away.</strong>
 </div>
 ---
 
@@ -305,7 +356,7 @@ Every one of these is <strong>a loop nobody has built yet</strong>. That is the 
 
 ---
 
-# Remember the turtle? 🐢
+# Remember the pager? 📟
 
 <div class="mt-10 text-center text-2xl leading-relaxed">
 
@@ -319,9 +370,9 @@ Found at night, by a machine, <strong>while I play squash</strong>.
 
 ---
 
-# Build your loop 🔁
+# The niche is the new standard 📈
 
-**Whatever your language, whatever your job. Start anywhere, each level adds value.**
+**Every level was a niche technique. It is now the standard for anyone running agents. Start anywhere.**
 
 | Level | What to do | What you get |
 |---|---|---|
@@ -333,7 +384,7 @@ Found at night, by a machine, <strong>while I play squash</strong>.
 
 ---
 
-# Same job, new tools 🚀
+# Same job, new era 🚀
 
 - ☕ I still turn coffee into software. The machine does the night shift
 - 📖 I still read code for the shape. Now it is **diffs and seeds**, a whole system in minutes
@@ -341,7 +392,7 @@ Found at night, by a machine, <strong>while I play squash</strong>.
 - 🧗 I still do it because it's hard. For the first time, **the hard part is all that is left**
 
 <div class="mt-8 text-center text-xl">
-What distributed systems taught me is now every developer's job.<br>My new job hasn't changed much. <strong>It is only more fun.</strong>
+The niche I lived in became the standard. My job did not change.<br><strong>The era did, and it got a lot more interesting.</strong>
 </div>
 
 ---
