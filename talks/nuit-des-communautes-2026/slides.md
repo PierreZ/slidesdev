@@ -6,13 +6,11 @@ themeConfig:
   secondary: '#B85E1F'
 ---
 
-# My community, since 2011 🤝
-
 <div class="grid place-items-center mb-4">
   <img src="https://finistdevs.org/img/uploads/2023/11/cropped-logo_FinistDevs_bandeau.png" class="max-h-24" />
 </div>
 
-- 🎂 Born as **FinistJUG** in December 2011, with Antonio Goncalves on stage
+- 🎂 Born as **FinistJUG** in December 2011
 - 🌙 **130+ evenings** since, on Java, cloud, DevOps, web, and whatever a member wants to share
 - 👥 Three organizers: Horacio, Stéphanie, and me. Talks are given by **you**
 - 📅 Next evening: **[PLACEHOLDER: date and venue]**
@@ -72,25 +70,11 @@ La Nuit des Communautés Bretonne #3
 
 # 2010: I coded for the puzzle ☕
 
-<div class="flex items-center justify-center gap-8 mt-6">
-  <div class="px-8 py-6 border-2 border-current rounded-lg text-center font-semibold">🧑‍💻 Me</div>
-  <div class="text-3xl opacity-40">→</div>
-  <div class="px-8 py-6 border-2 border-current rounded-lg text-center font-semibold">📦 Code</div>
-  <div class="text-3xl opacity-40">→</div>
-  <div class="px-8 py-6 border-2 rounded-lg text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">💥 Segfault</div>
-</div>
-
-<div class="mt-8">
-
 - 🎓 Engineering school in Brest: I came for electronics, I found **C**, and many other things
 - 🤝 Then I discovered **FinistDevs**, and a lot more technologies
 - 🏗️ Part-time internships, always in **infrastructure teams**
 
-</div>
 
-<div class="mt-6 text-center text-xl">
-I coded <strong>to code</strong>. The puzzle was the reward.
-</div>
 
 ---
 
@@ -313,11 +297,11 @@ Now that generating code costs almost nothing, **the time is back**.<br>It goes 
 
 # I used to craft everything by hand 🏭
 
-<div class="border-2 border-dashed border-current rounded-lg h-64 grid place-items-center opacity-60 mt-2">
-  drop <code>public/factorio-handcraft.png</code> here
+<div class="grid place-items-center">
+  <img src="/factorio-handcraft.png" class="rounded-lg shadow max-h-88" />
 </div>
 
-<div class="mt-6 text-center text-xl">
+<div class="mt-4 text-center text-xl">
 Now I'm starting to build <strong>small factories</strong>.
 </div>
 
