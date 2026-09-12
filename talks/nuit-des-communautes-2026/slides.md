@@ -74,17 +74,18 @@ La Nuit des Communautés Bretonne #3
 - 🤝 Then I discovered **FinistDevs**, and a lot more technologies
 - 🏗️ Part-time internships, always in **infrastructure teams**
 
-
-
 ---
 
 # Why distributed systems? 🌐
 
-- 📖 Because they are hard, there is **a lot to learn** from them
-
-<div class="grid place-items-center mt-2">
-  <img src="/distsys-meme.png" class="rounded-lg shadow max-h-80" />
+<div class="grid place-items-center">
+  <img src="/distsys-meme.png" class="rounded-lg shadow max-h-88" />
 </div>
+
+<div class="mt-4 text-center text-xl">
+Because they are hard, there is <strong>a lot to learn</strong> from them.
+</div>
+
 ---
 
 # 2017: then I got a pager 📟
@@ -142,60 +143,99 @@ Distributed systems live down that hole. <strong>That is where I went.</strong>
 </div>
 
 ---
-
-// TO remove
-# A database whose simulator came first 🎲
-
-<div class="flex items-center justify-center gap-8 mt-6">
-  <div class="px-8 py-6 border-2 border-current rounded-lg text-center font-semibold">🧑‍💻 Me</div>
-  <div class="text-3xl opacity-40">→</div>
-  <div class="px-8 py-6 border-2 border-current rounded-lg text-center font-semibold">📦 Code</div>
-  <div class="text-3xl opacity-40">→</div>
-  <div class="px-8 py-6 border-2 rounded-lg text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎲 Simulator</div>
-</div>
-
-<div class="mt-8">
-
-- 🔧 My own cluster next: **250+ machines** of HBase, and a repair tool that fixed inconsistency by **moving data out of the keyspace** 💀. The pager tells the truth, too late
-- 🍎 FoundationDB wrote its simulator **before the database**: partitions, crashes, swapped disks, from a single seed. **4,000 years** of bad Tuesdays a year
-- 🔬 A **handful of companies in the world** work this way. The niche inside the niche
-
-</div>
-
-<div class="mt-6 text-center text-xl">
-Same move, every job: <strong>compiler, pager, simulator</strong>. Each one faster than the last.
-</div>
+layout: two-cols
 ---
 
-// To remove
-# The simulator became the tool 🎲
+::title::
 
-- 🏢 2021, Clever Cloud, Materia: a database built on FoundationDB by **1 to 6 people**, almost none with database internals. Six people at a French cloud provider, **doing what Apple does**
-- 🎭 We cheated: our code runs **inside FoundationDB's simulator**. No simulator to write, the world underneath is fake and hostile
-- 🔥 Every commit goes through partitions, crashes and clock skew. Bugs found **before anyone is paged**
-- 🧑‍🎓 A newcomer shipped a deep feature in **one week**. 
+# Jepsen breaks databases for a living 🔨
 
-<div class="mt-8 text-center text-xl">
-A simulator is not a test. <strong>It is the tool we write complicated software with.</strong>
+::default::
+
+- 🧑‍🔬 [Kyle Kingsbury](https://jepsen.io/analyses), since 2013: **real binaries, real clusters**
+- 🌪️ Partitions, clock skew, crashes, then random operations checked against a **model**
+- 📖 The vendor says "safe". The report says **lost writes, stale reads, split brain**
+
+<div class="mt-6 text-lg">
+Every analysis is public: <a href="https://jepsen.io/analyses" target="_blank">jepsen.io/analyses</a>
+</div>
+
+::right::
+
+**Over two dozen systems, almost none clean:**
+
+<div class="text-base leading-relaxed mt-2">
+MongoDB, Redis, Cassandra, Kafka, Elasticsearch, etcd, Zookeeper, RabbitMQ, Riak, RethinkDB, Aerospike, Hazelcast, CockroachDB, TiDB, YugaByte, Dgraph, FaunaDB, VoltDB, Scylla, PostgreSQL, MySQL, MariaDB Galera, Percona XtraDB, Redpanda, NATS, Datomic, RavenDB, Bufstream, TigerBeetle, Amazon RDS for PostgreSQL…
 </div>
 
 ---
 
-// Replacing the slides with
+<div class="absolute inset-0 grid place-items-center px-10 pt-6 pb-12">
+  <a href="https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2" target="_blank">
+    <img src="/jepsen-report.png" class="max-h-[27rem] rounded shadow" />
+  </a>
+</div>
 
-// One slide with jepsen report screenshot
+---
 
-// One slide about foundationDB not tested by aphyr
+# The one database Jepsen never bothered with 🍎
 
-// Add one slide about FDB + dist-sys
+> "haven't tested FoundationDB in part because their testing appears to be waaaay more rigorous than mine"
 
-// Keep but add the other screenshot
+*Kyle Kingsbury, [aphyr](https://aphyr.com/), 2013*
+
+- 🎲 FoundationDB wrote its **simulator before the database**
+- 🍎 **4,000 years** of simulated failures a year, at Apple
+
+---
+
+# FoundationDB: a toolbox for distributed systems 🧰
+
+<div class="flex justify-center mt-2">
+  <div class="flex flex-col items-stretch w-[30rem]">
+    <div class="px-6 py-3 border-2 border-current rounded-t-lg text-center font-bold">FoundationDB server code</div>
+    <div class="flex">
+      <div class="flex-1 px-4 py-3 border-2 border-t-0 border-current rounded-bl-lg text-center opacity-40">
+        <div class="font-bold">Production</div>
+        <div class="text-sm">real network, disks, clocks</div>
+      </div>
+      <div class="flex-1 px-4 py-3 border-2 border-t-0 border-l-0 rounded-br-lg text-center" style="border-color: var(--theme-accent); color: var(--theme-accent);">
+        <div class="font-bold">Simulation</div>
+        <div class="text-sm">fake network, disks, clocks, crashes</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-4">
+
+- 🎭 Every fallible interaction behind **one interface**: network, disk, time, randomness. Swap it for fakes, inject failures at will
+- 🎲 Deterministic: **same seed, same bugs**, every time. A handful of companies in the world work this way
+
+</div>
+
+---
+
+<img src="/materia-sim-single.png" class="w-full rounded shadow" />
+
+---
+
 <img src="/materia-sim-triple.png" class="w-full rounded shadow" />
 
-// Add one slide about finding unknowns unknows here
-
 ---
-layout: center
+
+# Simulation-driven development, in 45 minutes 📺
+
+<div class="grid place-items-center mt-2">
+  <a href="https://www.youtube.com/watch?v=U3m7yFvc598&t=1336s" target="_blank">
+    <img src="https://img.youtube.com/vi/U3m7yFvc598/hqdefault.jpg" class="rounded-lg shadow max-h-72" />
+  </a>
+</div>
+
+<div class="mt-4 text-center text-lg">
+<em><a href="https://www.youtube.com/watch?v=U3m7yFvc598&t=1336s" target="_blank">Et si on faisait du simulation-driven development ?</a></em>, Devoxx France
+</div>
+
 ---
 
 # Then the LLMs showed up 🤖
@@ -208,10 +248,22 @@ Before LLMs, we trusted code because we:
 - 📟 got paged by it
 
 <div class="mt-4 text-center text-lg">
-AI broke the first three. The only feedback left is the <strong>worst</strong> one: the pager.<br>
+AI broke the first three. The only feedback left is the <strong>worst</strong> one: the pager.
 </div>
 
-// TODO add a slide linking https://www.youtube.com/watch?v=AiytemqB_F0
+---
+
+# Tech-aware CEO
+
+<div class="grid place-items-center mt-2">
+  <a href="https://www.youtube.com/watch?v=AiytemqB_F0" target="_blank">
+    <img src="https://img.youtube.com/vi/AiytemqB_F0/hqdefault.jpg" class="rounded-lg shadow max-h-72" />
+  </a>
+</div>
+
+<div class="mt-4 text-center text-lg">
+<em><a href="https://www.youtube.com/watch?v=AiytemqB_F0" target="_blank">On ne paie plus les développeurs pour écrire du code</a></em>, Underscore_
+</div>
 
 ---
 
@@ -219,7 +271,7 @@ AI broke the first three. The only feedback left is the <strong>worst</strong> o
 
 - 🏢 Clever Cloud: **~100 employees, 70 developers**
 - 📉 The quality of the generated code varied **wildly** from one project to the next
-- ✅ Three kinds of projects came out easier for **AI**:
+- ✅ Three kinds of projects where AI **just worked**:
   - 🦀 written in **Rust**
   - 🧪 with **lots of tests**
   - 🎲 under a **simulator**
@@ -232,42 +284,18 @@ AI broke the first three. The only feedback left is the <strong>worst</strong> o
   <img src="/boris-cherny-tweet.png" class="rounded shadow max-h-64" />
 </div>
 
-<div class="mt-4 text-center text-lg">
-<strong>The more constraints you give it, the better the output.</strong><br>Types, tests, invariants, a simulator: constraints.
-</div>
-
 ---
 
+# So, what is changing? ⏳
 
-# Simulation finds unknown unknowns 🔮
+Few of us ever had time for **software quality**. Now that code costs nothing, **the time is back**.
 
-- 🪳 At first, boring bugs. The team was **not convinced**
-- 🔥 Then workloads got richer and simulation found bugs **everywhere**: the wrong index, corruption during reindexing, two leaders under clock skew
-- 🧠 Each engineer found a bug **in their own code**, and switched
-- 🏗️ Everything is simulation-first now, **humans and agents alike**
-
-<div class="mt-8 text-center text-xl">
-You test what you imagine. <strong>The simulator finds what you don't.</strong>
-</div>
+- 🎯 I am the **architect, not the typist**
+- 🔁 I give the agent a **fast feedback loop**
+- 🗑️ Code is **disposable**
+- 📜 Contracts, specifications and invariants are **the capital**
 
 ---
-
-
-# I went to squash 🏸
-
-
----
-layout: center
----
-
-# So, what changed? ⏳
-
-We never had the time to work on our **software quality**.
-
-Now that generating code costs almost nothing, **the time is back**.<br>It goes into specs, simulation, invariants.
-
----
-
 
 # I used to craft everything by hand 🏭
 
@@ -275,131 +303,35 @@ Now that generating code costs almost nothing, **the time is back**.<br>It goes 
   <img src="/factorio-handcraft.png" class="rounded-lg shadow max-h-88" />
 </div>
 
-<div class="mt-4 text-center text-xl">
-Now I'm starting to build <strong>small factories</strong>.
-</div>
-
 ---
 
-# A factory needs its own inspector 🏭
+# We can automate! 🏸
 
-- 🔧 In a workshop, I inspect **every gear** by hand
-- 🏭 In a factory, the line **rejects the bad gear by itself**. Nobody looks
-- 🔁 The loop is the inspector: compiler, tests, fakes, simulator. The cheapest one is the language that **says no the fastest**
-- 🐌 Without it, an agent is a faster typist and **I am the bottleneck**, reading every diff
-
-<div class="mt-8 text-center text-xl">
-You cannot automate a factory <strong>that has no inspector</strong>.<br>
-<span class="text-lg">Nothing new. The pager taught me that in 2017.</span>
+<div class="absolute inset-0 grid place-items-center pt-16 pb-12">
+  <img src="/squash-agents.png" class="rounded-lg shadow max-h-96" />
 </div>
-
----
-
-# "Tu deviens testeur, c'est cher payé" 😅
-
-My CEO, 2026. Here is what I actually do all day:
-
-- 🎯 I decide what **done** means: the requirements, the constraints, what must always be true
-- 🛡️ I build the harness that says **"wrong"** to whoever types, human or not
-- 🔍 I check the output is the **intent**: review, debug, replay seeds
-- 🧠 I ask dumb questions, learn a domain in an afternoon, try **three prototypes** and keep one
-
-<div class="mt-6 text-center text-lg">
-I hand-write less than 1% of the code. I still make 100% of the decisions.<br><strong>Why would you lower the bar for yourself?</strong>
-</div>
-
----
-
-
-# Reserved for Google. Built on my evenings 🏝️
-
-- 📜 Paxos: machines agreeing while some crash. Lamport wrote it in **a few paragraphs**, the rest is folklore, reserved for **Google, Meta, AWS**
-- 🤖 So I built one on my evenings: paros, **three months**, entirely by agents, never for production. That is the point
-- 🗳️ Three nodes, **no leader, ever**. One node too busy with its clients to ever say hello to its peers
-- 🎲 One line to fix. Found by a night of seeds, on code wrong **since day one**
-
-<div class="mt-8 text-center text-lg">
-Nobody paged. I did not find it. <strong>What was out of reach is now one person and a few evenings away.</strong>
-</div>
----
-
-# I don't know C++, I know which failure I want 🤷
-
-- 🦀 I contribute to FoundationDB, in C++, and **I don't know C++**. I can read it. I know **which failure I want**
-- ✅ Two contributions merged upstream, written with an agent
-- 🔴 One PR stayed **red for [PLACEHOLDER: how long]**: my code was not **reboot-proof**
-- 😅 **[PLACEHOLDER: how you found out, what you changed]**
-
-<div class="mt-8 text-center text-lg">
-The simulator treated me <strong>exactly the way it treats Claude</strong>.
-</div>
-
----
-
-# You own what ships under your name 📏
-
-- 🧪 Throwaway code can be a **black box**. If it breaks, nothing burns
-- 🏭 Production code written by Claude needs a **higher bar** than a human's: lint, tests, fuzzers every night, automated reviews
-- 🔦 "Claude wrote it, I don't know how it works" means **"I can't debug it"**. If you can't debug it, you can't own it
-- 🤝 And if you can't own it, nobody who cares about reliability **can trust you as a vendor**
-
-<div class="mt-6 text-center text-xl">
-Your job is to <strong>hold the bar</strong>. <span class="text-base opacity-70">(Boris Cherny, on the first two)</span>
-</div>
-
----
-
-
-# Not a silver bullet 🙅
-
-- 🎯 **Two thirds wrong on hard problems.** The agent proposes, you still have to know when it is lying
-- 🧱 **Some layers have no loop yet.** Kernel, network switches: no simulator, no fast feedback
-- 🗑️ **You throw a lot away.** Whole subsystems, whole test suites, when the first draft was wrong
-
-<div class="mt-8 text-center text-lg">
-Every one of these is <strong>a loop nobody has built yet</strong>. That is the next ten years of work.
-</div>
-
----
-
-# Remember the pager? 📟
-
-<div class="mt-10 text-center text-2xl leading-relaxed">
-
-A partition, full disks, a reboot, a bug during recovery.
-
-That exact combination is **a seed**.
-
-Found at night, by a machine, <strong>while I play squash</strong>.
-
-</div>
-
----
-
-# The niche is the new standard 📈
-
-**Every level was a niche technique. It is now the standard for anyone running agents. Start anywhere.**
-
-| Level | What to do | What you get |
-|---|---|---|
-| **1** ✅ | Real tests, whatever your language | The agent has a loop at all |
-| **2** 🎰 | Property-based testing | You test what you did not imagine |
-| **3** 🎭 | Fakes, not mocks | Fast, deterministic tests of your dependencies |
-| **4** 😈 | Fakes that fight back | Failures on every run |
-| **5** 🎲 | Seed-driven simulation | Bugs found while you play squash |
 
 ---
 
 # Same job, new era 🚀
 
-- ☕ I still turn coffee into software. The machine does the night shift
-- 📖 I still read code for the shape. Now it is **diffs and seeds**, a whole system in minutes
-- 📐 I still write **what must always be true**, and build the loop that says "wrong" to whoever types
+- ☕ I still turn coffee into software. **The machine does the night shift**
+- ⚡ A bit faster. **Way more quality delivered.** My time goes to the real work
+- 📖 I still read code for the shape, and papers with it: it has **never been easier**
+- 🦀 Open source is finally practical: [moonpool](https://github.com/PierreZ/moonpool), [paros](https://github.com/PierreZ/paros), [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs)
+  * I even contribute to **FoundationDB, in C++**, without knowing C++
 - 🧗 I still do it because it's hard. For the first time, **the hard part is all that is left**
+- I'm having more **fun** as ever
 
-<div class="mt-8 text-center text-xl">
-The niche I lived in became the standard. My job did not change.<br><strong>The era did, and it got a lot more interesting.</strong>
-</div>
+---
+
+# Make correctness your goal 🎯
+
+- 📏 Production code written by an agent needs a **higher bar** than a human's
+- 📈 Every technique was niche. **It is now the standard for anyone running agents**
+- 🧭 AI moves the frontier: **better software, or faster, or both**. Pick on purpose
+- 🛡️ If anyone's job is safe, it is **the people who care whether software works**
+- 🎸 I can assure you, it's a rewarding path
 
 ---
 layout: end
