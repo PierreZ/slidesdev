@@ -253,7 +253,7 @@ AI broke the first three. The only feedback left is the <strong>worst</strong> o
 
 ---
 
-# Tech-aware CEO
+# Tech-aware CEO 📺
 
 <div class="grid place-items-center mt-2">
   <a href="https://www.youtube.com/watch?v=AiytemqB_F0" target="_blank">
