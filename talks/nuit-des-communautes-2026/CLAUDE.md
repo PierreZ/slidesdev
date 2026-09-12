@@ -1,4 +1,4 @@
-# My new job as a software engineer
+# Same job, only more interesting
 
 ## Context
 - **Event**: La Nuit des Communautés Bretonne #3, Thursday 17 September 2026, 18:00 to 23:55, Les Ateliers des Capucins, 25 rue de Pontaniou, Brest (organized by Externatic, with ADN Ouest and French Tech Brest). Eight talks, two rooms, three hours. Pierre represents FinistDevs, not Clever Cloud. Colors from the event poster: navy `#1B1D34` background, waves from orange `#DC9652` to violet `#DF9DF7`, pastel title letters. Deck accent `#8A3FC9` (the wave violet darkened to 5.8:1 on white, titles and links) and secondary `#B85E1F` (the wave orange darkened to 4.5:1, bold text). The cover slide is styled navy with the orange-to-violet gradient in a scoped `<style>` block (class `nuit-cover`). Footer `#NuitDesCommunautes` is still a guess.
@@ -82,7 +82,7 @@ Removed by Pierre on 12 September 2026, after the harness plan was applied: paro
 
 ## Decisions made in the session, and why
 - Chronological career story from 2010, no cold-open war story. Pierre found the previous opening weird (belief slide, then the outage) and asked to start with his story directly. FinistDevs is slide 1, before the cover, moved there by Pierre after versions at slide 3 and before the thanks. The Hadoop turtle moved to its place in time, 2015, and still gets the bookend.
-- The cover keeps the question "My new job as a software engineer"; the answer "hasn't changed much" is saved for the closing slide.
+- Title changed on 12 September 2026 from "My new job as a software engineer" to "Software engineer: same job, only more interesting" (Pierre's brief: say that being a software engineer is still the same, only more interesting; "Code got cheap, correctness didn't" was tried and rejected). The Nuit des Communautés programme may still list the old title.
 - Thesis restated: the job was never typing, it was finding out you are wrong before the users do; every job made that loop faster; AI changed who types. "More fun than ever" is the closing emotion.
 - Motif is the three-box loop (writer, code, what tells them they were wrong), four states, geometry constant: segfault, pager, simulator, then Claude replaces the writer. Claude's box is dashed (unproven), the simulator stays in accent (trusted).
 - Why distributed systems, three reasons, added by Pierre: hard so interesting, everywhere, a lot to learn. The third pays on the closing slide.

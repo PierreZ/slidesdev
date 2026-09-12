@@ -1,6 +1,6 @@
 ---
 theme: slidev-theme-pz
-title: "My new job as a software engineer"
+title: "Same job, only more interesting"
 themeConfig:
   accent: '#8A3FC9'
   secondary: '#B85E1F'
@@ -24,7 +24,7 @@ layout: cover
 class: nuit-cover
 ---
 
-# My new job as<br>a software engineer 🚀
+# Software engineer:<br>same job, only more interesting 🚀
 
 Pierre Zemb, FinistDevs
 
