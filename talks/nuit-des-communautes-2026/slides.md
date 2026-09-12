@@ -8,6 +8,10 @@ themeConfig:
 
 # My community, since 2011 🤝
 
+<div class="grid place-items-center mb-4">
+  <img src="https://finistdevs.org/img/uploads/2023/11/cropped-logo_FinistDevs_bandeau.png" class="max-h-24" />
+</div>
+
 - 🎂 Born as **FinistJUG** in December 2011, with Antonio Goncalves on stage
 - 🌙 **130+ evenings** since, on Java, cloud, DevOps, web, and whatever a member wants to share
 - 👥 Three organizers: Horacio, Stéphanie, and me. Talks are given by **you**
@@ -26,7 +30,9 @@ class: nuit-cover
 
 Pierre Zemb, FinistDevs
 
-La Nuit des Communautés Bretonne #3, Brest, 17 September 2026 🌙
+La Nuit des Communautés Bretonne #3
+
+17 September 2026 🌙
 
 <style>
 .nuit-cover {
@@ -76,9 +82,9 @@ La Nuit des Communautés Bretonne #3, Brest, 17 September 2026 🌙
 
 <div class="mt-8">
 
-- 🎓 Engineering school in Brest. I came for **electronics**, I found **C**
-- 🌙 A night, a coffee, and in the morning **something exists** that did not
-- 🧠 Six months on pointers. The compiler and valgrind were the first things that **told me I was wrong**
+- 🎓 Engineering school in Brest: I came for electronics, I found **C**, and many other things
+- 🤝 Then I discovered **FinistDevs**, and a lot more technologies
+- 🏗️ Part-time internships, always in **infrastructure teams**
 
 </div>
 
@@ -90,16 +96,11 @@ I coded <strong>to code</strong>. The puzzle was the reward.
 
 # Why distributed systems? 🌐
 
-Two internships, two apprenticeships, all in **software infrastructure**: Arkea, then OVHcloud. At Arkea: Hadoop, Pig, and machines that had to agree.
-
-- 🧗 They are **hard**, so they are interesting
-- 🌍 They are **everywhere**: your bank, your phone, the ticket you scanned tonight
 - 📖 Because they are hard, there is **a lot to learn** from them
 
-<div class="mt-10 text-center text-xl">
-One machine was a puzzle. <strong>Seventy machines was a calling.</strong>
+<div class="border-2 border-dashed border-current rounded-lg h-64 grid place-items-center opacity-60 mt-6">
+  drop <code>public/distsys-meme.png</code> here
 </div>
-
 ---
 
 # 2017: then I got a pager 📟
@@ -116,10 +117,10 @@ One machine was a puzzle. <strong>Seventy machines was a calling.</strong>
 
 OVH Metrics, full time since 2016: **800 servers**, 1.8M points per second. On-call was our test suite.
 
-- 📟 **[PZ: what on-call taught you, first lesson, your words]**
-- 🔭 **[PZ: second lesson]**
-- 🧯 **[PZ: third lesson]**
+</div>
 
+<div class="grid place-items-center mt-4">
+  <img src="https://media1.tenor.com/m/MYZgsN2TDJAAAAAC/this-is.gif" class="rounded-lg max-h-44" />
 </div>
 
 <div class="mt-6 text-center text-xl">
@@ -128,6 +129,20 @@ My job became <strong>finding out I'm wrong before the users do</strong>.
 
 ---
 
+
+# What the pager taught me, in 45 minutes 📺
+
+<div class="grid place-items-center mt-2">
+  <a href="https://www.youtube.com/watch?v=ivnI1BKywW4&t=603s" target="_blank">
+    <img src="https://img.youtube.com/vi/ivnI1BKywW4/hqdefault.jpg" class="rounded-lg shadow max-h-72" />
+  </a>
+</div>
+
+<div class="mt-4 text-center text-lg">
+<em><a href="https://www.youtube.com/watch?v=ivnI1BKywW4&t=603s" target="_blank">Développer des applications observables pour la production</a></em>, Devoxx France
+</div>
+
+---
 
 # The world is worse than your tests 📚
 
@@ -147,6 +162,18 @@ You do not have to believe me. Believe the literature:
 
 <div class="mt-2 text-center text-lg" style="color: var(--theme-accent);">
 Can we automate finding what we don't know in the code? 🤔
+</div>
+
+---
+
+# Down the rabbit hole of correctness 🕳️
+
+- ✈️ Some software cannot afford the pager: planes, pacemakers, **databases**
+- 🛡️ So those teams built stronger harnesses: guardrails, fault injection, whole testing strategies
+- 📚 Sixty years of techniques, refined in a niche: **types, property-based testing, fuzzing, model checking, deterministic simulation, proofs**
+
+<div class="mt-6 text-center text-xl">
+Distributed systems live down that hole. <strong>That is where I went.</strong>
 </div>
 
 ---
@@ -179,7 +206,7 @@ Same move, every job: <strong>compiler, pager, simulator</strong>. Each one fast
 - 🏢 2021, Clever Cloud, Materia: a database built on FoundationDB by **1 to 6 people**, almost none with database internals. Six people at a French cloud provider, **doing what Apple does**
 - 🎭 We cheated: our code runs **inside FoundationDB's simulator**. No simulator to write, the world underneath is fake and hostile
 - 🔥 Every commit goes through partitions, crashes and clock skew. Bugs found **before anyone is paged**
-- 🧑‍🎓 A newcomer shipped a deep feature in **one week**. The simulator taught him the rules nobody had written down
+- 🧑‍🎓 A newcomer shipped a deep feature in **one week**. 
 
 <div class="mt-8 text-center text-xl">
 A simulator is not a test. <strong>It is the tool we write complicated software with.</strong>
@@ -199,7 +226,23 @@ layout: center
 
 ---
 
-# AI broke "good enough" 🤖
+# Same company, same model, not the same code 😬
+
+- 🏢 Clever Cloud: **70 developers**, everyone got the same agents on the same day
+- 📉 The quality of the generated code varied **wildly** from one project to the next
+- ✅ Three kinds of projects came out **AI-approved**:
+  - 🦀 written in **Rust**
+  - 🧪 with **lots of tests**
+  - 🎲 under a **simulator**
+
+<div class="mt-6 text-center text-xl">
+Not the model. Not the prompt. <strong>The harness.</strong>
+</div>
+
+---
+
+
+# So, what went wrong? 🤔
 
 > "We said good enough because we wrote it, we understood it, we tried it. AI broke all three."
 
@@ -213,46 +256,35 @@ Before LLMs, we trusted code because we:
 - 📟 got paged by it
 
 <div class="mt-4 text-center text-lg">
-AI broke the first three. The only feedback left is the <strong>worst</strong> one: the pager.
+AI broke the first three. The only feedback left is the <strong>worst</strong> one: the pager.<br>
+The three kinds of projects that held up had already replaced "understood, wrote, tried". <strong>They had a harness.</strong>
 </div>
 
 ---
 
-# Same model, two very different codebases 😬
+# You don't trust Claude, you trust the harness 🛡️
 
-- 🦜 My colleagues, same model, no simulator: code that reads well and **falls apart** under pressure
-- 🎲 My code, same model, under the simulator: **very, very good**
-- ⚡ I found out fast, and it was not the prompt, and not the model
+<div class="grid place-items-center mt-2">
+  <img src="/boris-cherny-tweet.png" class="rounded shadow max-h-64" />
+</div>
 
-<div class="mt-10 text-center text-xl">
-<strong>It was the loop.</strong>
+<div class="mt-4 text-center text-lg">
+<strong>The more constraints you give it, the better the output.</strong><br>Types, tests, invariants, a simulator: constraints.
 </div>
 
 ---
 
-# You don't trust Claude, you trust the simulator 🎯
 
-<div class="grid grid-cols-2 gap-8 place-items-center">
-  <img src="/boris-cherny-tweet.png" class="rounded shadow w-full" />
-  <img src="/claude-moonpool.png" class="rounded shadow w-full" />
+# Simulation finds unknown unknowns 🔮
+
+- 🪳 At first, boring bugs. The team was **not convinced**
+- 🔥 Then workloads got richer and simulation found bugs **everywhere**: the wrong index, corruption during reindexing, two leaders under clock skew
+- 🧠 Each engineer found a bug **in their own code**, and switched
+- 🏗️ Everything is simulation-first now, **humans and agents alike**
+
+<div class="mt-8 text-center text-xl">
+You test what you imagine. <strong>The simulator finds what you don't.</strong>
 </div>
-
----
-
-# The writer changed, the loop did not 🔁
-
-<div class="flex items-center justify-center gap-8 mt-10">
-  <div class="px-8 py-6 border-2 border-dashed border-current rounded-lg text-center font-semibold">🤖 Claude</div>
-  <div class="text-3xl opacity-40">→</div>
-  <div class="px-8 py-6 border-2 border-current rounded-lg text-center font-semibold opacity-40">📦 Code</div>
-  <div class="text-3xl opacity-40">→</div>
-  <div class="px-8 py-6 border-2 rounded-lg text-center font-semibold" style="border-color: var(--theme-accent); color: var(--theme-accent);">🎲 Simulator</div>
-</div>
-
-<div class="mt-10 text-center text-xl">
-Same loop as 2017. Same loop as Materia. <strong>Only the first box changed.</strong>
-</div>
-
 ---
 
 
@@ -267,6 +299,17 @@ Same loop as 2017. Same loop as Materia. <strong>Only the first box changed.</st
 Code is the cheap part. <strong>The loop is the capital.</strong> The pager made me build it long before AI.
 </div>
 ---
+layout: center
+---
+
+# So, what changed? ⏳
+
+We never had the time to work on our **software quality**.
+
+Now that generating code costs almost nothing, **the time is back**.<br>It goes into specs, simulation, invariants.
+
+---
+
 
 # I used to craft everything by hand 🏭
 
@@ -294,18 +337,21 @@ You cannot automate a factory <strong>that has no inspector</strong>.<br>
 
 ---
 
-# You own what ships under your name 📏
+# "Tu deviens testeur, c'est cher payé" 😅
 
-- 🧪 Throwaway code can be a **black box**. If it breaks, nothing burns
-- 🏭 Production code written by an agent needs a **higher bar** than a human's: lint, tests, fuzzers every night, automated reviews
-- 🔦 "Claude wrote it, I don't know how it works" means **"I can't debug it"**
-- 🎯 On hard problems, **two thirds** of its assumptions are wrong. Debugging stayed mine
+My CEO, 2026. Here is what I actually do all day:
 
-<div class="mt-8 text-center text-xl">
-If you can't debug it, <strong>you can't own it</strong>.
+- 🎯 I decide what **done** means: the requirements, the constraints, what must always be true
+- 🛡️ I build the harness that says **"wrong"** to whoever types, human or not
+- 🔍 I check the output is the **intent**: review, debug, replay seeds
+- 🧠 I ask dumb questions, learn a domain in an afternoon, try **three prototypes** and keep one
+
+<div class="mt-6 text-center text-lg">
+I hand-write less than 1% of the code. I still make 100% of the decisions.<br><strong>Why would you lower the bar for yourself?</strong>
 </div>
 
 ---
+
 
 # Reserved for Google. Built on my evenings 🏝️
 
@@ -331,6 +377,20 @@ The simulator treated me <strong>exactly the way it treats Claude</strong>.
 </div>
 
 ---
+
+# You own what ships under your name 📏
+
+- 🧪 Throwaway code can be a **black box**. If it breaks, nothing burns
+- 🏭 Production code written by Claude needs a **higher bar** than a human's: lint, tests, fuzzers every night, automated reviews
+- 🔦 "Claude wrote it, I don't know how it works" means **"I can't debug it"**. If you can't debug it, you can't own it
+- 🤝 And if you can't own it, nobody who cares about reliability **can trust you as a vendor**
+
+<div class="mt-6 text-center text-xl">
+Your job is to <strong>hold the bar</strong>. <span class="text-base opacity-70">(Boris Cherny, on the first two)</span>
+</div>
+
+---
+
 
 # Not a silver bullet 🙅
 
