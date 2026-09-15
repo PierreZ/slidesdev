@@ -75,7 +75,7 @@ La Nuit des Communautés Bretonne #3
 
 - 🎂 Born as **FinistJUG** in December 2011
 - 🌙 **130+ evenings** since, on Java, cloud, DevOps, web, and whatever a member wants to share
-- 👥 Three organizers: Horacio, Stéphanie, and me. Talks are given by **you**
+- 👥 Three organizers: Horacio, Stéphanie, and me
 - 🎤 **We are looking for speakers.** Never given a talk? Perfect, we help you prepare
 
 <div class="mt-6 flex items-center justify-center gap-6">
@@ -164,7 +164,7 @@ Every analysis is public: <a href="https://jepsen.io/analyses" target="_blank">j
 **Over two dozen systems, almost none clean:**
 
 <div class="text-base leading-relaxed mt-2">
-MongoDB, Redis, Cassandra, Kafka, Elasticsearch, etcd, Zookeeper, RabbitMQ, Riak, RethinkDB, Aerospike, Hazelcast, CockroachDB, TiDB, YugaByte, Dgraph, FaunaDB, VoltDB, Scylla, PostgreSQL, MySQL, MariaDB Galera, Percona XtraDB, Redpanda, NATS, Datomic, RavenDB, Bufstream, TigerBeetle, Amazon RDS for PostgreSQL…
+MongoDB, Redis, Cassandra, Kafka, Elasticsearch, etcd, Zookeeper, RabbitMQ, Riak, RethinkDB, Aerospike, Hazelcast, CockroachDB, TiDB...
 </div>
 
 ---

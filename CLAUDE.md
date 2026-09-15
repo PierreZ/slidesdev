@@ -36,7 +36,7 @@ tools are unreachable, ask which talk to start, then fall back to editing `slide
 
 GitHub Actions workflow (`.github/workflows/export-pdf.yml`) exports all talks to PDF on every push to `main` (when `talks/` or `theme/` change). Uses `nix develop` for environment parity. PDFs are uploaded as artifacts with 30-day retention.
 
-To add a new talk to CI, add its directory name to the matrix in the workflow file.
+To add a new talk to CI, add its directory name to the matrix in the workflow file. The export runs `slidev export --executable-path` with the Chromium from the flake: a deck on a recent `@slidev/cli` pulls a `playwright-chromium` whose expected browser build is newer than the one `playwright-driver.browsers` ships, and the bundled lookup then fails.
 
 ## Architecture
 
