@@ -21,6 +21,17 @@ pnpm export           # Export to PDF (Playwright provided by Nix flake)
 # Theme development — edit theme/ files, changes are live via pnpm link
 ```
 
+## Slidev MCP
+
+The `slidev` MCP server (`.mcp.json`, HTTP at `http://localhost:3030/__mcp`) talks to the
+running dev server. Use it instead of reading or grepping `slides.md` by hand: `slidev-get-info`
+(which deck is live, slide count), `slidev-list-slides`, `slidev-get-slide`, `slidev-goto-slide`
+(navigate the browser to a slide to check it visually), and the editing tools
+`slidev-insert-slide`, `slidev-update-slide`, `slidev-move-slide`, `slidev-remove-slide`.
+
+It only works while `pnpm dev` runs in a talk directory, and it targets that one deck. If the
+tools are unreachable, ask which talk to start, then fall back to editing `slides.md` directly.
+
 ## CI/CD
 
 GitHub Actions workflow (`.github/workflows/export-pdf.yml`) exports all talks to PDF on every push to `main` (when `talks/` or `theme/` change). Uses `nix develop` for environment parity. PDFs are uploaded as artifacts with 30-day retention.
