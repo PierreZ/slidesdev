@@ -76,7 +76,7 @@ La Nuit des Communautés Bretonne #3
 - 🎂 Born as **FinistJUG** in December 2011
 - 🌙 **130+ evenings** since, on Java, cloud, DevOps, web, and whatever a member wants to share
 - 👥 Three organizers: Horacio, Stéphanie, and me. Talks are given by **you**
-- 📅 Next evening: **announced on the meetup**, scan and you will not miss it
+- 🎤 **We are looking for speakers.** Never given a talk? Perfect, we help you prepare
 
 <div class="mt-6 flex items-center justify-center gap-6">
   <img src="/finistdevs-qr.png" class="w-28 h-28 rounded-lg" />
@@ -124,7 +124,6 @@ You do not have to believe me. Believe the literature:
 | ⚠️ "We handle all our errors" | [Simple Testing Can Prevent Most Critical Failures, OSDI '14](https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-yuan.pdf) |
 | 🧵 "We have no concurrency bugs" | [TaxDC, ASPLOS '16](https://ucare.cs.uchicago.edu/pdf/asplos16-TaxDC.pdf) |
 | 🔄 "We just retry on failure" | [Metastable Failures in the Wild, OSDI '22](https://www.usenix.org/system/files/osdi22-huang-lexiang.pdf) |
-| 📖 "Our documentation must be right" | [Jepsen: MariaDB Galera](https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2) |
 
 <div class="mt-2 text-center text-lg" style="color: var(--theme-accent);">
 Can we automate finding what we don't know in the code? 🤔
@@ -267,12 +266,34 @@ AI broke the first three. The only feedback left is the <strong>worst</strong> o
   - 🧪 with **lots of tests**
   - 🎲 under a **simulator**
 
+
+---
+layout: two-cols
 ---
 
-# You don't trust Claude, you trust the harness 🛡️
+::title::
 
-<div class="grid place-items-center mt-2">
-  <img src="/boris-cherny-tweet.png" class="rounded shadow max-h-64" />
+# DST: The ultimate LLM feedback loop 🤖🔁
+
+::default::
+
+<img src="/boris-cherny-tweet.png" class="rounded shadow" />
+
+
+::right::
+
+<div class="flex justify-center">
+  <div class="flex flex-col items-center gap-1 text-sm">
+    <div class="px-4 py-2 border-2 border-current rounded">🤖 LLM writes code</div>
+    <div>↓</div>
+    <div class="px-4 py-2 border-2 border-current rounded">🧪 Simulation finds bug</div>
+    <div>↓</div>
+    <div class="px-4 py-2 border-2 border-current rounded">🔍 LLM reads failing seed</div>
+    <div>↓</div>
+    <div class="px-4 py-2 border-2 border-current rounded">🔧 LLM fixes code</div>
+    <div>↓</div>
+    <div>🔁</div>
+  </div>
 </div>
 
 ---
@@ -282,6 +303,23 @@ AI broke the first three. The only feedback left is the <strong>worst</strong> o
 </div>
 
 ---
+
+
+# Yes, DST can even beat Mario 🎮
+
+<div class="grid place-items-center">
+  <img src="/mario.png" class="rounded-lg shadow max-h-56" />
+</div>
+
+- 🎲 [Antithesis](https://antithesis.com/) beat Super Mario Bros with **random inputs only**. No human, no script
+- 🎯 Point that machine at your software and it finds **what you never thought to test**
+
+<div class="mt-2 text-sm">
+<em><a href="https://www.youtube.com/watch?v=m3HwXlQPCEU" target="_blank">Testing a Single-Node, Single Threaded, Distributed System Written in 1985</a>, Will Wilson</em>
+</div>
+
+---
+
 
 # So, what is changing? ⏳
 
