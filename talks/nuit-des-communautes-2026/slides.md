@@ -4,22 +4,6 @@ title: "Same job, only more interesting"
 themeConfig:
   accent: '#8A3FC9'
   secondary: '#B85E1F'
----
-
-<div class="grid place-items-center mb-4">
-  <img src="https://finistdevs.org/img/uploads/2023/11/cropped-logo_FinistDevs_bandeau.png" class="max-h-24" />
-</div>
-
-- 🎂 Born as **FinistJUG** in December 2011
-- 🌙 **130+ evenings** since, on Java, cloud, DevOps, web, and whatever a member wants to share
-- 👥 Three organizers: Horacio, Stéphanie, and me. Talks are given by **you**
-- 📅 Next evening: **[PLACEHOLDER: date and venue]**
-
-<div class="mt-8 text-center text-xl">
-<a href="https://finistdevs.org">finistdevs.org</a>, bring a colleague.
-</div>
-
----
 layout: cover
 class: nuit-cover
 ---
@@ -71,7 +55,8 @@ La Nuit des Communautés Bretonne #3
 # 2010: I coded for the puzzle ☕
 
 - 🎓 Engineering school in Brest: I came for electronics, I found **C**, and many other things
-- 🤝 Then I discovered **FinistDevs**, and a lot more technologies
+- ☕ I found out I could turn **coffee into software**, and I never stopped
+- 📖 I learned more from **reading other people's code** than from any course
 - 🏗️ Part-time internships, always in **infrastructure teams**
 
 ---
@@ -82,8 +67,23 @@ La Nuit des Communautés Bretonne #3
   <img src="/distsys-meme.png" class="rounded-lg shadow max-h-88" />
 </div>
 
-<div class="mt-4 text-center text-xl">
-Because they are hard, there is <strong>a lot to learn</strong> from them.
+---
+
+<div class="grid place-items-center mb-4">
+  <img src="https://finistdevs.org/img/uploads/2023/11/cropped-logo_FinistDevs_bandeau.png" class="max-h-24" />
+</div>
+
+- 🎂 Born as **FinistJUG** in December 2011
+- 🌙 **130+ evenings** since, on Java, cloud, DevOps, web, and whatever a member wants to share
+- 👥 Three organizers: Horacio, Stéphanie, and me. Talks are given by **you**
+- 📅 Next evening: **announced on the meetup**, scan and you will not miss it
+
+<div class="mt-6 flex items-center justify-center gap-6">
+  <img src="/finistdevs-qr.png" class="w-28 h-28 rounded-lg" />
+  <div class="text-xl text-left">
+    📱 <a href="https://www.meetup.com/finistdevs">meetup.com/finistdevs</a><br>
+    🔗 <a href="https://finistdevs.org">finistdevs.org</a>
+  </div>
 </div>
 
 ---
@@ -185,11 +185,6 @@ MongoDB, Redis, Cassandra, Kafka, Elasticsearch, etcd, Zookeeper, RabbitMQ, Riak
 *Kyle Kingsbury, [aphyr](https://aphyr.com/), 2013*
 
 - 🎲 FoundationDB wrote its **simulator before the database**
-- 🍎 **4,000 years** of simulated failures a year, at Apple
-
----
-
-# FoundationDB: a toolbox for distributed systems 🧰
 
 <div class="flex justify-center mt-2">
   <div class="flex flex-col items-stretch w-[30rem]">
@@ -207,12 +202,8 @@ MongoDB, Redis, Cassandra, Kafka, Elasticsearch, etcd, Zookeeper, RabbitMQ, Riak
   </div>
 </div>
 
-<div class="mt-4">
-
-- 🎭 Every fallible interaction behind **one interface**: network, disk, time, randomness. Swap it for fakes, inject failures at will
-- 🎲 Deterministic: **same seed, same bugs**, every time. A handful of companies in the world work this way
-
-</div>
+- 🍎 **4,000 years** of simulated failures a year, at Apple
+- 🧰 Years later, in production: **the sanest distributed system I have operated**
 
 ---
 
@@ -224,7 +215,7 @@ MongoDB, Redis, Cassandra, Kafka, Elasticsearch, etcd, Zookeeper, RabbitMQ, Riak
 
 ---
 
-# Simulation-driven development, in 45 minutes 📺
+# DST for building distributed systems 📺
 
 <div class="grid place-items-center mt-2">
   <a href="https://www.youtube.com/watch?v=U3m7yFvc598&t=1336s" target="_blank">
@@ -286,6 +277,12 @@ AI broke the first three. The only feedback left is the <strong>worst</strong> o
 
 ---
 
+<div class="absolute inset-0 grid place-items-center px-10 pt-6 pb-12">
+  <img src="/claude-moonpool.png" class="w-full rounded shadow" />
+</div>
+
+---
+
 # So, what is changing? ⏳
 
 Few of us ever had time for **software quality**. Now that code costs nothing, **the time is back**.
@@ -315,13 +312,11 @@ Few of us ever had time for **software quality**. Now that code costs nothing, *
 
 # Same job, new era 🚀
 
-- ☕ I still turn coffee into software. **The machine does the night shift**
-- ⚡ A bit faster. **Way more quality delivered.** My time goes to the real work
-- 📖 I still read code for the shape, and papers with it: it has **never been easier**
-- 🦀 Open source is finally practical: [moonpool](https://github.com/PierreZ/moonpool), [paros](https://github.com/PierreZ/paros), [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs)
-  * I even contribute to **FoundationDB, in C++**, without knowing C++
-- 🧗 I still do it because it's hard. For the first time, **the hard part is all that is left**
-- I'm having more **fun** as ever
+- ☕ I still turn coffee into software
+- ⚡ A bit faster but **way more quality delivered**
+- 📖 reading code/papers has **never been easier**
+- 🧗 **The hard part is all that is left**
+- I'm having more **fun** as ever!
 
 ---
 
@@ -330,7 +325,6 @@ Few of us ever had time for **software quality**. Now that code costs nothing, *
 - 📏 Production code written by an agent needs a **higher bar** than a human's
 - 📈 Every technique was niche. **It is now the standard for anyone running agents**
 - 🧭 AI moves the frontier: **better software, or faster, or both**. Pick on purpose
-- 🛡️ If anyone's job is safe, it is **the people who care whether software works**
 - 🎸 I can assure you, it's a rewarding path
 
 ---
