@@ -44,7 +44,7 @@ La Nuit des Communautés Bretonne #3
   - 📟 Building, contributing, debugging, **getting paged**
 - 🦀 Maintaining [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs) and a few other Rust libraries
 - 🏸 Squash player
-- 🤝 Co-organizing **FinistDevs**, right here in Brest
+- 🤝 Co-organizing **FinistDevs**
 
 </div>
 <img src="https://pierrezemb.fr/images/myself.jpg" class="w-40 h-40 rounded-lg object-cover" />
