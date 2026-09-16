@@ -95,21 +95,6 @@ La Nuit des Communautés Bretonne #3
 </div>
 ---
 
-
-# What the pager taught me, in 45 minutes 📺
-
-<div class="grid place-items-center mt-2">
-  <a href="https://www.youtube.com/watch?v=ivnI1BKywW4&t=603s" target="_blank">
-    <img src="https://img.youtube.com/vi/ivnI1BKywW4/hqdefault.jpg" class="rounded-lg shadow max-h-72" />
-  </a>
-</div>
-
-<div class="mt-4 text-center text-lg">
-<em><a href="https://www.youtube.com/watch?v=ivnI1BKywW4&t=603s" target="_blank">Développer des applications observables pour la production</a></em>, Devoxx France
-</div>
-
----
-
 # The world is worse than your tests 📚
 
 You do not have to believe me. Believe the literature:
@@ -131,9 +116,23 @@ Can we automate finding what we don't know in the code? 🤔
 
 ---
 
+# What the pager taught me, in 45 minutes 📺
+
+<div class="grid place-items-center mt-2">
+  <a href="https://www.youtube.com/watch?v=ivnI1BKywW4&t=603s" target="_blank">
+    <img src="https://img.youtube.com/vi/ivnI1BKywW4/hqdefault.jpg" class="rounded-lg shadow max-h-72" />
+  </a>
+</div>
+
+<div class="mt-4 text-center text-lg">
+<em><a href="https://www.youtube.com/watch?v=ivnI1BKywW4&t=603s" target="_blank">Développer des applications observables pour la production</a></em>, Devoxx France
+</div>
+
+---
+
 # Down the rabbit hole of correctness 🕳️
 
-- ✈️ Some software cannot afford the pager: planes, pacemakers, **databases**
+- ✈️ Some software cannot afford the pager: aerospace, health, **databases**, ...
 - 🛡️ So those teams built stronger harnesses: guardrails, fault injection, whole testing strategies
 - 📚 Sixty years of techniques, refined in a niche: **types, property-based testing, fuzzing, model checking, deterministic simulation, proofs**
 
