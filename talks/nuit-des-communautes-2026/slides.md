@@ -43,28 +43,11 @@ La Nuit des Communautés Bretonne #3
 - 🛠️ Staff engineer at Clever Cloud, working around **distributed systems**
   - 📟 Building, contributing, debugging, **getting paged**
 - 🦀 Maintaining [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs) and a few other Rust libraries
-- 🤝 Co-organizing **FinistDevs**, right here in Brest
 - 🏸 Squash player
+- 🤝 Co-organizing **FinistDevs**, right here in Brest
 
 </div>
 <img src="https://pierrezemb.fr/images/myself.jpg" class="w-40 h-40 rounded-lg object-cover" />
-</div>
-
----
-
-# 2010: I coded for the puzzle ☕
-
-- 🎓 Engineering school in Brest: I came for electronics, I found **C**, and many other things
-- ☕ I found out I could turn **coffee into software**, and I never stopped
-- 📖 I learned more from **reading other people's code** than from any course
-- 🏗️ Part-time internships, always in **infrastructure teams**
-
----
-
-# Why distributed systems? 🌐
-
-<div class="grid place-items-center">
-  <img src="/distsys-meme.png" class="rounded-lg shadow max-h-88" />
 </div>
 
 ---
@@ -84,6 +67,23 @@ La Nuit des Communautés Bretonne #3
     📱 <a href="https://www.meetup.com/finistdevs">meetup.com/finistdevs</a><br>
     🔗 <a href="https://finistdevs.org">finistdevs.org</a>
   </div>
+</div>
+
+---
+
+# 2010: I coded for the puzzle ☕
+
+- 🎓 Engineering school in Brest: I came for electronics, I found **C**, and many other things
+- ☕ I found out I could turn **coffee into software**, and I never stopped
+- 📖 I learned more from **reading other people's code** than from any course
+- 🏗️ Part-time internships, always in **infrastructure teams**
+
+---
+
+# Why distributed systems? 🌐
+
+<div class="grid place-items-center">
+  <img src="/distsys-meme.png" class="rounded-lg shadow max-h-88" />
 </div>
 
 ---
@@ -243,7 +243,9 @@ AI broke the first three. The only feedback left is the <strong>worst</strong> o
 
 ---
 
-# Tech-aware CEO 📺
+# "We no longer pay developers to write code" 📺
+
+That is **my own CEO**, Quentin Adam.
 
 <div class="grid place-items-center mt-2">
   <a href="https://www.youtube.com/watch?v=AiytemqB_F0" target="_blank">
@@ -348,22 +350,40 @@ Few of us ever had time for **software quality**. Now that code costs nothing, *
 
 ---
 
-# Same job, new era 🚀
+# Do we automate all code? 🤔
+
+**No.** What is left: specs, success criteria, feedback loops, QA, code review.
+
+> "Almost all of these are characteristics of senior software engineers already! **AI tools amplify existing expertise.**"
+
+*Simon Willison, [Vibe engineering](https://simonwillison.net/2025/Oct/7/vibe-engineering/), 2025*
+
+- 🔪 [Code like a surgeon](https://www.geoffreylitt.com/2025/10/24/code-like-a-surgeon): the agent preps, **I keep the scalpel**
+- 🎲 Rust, tests, simulator: the agents amplified **the rigor that was already there**
+
+---
+
+# Same job, only more interesting 🚀
 
 - ☕ I still turn coffee into software
+- 📟 I still get paged
 - ⚡ A bit faster but **way more quality delivered**
 - 📖 reading code/papers has **never been easier**
 - 🧗 **The hard part is all that is left**
-- I'm having more **fun** as ever!
+- 🔥 More **fun** than ever: never about writing code, always about **building** and **learning**
+
+<div class="mt-4 text-sm">
+<em><a href="https://antirez.com/news/158" target="_blank">Don't fall into the anti-AI hype</a>, antirez</em>
+</div>
 
 ---
 
 # Make correctness your goal 🎯
 
 - 📏 Production code written by an agent needs a **higher bar** than a human's
+- 🎲 DST pays off when you **rebuild from scratch**, like Clever Cloud. The rest of the toolbox is **less invasive**
 - 📈 Every technique was niche. **It is now the standard for anyone running agents**
 - 🧭 AI moves the frontier: **better software, or faster, or both**. Pick on purpose
-- 🎸 I can assure you, it's a rewarding path
 
 ---
 layout: end
