@@ -266,7 +266,7 @@ That is **my own CEO**, Quentin Adam.
 - ✅ Three kinds of projects where AI **just worked**:
   - 🦀 written in **Rust**
   - 🧪 with **lots of tests**
-  - 🔐 **security-critical**, where the bar was already high
+  - 🎲 or **stronger tests**: property-based testing, **DST**
 
 ---
 
