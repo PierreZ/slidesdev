@@ -112,9 +112,10 @@ You do not have to believe me (or your SRE colleague). Believe the literature:
 
 # What the pager taught me 📟
 
+- 👀 Nothing teaches you a system like **watching it misbehave in production**
+  - 🤔 How do you fix a system you do not understand?
 - 💥 Software **will fail**: sometimes loudly, often **silently**
 - 🫣 The failures that hurt are the ones **nobody imagined** while writing the code
-  - How do you fix a system you do not understand?
 - 🔭 You cannot fix what you cannot see: **observability first**
 
 <div class="mt-4 text-sm">
