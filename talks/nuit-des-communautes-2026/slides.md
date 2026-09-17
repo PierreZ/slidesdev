@@ -265,7 +265,8 @@ That is **my own CEO**, Quentin Adam.
 - 📉 The quality of the generated code varied **wildly** from one project to the next
 - ✅ Three kinds of projects where AI **just worked**:
   - 🦀 written in **Rust**
-  - 🧪 with **lots of tests** or **security**
+  - 🧪 with **lots of tests**
+  - 🔐 **security-critical**, where the bar was already high
 
 ---
 
@@ -300,8 +301,16 @@ Few of us ever had time for **software quality**. Now that code costs nothing, *
 
 - 🎯 I am the **architect, not the typist**
 - 🔁 I give the agent a **fast feedback loop**
-- 🗑️ Code is **disposable**
+- 🛡️ Tests, simulation, property-based testing: **the correctness work now outweighs the code**
 - 📜 Contracts, specifications and invariants are **the capital**
+
+```gherkin
+# Gherkin: requirements the agent can run
+Scenario: a guest cannot pay with a saved card
+  Given a guest user with a saved card
+  When they check out with that card
+  Then the payment is refused
+```
 
 ---
 
@@ -333,11 +342,10 @@ Few of us ever had time for **software quality**. Now that code costs nothing, *
 
 # Same job, only more interesting 🚀
 
-- ☕ I still turn coffee into software
+- ☕ I still turn coffee into software, **a bit faster, with way more quality**
 - 📖 Reading code and papers has **never been easier**
-- 📟 I still get paged
+- 📟 I still get paged, but first I **torture software in conditions worse than production**
 - 🧗 **The hard part is all that is left**
-- ⚡ A bit faster but **way more quality delivered**
 - 🔥 More **fun** than ever: never about writing code, always about **building** and **learning**
 
 <div class="mt-4 text-sm">
@@ -351,7 +359,7 @@ Few of us ever had time for **software quality**. Now that code costs nothing, *
 - 📏 Production code written by an agent needs a **higher bar** than a human's
 - 🎲 DST pays off when you **rebuild from scratch**, like we did at Clever Cloud.<br>The rest of the toolbox is **less invasive**
 - 📈 Every technique was niche. **It is now the standard for anyone running agents**
-- 🧭 AI moves the frontier: **better software, or faster, or both**. Pick on purpose
+- 🧭 While everyone is talking about speed, **talk about correctness and quality**
 
 ---
 layout: end
