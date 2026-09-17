@@ -57,13 +57,15 @@ To add a new talk to CI, add its directory name to the matrix in the workflow fi
 
 ### Narrative Structure
 - Follow a **problem → evidence → solution → proof → call-to-action** arc
-- Open with a specific war story (inciting incident), close by calling back to it (**bookending**)
-- Introduce a recurring visual motif early (e.g. a diagram), then modify it throughout the talk (highlight/dim elements to shift focus)
+- Open with a specific war story (inciting incident), or with a dated first-person timeline (`# 2010: ...`, `# 2017: ...`, `# 2024: ...`)
+- **A slide is an event, not an argument.** Thesis slides ("you own what ships", "not a silver bullet", "a factory needs an inspector") get cut in every editing pass. What survives is a year, a report, a tweet, a screenshot, a list of papers, a video
+- **Bookend with content, not with a slide.** Plant a "before" slide whose bullets the closing slide mirrors one for one (same emoji, same order). A "Remember X?" callback slide gets cut
 - **Concrete before abstract**: always a story or example first, then the concept
-- Build concepts incrementally — each section's output becomes the next section's input
-- Include a "not a silver bullet" / limitations slide before concluding
-- End with an actionable takeaway (adoption table, checklist, or spectrum)
-- Alternate pace: heavy content slide → breather/transition slide → heavy content slide
+- Build concepts incrementally: each section's output becomes the next section's input
+- **Group by subject, not by punchline.** A demo of technique X sits with the other X slides even if it would land harder later. A community plug comes after whoami, once the room knows who is speaking
+- **The last line of a slide is the handoff.** The rhetorical question or punchline goes at the bottom, right before the slide that answers it
+- **Rhythm is text, image, text, image.** Two text slides in a row on the same subject "break rhythm" and get merged
+- For deep technical rooms only (BugBash, Devoxx): a recurring visual motif modified across slides, a "not a silver bullet" slide, an adoption table close. For a mixed room all three were built and all three were cut; skip them
 
 ### Slide Titles
 - Every `# h1` ends with a trailing emoji: `# Title here 🔬`
@@ -72,12 +74,16 @@ To add a new talk to CI, add its directory name to the matrix in the workflow fi
 - Bad: `# Network Reliability Analysis`, `# Section 3: Testing Approaches`
 
 ### Content Density
-- **Bullet slides**: 2-4 bullets, 1 line each, 1 level of sub-bullets max
+- **Bullet slides**: 2-4 bullets, 1 line each, 1 level of sub-bullets max. The second clause after a comma is the first thing to cut
+- **Image slides**: one visual per beat, talked over. Image plus caption plus bullets is "too much"; at most one short caption or citation line under the image
+- **Context becomes a sub-bullet, a beat becomes a slide.** Fold background (why this field, the book to read) under an existing bullet; give a missing story beat its own slide
+- **One slide per named thing** (a tool, a project, a person). If it spans two slides, merge and push the overflow to voice; it fits every time
+- **Mechanism is spoken, output is shown.** For a mixed room no protocol, no simulator internals, no test methodology on screen: show the report, the failing seed, the TUI
+- **Numbers only as punchlines, one per slide.** "4,000 years", "130+ evenings" stay; cluster sizes, throughput, seed and commit counts go to voice
 - **Quote slides**: 1-2 blockquotes + 1-2 lines of commentary below
 - **Code slides**: <15 lines with line highlighting (` ```java {4} `, ` ```java {5-9} `)
-- **Diagram slides**: single visual element, no competing text
 - **Transition slides**: 1-3 punchy lines to shift topic (often a rhetorical question)
-- If a slide feels dense, **split it** — don't compress
+- If a slide holds two beats, **split it**. If it holds one beat and too many words, **push words to voice**. Never compress
 
 ### Emoji Conventions
 - Trailing emoji on every h1 title
@@ -89,7 +95,12 @@ To add a new talk to CI, add its directory name to the matrix in the workflow fi
 - `*italics*` for paper/article titles
 - Inline `[links](url)` to sources — always cite
 - Code blocks with language tag + optional line highlighting
-- Blockquotes (`>`) for direct quotes, always attributed
+- Blockquotes (`>`) for direct quotes, always attributed, always verbatim (editorial additions in square brackets: "foundation[DB]")
+- First-person claims must be literally true to Pierre's experience: "working on", not "working around"; "like we did at Clever Cloud", not "like Clever Cloud"; "what I missed", not "wrong"
+
+### Sources
+- **Link primary sources, restate opinions.** Papers, books, Jepsen reports and Pierre's own talks are linked and named on the slide. Social posts, vendor blogs and other people's talks are restated in first person with no author
+- At most one named quote per act (a tweet screenshot, or a blockquote with attribution). The rest is Pierre's voice
 
 ### Visual Diagrams (HTML)
 - Use Tailwind HTML for structural diagrams: `flex`, `border-2`, `rounded-lg`, `gap`, `grid`
@@ -114,6 +125,12 @@ To add a new talk to CI, add its directory name to the matrix in the workflow fi
 - `two-cols` → comparisons (code vs code, concept vs visual, tweet + diagram)
 - `end` → closing slide only (once, at the end)
 - Image-only slides → just `<img>` tag centered, no layout specified
+
+### Pierre's Editing Passes
+- Pierre edits `slides.md` directly between sessions and drops `TODO:` lines that state a feeling ("this part is confusing", "move this under that"), not a fix. First move on any deck: `grep -n TODO slides.md` and `git diff slides.md`
+- His uncommitted edits are decisions, not drafts: reconcile around them, never revert or reword them
+- Propose first, apply on "go", "do all" or "fix all". Verify on a rendered export (`slidev export --format png`), not on the markdown
+- Every pass records what changed and why in the talk's own `CLAUDE.md`
 
 ## Theme Conventions
 

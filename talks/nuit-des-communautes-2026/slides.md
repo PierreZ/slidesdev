@@ -78,30 +78,19 @@ La Nuit des Communautés Bretonne #3
 
 - 🎓 Engineering school in Brest: I came for electronics, I found **C**, and many other things
 - ☕ I found out I could turn **coffee into software**, and I never stopped
-- 📖 I learned more from **reading other people's code** than from any course
 - 🏗️ Part-time internships, always in **infrastructure teams**
-
----
-
-# Why distributed systems? 🌐
-
-<div class="grid place-items-center">
-  <img src="/distsys-meme.png" class="rounded-lg shadow max-h-88" />
-</div>
-
-<div class="mt-2 text-center text-lg">
-📖 The bible: <em><a href="https://dataintensive.net/" target="_blank">Designing Data-Intensive Applications</a></em>, Martin Kleppmann
-</div>
+  - 🌐 That is where I met **distributed systems**: hard, everywhere, so much to learn
+  - 📖 The bible: *[Designing Data-Intensive Applications](https://dataintensive.net/)*, Martin Kleppmann
 
 ---
 
 # 2017: then I got a pager 📟
 
-How do you fix a system you do not understand?
 
 <div class="grid place-items-center mt-2">
   <img src="https://media1.tenor.com/m/MYZgsN2TDJAAAAAC/this-is.gif" class="rounded-lg max-h-80" />
 </div>
+
 ---
 
 # The world is worse than your tests 📚
@@ -121,27 +110,22 @@ You do not have to believe me (or your SRE colleague). Believe the literature:
 
 ---
 
-# What the pager taught me, in 45 minutes 📺
+# What the pager taught me 📟
 
-<div class="grid place-items-center mt-2">
-  <a href="https://www.youtube.com/watch?v=ivnI1BKywW4&t=603s" target="_blank">
-    <img src="https://img.youtube.com/vi/ivnI1BKywW4/maxresdefault.jpg" class="rounded-lg shadow max-h-72" />
-  </a>
-</div>
+- 💥 Software **will fail**: sometimes loudly, often **silently**
+- 🫣 The failures that hurt are the ones **nobody imagined** while writing the code
+  - How do you fix a system you do not understand?
+- 🔭 You cannot fix what you cannot see: **observability first**
 
-<div class="mt-4 text-center text-lg">
-<em><a href="https://www.youtube.com/watch?v=ivnI1BKywW4&t=603s" target="_blank">Développer des applications observables pour la production</a></em>, Devoxx France
-</div>
-
-<div class="mt-3 text-center text-lg" style="color: var(--theme-accent);">
-Can we automate finding what we don't know in the code? 🤔
+<div class="mt-4 text-sm">
+<em><a href="https://www.youtube.com/watch?v=ivnI1BKywW4&t=603s" target="_blank">Développer des applications observables pour la production</a>, Devoxx France</em>
 </div>
 
 ---
 
 # Down the rabbit hole of correctness 🕳️
 
-- ✈️ Some software cannot afford the pager: aerospace, health, **databases**, ...
+- ✈️ Some software cannot afford the pager: aerospace, health, **distributed databases**, ...
 - 🛡️ So those teams built stronger harnesses: guardrails, fault injection, whole testing strategies
 - 📚 Sixty years of techniques, refined in a niche: **types, property-based testing, fuzzing, model checking, deterministic simulation testing (DST), proofs**
 
@@ -150,43 +134,17 @@ Distributed systems live down that hole. <strong>That is where I went.</strong>
 </div>
 
 ---
-layout: two-cols
----
-
-::title::
 
 # Jepsen breaks databases for a living 🔨
 
-::default::
-
-- 🧑‍🔬 [Kyle Kingsbury](https://jepsen.io/analyses), since 2013: **real binaries, real clusters**
-- 🌪️ Partitions, clock skew, crashes, then random operations checked against a **model**
-- 📖 The vendor says "safe".<br>The report says **lost writes, stale reads, split brain**
-
-<div class="mt-6 text-lg">
-Every analysis is public: <a href="https://jepsen.io/analyses" target="_blank">jepsen.io/analyses</a>
-</div>
-
-::right::
-
-**Over two dozen systems,<br>almost none clean:**
-
-<div class="text-base leading-relaxed mt-2">
-MongoDB, Redis, Cassandra, Kafka, Elasticsearch, etcd, Zookeeper, RabbitMQ, Riak, RethinkDB, Aerospike, Hazelcast, CockroachDB, TiDB...
-</div>
-
-<style>
-.slidev-layout.two-cols-header :deep(.columns) {
-  grid-template-columns: 3fr 2fr;
-}
-</style>
-
----
-
-<div class="absolute inset-0 grid place-items-center px-10 pt-6 pb-12">
+<div class="grid place-items-center">
   <a href="https://jepsen.io/analyses/mariadb-galera-cluster-12.1.2" target="_blank">
-    <img src="/jepsen-report.png" class="max-h-[27rem] rounded shadow" />
+    <img src="/jepsen-report.png" class="max-h-80 rounded shadow" />
   </a>
+</div>
+
+<div class="mt-2 text-center text-lg">
+Since 2013: MongoDB, Redis, Cassandra, Kafka, etcd, CockroachDB... <strong>almost none came out clean</strong>
 </div>
 
 ---
@@ -242,6 +200,34 @@ MongoDB, Redis, Cassandra, Kafka, Elasticsearch, etcd, Zookeeper, RabbitMQ, Riak
 
 ---
 
+# Yes, DST can even beat Mario 🎮
+
+<div class="grid place-items-center">
+  <img src="/mario.png" class="rounded-lg shadow max-h-56" />
+</div>
+
+- 🎲 [Antithesis](https://antithesis.com/) beat Super Mario Bros with **random inputs only**. No human, no script
+- 🎯 Point that machine at your software and it finds **what you never thought to test**
+
+<div class="mt-2 text-sm">
+<em><a href="https://www.youtube.com/watch?v=m3HwXlQPCEU" target="_blank">Testing a Single-Node, Single Threaded, Distributed System Written in 1985</a>, Will Wilson</em>
+</div>
+
+---
+
+# 2024: what was I actually paid for? 🤔
+
+- ☕ Turning coffee into software: **less of the week than you would think**
+- 📖 Reading **other people's code**, papers and logs
+- 📟 Getting paged, then finding out **what I had missed**
+- 🧗 The hard part: **understanding the system** well enough to change it
+
+<div class="mt-6 text-center text-xl">
+The job was never typing. It was <strong>finding out what I missed before the users did.</strong>
+</div>
+
+---
+
 # Then the LLMs showed up 🤖
 
 Before LLMs, we trusted code because we:
@@ -279,59 +265,30 @@ That is **my own CEO**, Quentin Adam.
 - 📉 The quality of the generated code varied **wildly** from one project to the next
 - ✅ Three kinds of projects where AI **just worked**:
   - 🦀 written in **Rust**
-  - 🧪 with **lots of tests**
-  - 🎲 under a **simulator**
-
+  - 🧪 with **lots of tests** or **security**
 
 ---
-layout: two-cols
----
-
-::title::
 
 # DST: the ultimate LLM feedback loop 🤖🔁
 
-::default::
-
-<img src="/boris-cherny-tweet.png" class="rounded shadow" />
-
-
-::right::
-
-<div class="flex justify-center">
-  <div class="flex flex-col items-center gap-1 text-sm">
-    <div class="px-4 py-2 border-2 border-current rounded">🤖 LLM writes code</div>
-    <div>↓</div>
-    <div class="px-4 py-2 border-2 border-current rounded">🧪 Simulation finds bug</div>
-    <div>↓</div>
-    <div class="px-4 py-2 border-2 border-current rounded">🔍 LLM reads failing seed</div>
-    <div>↓</div>
-    <div class="px-4 py-2 border-2 border-current rounded">🔧 LLM fixes code</div>
-    <div>↓</div>
-    <div>🔁</div>
-  </div>
+<div class="grid place-items-center mt-2">
+  <img src="/boris-cherny-tweet.png" class="rounded shadow max-h-80" />
 </div>
 
 ---
 
-<div class="absolute inset-0 grid place-items-center px-10 pt-6 pb-12">
+<div class="flex flex-col items-center gap-6 pt-8">
   <img src="/claude-moonpool.png" class="w-full rounded shadow" />
-</div>
-
----
-
-
-# Yes, DST can even beat Mario 🎮
-
-<div class="grid place-items-center">
-  <img src="/mario.png" class="rounded-lg shadow max-h-56" />
-</div>
-
-- 🎲 [Antithesis](https://antithesis.com/) beat Super Mario Bros with **random inputs only**. No human, no script
-- 🎯 Point that machine at your software and it finds **what you never thought to test**
-
-<div class="mt-2 text-sm">
-<em><a href="https://www.youtube.com/watch?v=m3HwXlQPCEU" target="_blank">Testing a Single-Node, Single Threaded, Distributed System Written in 1985</a>, Will Wilson</em>
+  <div class="flex flex-wrap justify-center items-center gap-2 text-sm">
+    <div class="px-3 py-2 border-2 border-current rounded whitespace-nowrap">🤖 LLM writes code</div>
+    <div>→</div>
+    <div class="px-3 py-2 border-2 border-current rounded whitespace-nowrap">🧪 Simulation finds bug</div>
+    <div>→</div>
+    <div class="px-3 py-2 border-2 border-current rounded whitespace-nowrap">🔍 LLM reads failing seed</div>
+    <div>→</div>
+    <div class="px-3 py-2 border-2 border-current rounded whitespace-nowrap">🔧 LLM fixes code</div>
+    <div class="text-xl">🔁</div>
+  </div>
 </div>
 
 ---
@@ -368,22 +325,19 @@ Few of us ever had time for **software quality**. Now that code costs nothing, *
 
 **No.** What is left: specs, success criteria, feedback loops, QA, code review.
 
-> "Almost all of these are characteristics of senior software engineers already! **AI tools amplify existing expertise.**"
-
 *Simon Willison, [Vibe engineering](https://simonwillison.net/2025/Oct/7/vibe-engineering/), 2025*
 
 - 🔪 [Code like a surgeon](https://www.geoffreylitt.com/2025/10/24/code-like-a-surgeon): the agent preps, **I keep the scalpel**
-- 🎲 Rust, tests, simulator: the agents amplified **the rigor that was already there**
 
 ---
 
 # Same job, only more interesting 🚀
 
 - ☕ I still turn coffee into software
-- 📟 I still get paged
-- ⚡ A bit faster but **way more quality delivered**
 - 📖 Reading code and papers has **never been easier**
+- 📟 I still get paged
 - 🧗 **The hard part is all that is left**
+- ⚡ A bit faster but **way more quality delivered**
 - 🔥 More **fun** than ever: never about writing code, always about **building** and **learning**
 
 <div class="mt-4 text-sm">
