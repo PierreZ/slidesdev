@@ -89,18 +89,24 @@ La Nuit des Communautés Bretonne #3
   <img src="/distsys-meme.png" class="rounded-lg shadow max-h-88" />
 </div>
 
+<div class="mt-2 text-center text-lg">
+📖 The bible: <em><a href="https://dataintensive.net/" target="_blank">Designing Data-Intensive Applications</a></em>, Martin Kleppmann
+</div>
+
 ---
 
 # 2017: then I got a pager 📟
 
-<div class="absolute inset-0 grid place-items-center pt-16 pb-12">
+How do you fix a system you do not understand?
+
+<div class="grid place-items-center mt-2">
   <img src="https://media1.tenor.com/m/MYZgsN2TDJAAAAAC/this-is.gif" class="rounded-lg max-h-80" />
 </div>
 ---
 
 # The world is worse than your tests 📚
 
-You do not have to believe me. Believe the literature:
+You do not have to believe me (or your SRE colleague). Believe the literature:
 
 | You believe... | The research says otherwise |
 |---|---|
