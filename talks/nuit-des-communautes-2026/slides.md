@@ -8,7 +8,7 @@ layout: cover
 class: nuit-cover
 ---
 
-# Software engineer:<br>same job, only more interesting 🚀
+# Software engineer:<br>same job, only more interesting <span class="rocket">🚀</span>
 
 Pierre Zemb, FinistDevs
 
@@ -31,6 +31,9 @@ La Nuit des Communautés Bretonne #3
 .nuit-cover p {
   color: #d9d9e6 !important;
 }
+.nuit-cover h1 .rocket {
+  color: #ffffff !important;
+}
 </style>
 
 ---
@@ -40,7 +43,7 @@ La Nuit des Communautés Bretonne #3
 <div class="grid grid-cols-[1fr_auto] gap-8 items-start">
 <div>
 
-- 🛠️ Staff engineer at Clever Cloud, working around **distributed systems**
+- 🛠️ Staff engineer at Clever Cloud, working on **distributed systems**
   - 📟 Building, contributing, debugging, **getting paged**
 - 🦀 Maintaining [foundationdb-rs](https://github.com/foundationdb-rs/foundationdb-rs) and a few other Rust libraries
 - 🏸 Squash player
@@ -110,22 +113,22 @@ You do not have to believe me. Believe the literature:
 | 🧵 "We have no concurrency bugs" | [TaxDC, ASPLOS '16](https://ucare.cs.uchicago.edu/pdf/asplos16-TaxDC.pdf) |
 | 🔄 "We just retry on failure" | [Metastable Failures in the Wild, OSDI '22](https://www.usenix.org/system/files/osdi22-huang-lexiang.pdf) |
 
-<div class="mt-2 text-center text-lg" style="color: var(--theme-accent);">
-Can we automate finding what we don't know in the code? 🤔
-</div>
-
 ---
 
 # What the pager taught me, in 45 minutes 📺
 
 <div class="grid place-items-center mt-2">
   <a href="https://www.youtube.com/watch?v=ivnI1BKywW4&t=603s" target="_blank">
-    <img src="https://img.youtube.com/vi/ivnI1BKywW4/hqdefault.jpg" class="rounded-lg shadow max-h-72" />
+    <img src="https://img.youtube.com/vi/ivnI1BKywW4/maxresdefault.jpg" class="rounded-lg shadow max-h-72" />
   </a>
 </div>
 
 <div class="mt-4 text-center text-lg">
 <em><a href="https://www.youtube.com/watch?v=ivnI1BKywW4&t=603s" target="_blank">Développer des applications observables pour la production</a></em>, Devoxx France
+</div>
+
+<div class="mt-3 text-center text-lg" style="color: var(--theme-accent);">
+Can we automate finding what we don't know in the code? 🤔
 </div>
 
 ---
@@ -134,7 +137,7 @@ Can we automate finding what we don't know in the code? 🤔
 
 - ✈️ Some software cannot afford the pager: aerospace, health, **databases**, ...
 - 🛡️ So those teams built stronger harnesses: guardrails, fault injection, whole testing strategies
-- 📚 Sixty years of techniques, refined in a niche: **types, property-based testing, fuzzing, model checking, deterministic simulation, proofs**
+- 📚 Sixty years of techniques, refined in a niche: **types, property-based testing, fuzzing, model checking, deterministic simulation testing (DST), proofs**
 
 <div class="mt-6 text-center text-xl">
 Distributed systems live down that hole. <strong>That is where I went.</strong>
@@ -152,7 +155,7 @@ layout: two-cols
 
 - 🧑‍🔬 [Kyle Kingsbury](https://jepsen.io/analyses), since 2013: **real binaries, real clusters**
 - 🌪️ Partitions, clock skew, crashes, then random operations checked against a **model**
-- 📖 The vendor says "safe". The report says **lost writes, stale reads, split brain**
+- 📖 The vendor says "safe".<br>The report says **lost writes, stale reads, split brain**
 
 <div class="mt-6 text-lg">
 Every analysis is public: <a href="https://jepsen.io/analyses" target="_blank">jepsen.io/analyses</a>
@@ -160,11 +163,17 @@ Every analysis is public: <a href="https://jepsen.io/analyses" target="_blank">j
 
 ::right::
 
-**Over two dozen systems, almost none clean:**
+**Over two dozen systems,<br>almost none clean:**
 
 <div class="text-base leading-relaxed mt-2">
 MongoDB, Redis, Cassandra, Kafka, Elasticsearch, etcd, Zookeeper, RabbitMQ, Riak, RethinkDB, Aerospike, Hazelcast, CockroachDB, TiDB...
 </div>
+
+<style>
+.slidev-layout.two-cols-header :deep(.columns) {
+  grid-template-columns: 3fr 2fr;
+}
+</style>
 
 ---
 
@@ -178,7 +187,7 @@ MongoDB, Redis, Cassandra, Kafka, Elasticsearch, etcd, Zookeeper, RabbitMQ, Riak
 
 # The one database Jepsen never bothered with 🍎
 
-> "haven't tested FoundationDB in part because their testing appears to be waaaay more rigorous than mine"
+> "haven't tested foundation[DB] in part because their testing appears to be waaaay more rigorous than mine"
 
 *Kyle Kingsbury, [aphyr](https://aphyr.com/), 2013*
 
@@ -217,7 +226,7 @@ MongoDB, Redis, Cassandra, Kafka, Elasticsearch, etcd, Zookeeper, RabbitMQ, Riak
 
 <div class="grid place-items-center mt-2">
   <a href="https://www.youtube.com/watch?v=U3m7yFvc598&t=1336s" target="_blank">
-    <img src="https://img.youtube.com/vi/U3m7yFvc598/hqdefault.jpg" class="rounded-lg shadow max-h-72" />
+    <img src="https://img.youtube.com/vi/U3m7yFvc598/maxresdefault.jpg" class="rounded-lg shadow max-h-72" />
   </a>
 </div>
 
@@ -248,7 +257,7 @@ That is **my own CEO**, Quentin Adam.
 
 <div class="grid place-items-center mt-2">
   <a href="https://www.youtube.com/watch?v=AiytemqB_F0" target="_blank">
-    <img src="https://img.youtube.com/vi/AiytemqB_F0/hqdefault.jpg" class="rounded-lg shadow max-h-72" />
+    <img src="https://img.youtube.com/vi/AiytemqB_F0/maxresdefault.jpg" class="rounded-lg shadow max-h-72" />
   </a>
 </div>
 
@@ -258,7 +267,7 @@ That is **my own CEO**, Quentin Adam.
 
 ---
 
-# Same company, same model, not the same code 😬
+# Same model, not the same code 😬
 
 - 🏢 Clever Cloud: **~100 employees, 70 developers**
 - 📉 The quality of the generated code varied **wildly** from one project to the next
@@ -274,7 +283,7 @@ layout: two-cols
 
 ::title::
 
-# DST: The ultimate LLM feedback loop 🤖🔁
+# DST: the ultimate LLM feedback loop 🤖🔁
 
 ::default::
 
@@ -367,7 +376,7 @@ Few of us ever had time for **software quality**. Now that code costs nothing, *
 - ☕ I still turn coffee into software
 - 📟 I still get paged
 - ⚡ A bit faster but **way more quality delivered**
-- 📖 reading code/papers has **never been easier**
+- 📖 Reading code and papers has **never been easier**
 - 🧗 **The hard part is all that is left**
 - 🔥 More **fun** than ever: never about writing code, always about **building** and **learning**
 
@@ -380,7 +389,7 @@ Few of us ever had time for **software quality**. Now that code costs nothing, *
 # Make correctness your goal 🎯
 
 - 📏 Production code written by an agent needs a **higher bar** than a human's
-- 🎲 DST pays off when you **rebuild from scratch**, like Clever Cloud. The rest of the toolbox is **less invasive**
+- 🎲 DST pays off when you **rebuild from scratch**, like we did at Clever Cloud.<br>The rest of the toolbox is **less invasive**
 - 📈 Every technique was niche. **It is now the standard for anyone running agents**
 - 🧭 AI moves the frontier: **better software, or faster, or both**. Pick on purpose
 
