@@ -358,8 +358,10 @@ Scenario: a guest cannot pay with a saved card
 # Make correctness your goal 🎯
 
 - 📏 Production code written by an agent needs a **higher bar** than a human's
-- 🎲 DST pays off when you **rebuild from scratch**, like we did at Clever Cloud.<br>The rest of the toolbox is **less invasive**
+- 🎲 DST pays off when you **rebuild from scratch**, like we did at Clever Cloud
+  - 🧰 The rest of the toolbox is **less invasive**
 - 📈 Every technique was niche. **It is now the standard for anyone running agents**
+  - 🔮 New tools will appear!
 - 🧭 While everyone is talking about speed, **talk about correctness and quality**
 
 ---
@@ -372,7 +374,7 @@ any questions?
 
 <div class="flex items-center justify-center gap-12 mt-6">
   <div class="flex flex-col gap-3 text-left text-lg">
-    <div>🤝 Come talk to us at <strong>FinistDevs</strong>, the Brest dev meetup</div>
+    <div>🤝 Come talk to us at <strong>FinistDevs</strong></div>
     <div>🔗 Slides and stories on <a href="https://pierrezemb.fr/">pierrezemb.fr</a></div>
     <div>🌊 <a href="https://github.com/PierreZ/moonpool">moonpool</a>, a simulator for distributed systems in Rust</div>
     <div>🏝️ <a href="https://github.com/PierreZ/paros">paros</a>, Paxos built inside it, 100% by agents</div>
